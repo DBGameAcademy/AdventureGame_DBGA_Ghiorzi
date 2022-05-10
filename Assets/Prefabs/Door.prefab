@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1428521306742573199}
   - component: {fileID: 3762713262188608581}
   m_Layer: 0
-  m_Name: Waypoint
+  m_Name: Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

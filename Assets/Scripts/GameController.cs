@@ -1,7 +1,14 @@
 using UnityEngine;
 
-public class GameController : MonoBehaviour
-{
-    private Player player;
-    private Dungeon currentDungeon;
+public class GameController : Singleton<GameController>
+{ 
+    private void Start()
+    {
+        StartNewGame();
+    }
+
+    private void StartNewGame()
+    {
+        DungeonController.Instance.CreateNewDungeon();
+    }
 }
