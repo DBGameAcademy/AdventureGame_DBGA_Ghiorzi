@@ -13,7 +13,7 @@ public class TileSet : ScriptableObject
         // (I can have multiple tiles of the same type that looks different from each other)
         List<TilePrototype> possibleTiles = new List<TilePrototype> ();
 
-        foreach(TilePrototype tile in possibleTiles)
+        foreach(TilePrototype tile in TilePrototypes)
         {
             if(tile.TileType == type)
             {

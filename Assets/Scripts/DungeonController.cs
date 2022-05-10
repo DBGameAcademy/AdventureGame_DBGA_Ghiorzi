@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class DungeonController : Singleton<DungeonController>
 {
+    public Floor CurrentFloor { get { return _currentDungeon.Floors[_floorIndex]; } }
+    public Room CurrentRoom { get { return _currentDungeon.Floors[_floorIndex].Rooms[_roomPosition.x,_roomPosition.y]; } }
+
     [SerializeField]
     private TileSet tileSet;
 
@@ -15,6 +18,8 @@ public class DungeonController : Singleton<DungeonController>
     private Vector2Int roomSize;
     
     private Dungeon _currentDungeon;
+    private int _floorIndex = 0;
+    private Vector2Int _roomPosition;
 
     public void CreateNewDungeon()
     {
@@ -65,6 +70,47 @@ public class DungeonController : Singleton<DungeonController>
                             // Initialize tile
                             room.Tiles[tilex, tiley].Position = new Vector2Int(tilex, tiley);
                         }
+                    }
+                }
+            }
+        }
+    }
+
+    public void MakeCurrentRoom()
+    {
+        for(int x=0; x < CurrentRoom.Size.x; ++x)
+        {
+            for(int y=0; y< CurrentRoom.Size.y; ++y)
+            {
+                GameObject defaultTile = Instantiate(tileSet.GetTilePrototype(TilePrototype.eTileID.Empty).PrefabObject, new Vector3(x,0,y), Quaternion.identity);
+
+                TilePrototype.eTileID id = TilePrototype.eTileID.Empty;
+                switch (CurrentRoom.Tiles[x, y].ID)
+                {
+                    case Tile.eTileID.DoorUp:
+                    case Tile.eTileID.DoorLeft:
+                    case Tile.eTileID.DoorRight:
+                    case Tile.eTileID.DoorDown:
+                        id = TilePrototype.eTileID.Door;
+                        break;
+                    case Tile.eTileID.FloorDown:
+                        id = TilePrototype.eTileID.FloorDown;
+                        break;
+                    case Tile.eTileID.FloorUp:
+                        id = TilePrototype.eTileID.FloorUp;
+                        break;
+                }
+                if(id!= TilePrototype.eTileID.Empty)
+                {
+                    GameObject prefabObject = tileSet.GetTilePrototype(id).PrefabObject;
+                    if (prefabObject != null)
+                    {
+                        GameObject newTileObj = Instantiate(prefabObject, new Vector3(x, 0, y), Quaternion.identity);
+                        newTileObj.transform.SetParent(CurrentRoom.Tiles[x, y].transform);
+                    }
+                    else
+                    {
+                        Debug.LogError("Missing GameObject for: " + id);
                     }
                 }
             }

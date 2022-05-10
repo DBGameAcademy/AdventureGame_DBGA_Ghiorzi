@@ -10,5 +10,6 @@ public class GameController : Singleton<GameController>
     private void StartNewGame()
     {
         DungeonController.Instance.CreateNewDungeon();
+        DungeonController.Instance.MakeCurrentRoom();
     }
 }
