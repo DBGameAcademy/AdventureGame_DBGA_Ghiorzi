@@ -12,7 +12,7 @@ public class Tile : MonoBehaviour
         FloorUp,
         FloorDown,
     }
-    public eTileID ID { get; private set; }
+    public eTileID ID { get; set; }
 
     public Vector2Int Position { get; set; }
 }

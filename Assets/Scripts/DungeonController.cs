@@ -74,6 +74,69 @@ public class DungeonController : Singleton<DungeonController>
                 }
             }
         }
+
+        // Add doors in appropriate places
+        foreach(Floor floor in _currentDungeon.Floors)
+        {
+            for(int x=0;x<floor.Rooms.GetLength(0); ++x)
+            {
+                for(int y=0;y<floor.Rooms.GetLength(1); ++y)
+                {
+                    Room room = floor.Rooms[x, y];
+                    if (room != null)
+                    {
+                        if(RoomHasNeighbour(room, Vector2Int.up))
+                        {
+                            room.Tiles[roomSize.x / 2, roomSize.y - 1].ID = Tile.eTileID.DoorUp;
+                        }
+                        if (RoomHasNeighbour(room, Vector2Int.down))
+                        {
+                            room.Tiles[roomSize.x / 2, 0].ID = Tile.eTileID.DoorDown;
+                        }
+                        if (RoomHasNeighbour(room, Vector2Int.left))
+                        {
+                            room.Tiles[0, roomSize.y / 2].ID = Tile.eTileID.DoorLeft;
+                        }
+                        if (RoomHasNeighbour(room, Vector2Int.right))
+                        {
+                            room.Tiles[roomSize.x - 1, roomSize.y / 2].ID = Tile.eTileID.DoorRight;
+                        }
+                    }
+                }
+            }
+        }
+
+        // Place FloorUp and FloorDown
+        for(int i = 0; i < _currentDungeon.Floors.Count; ++i)
+        {
+            bool placedFloorUp = false;
+            do
+            {
+                // What if random we set FloorUp and FloorDown on the same tile? - we are not checking that, we are checking only the type, with typef(Tile)
+                // but ofc they will be of type Tile (?)
+                if(TrySetRandomTile(_currentDungeon.Floors[i],Tile.eTileID.FloorUp,out Vector2Int tilePos, out Room room))
+                {
+                    // If floor 0
+                    if (i == 0)
+                    {
+                        // we are saving it (?)
+                        _roomPosition = room.RoomPosition;
+                    }
+                    placedFloorUp = true;
+                }
+            }
+            while (!placedFloorUp);
+
+            bool placedFloorDown = false;
+            do
+            {
+                if(TrySetRandomTile(_currentDungeon.Floors[i],Tile.eTileID.FloorDown, out Vector2Int tilePos, out Room room))
+                {
+                    placedFloorDown = true;
+                }
+
+            } while (!placedFloorDown);
+        }
     }
 
     public void MakeCurrentRoom()
@@ -115,5 +178,42 @@ public class DungeonController : Singleton<DungeonController>
                 }
             }
         }
+    }
+
+    private bool RoomHasNeighbour(Room checkRoom, Vector2Int direction)
+    {
+        Vector2Int testPos = checkRoom.RoomPosition + direction;
+        if(testPos.x < 0 
+            || testPos.y<0
+            || testPos.x >= CurrentFloor.Rooms.GetLength(0) 
+            || testPos.y >= CurrentFloor.Rooms.GetLength(1))
+        {
+            return false;
+        }
+        if(CurrentFloor.Rooms[testPos.x, testPos.y] == null)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    private bool TrySetRandomTile(Floor floor, Tile.eTileID tileID, out Vector2Int pos, out Room room)
+    {
+        pos = Vector2Int.zero;
+        room = floor.Rooms[Random.Range(0, floor.Rooms.GetLength(0)), Random.Range(0, floor.Rooms.GetLength(1))];
+        if(room == null)
+        {
+            return false;
+        }
+
+        pos = new Vector2Int(Random.Range(0, room.Size.x), Random.Range(0, room.Size.y));
+        if(room.Tiles[pos.x,pos.y].GetType() != typeof(Tile))
+        {
+            return false;
+        }
+
+        room.Tiles[pos.x, pos.y].ID = tileID;
+        return true;
     }
 }
