@@ -21,6 +21,11 @@ public class DungeonController : Singleton<DungeonController>
     private int _floorIndex = 0;
     private Vector2Int _roomPosition;
 
+    public void EnterTile(Tile tile)
+    {
+        // Handle tile enter based on tile type
+    }
+
     public void CreateNewDungeon()
     {
         _currentDungeon = new Dungeon();
