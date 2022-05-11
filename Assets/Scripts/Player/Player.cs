@@ -91,8 +91,6 @@ public class Player : MonoBehaviour
 
         IsMoving = true;
         _targetPosition = position;
-
-        Debug.Log("New Target called: direction " + direction + " new position: " + _targetPosition);
     }
 
     private void BeginMove(Vector2 direction)
