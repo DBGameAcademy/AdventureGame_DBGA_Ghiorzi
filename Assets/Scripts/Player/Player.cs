@@ -21,6 +21,7 @@ public class Player : MonoBehaviour
 
     private Vector2Int _currentPosition;
     private Vector2Int _targetPosition;
+    private Tile _lastTile;
    
     public void SetPosition(Vector2Int position)
     {
@@ -34,6 +35,7 @@ public class Player : MonoBehaviour
         IsMoving = false;
         _controls = new AdventureGame();
         _controls.Player.Move.performed += context => BeginMove(context.ReadValue<Vector2>());
+        
     }
 
     private void Update()
@@ -52,6 +54,12 @@ public class Player : MonoBehaviour
                 Tile tile = DungeonController.Instance.CurrentRoom.Tiles[_currentPosition.x, _currentPosition.y];
                 DungeonController.Instance.EnterTile(tile);
 
+                if (_controls.Player.Move.inProgress)
+                {
+                    FindNewTargetPosition(MovingDirection);
+                    return;
+                }
+
                 IsMoving = false;
                 
             }
@@ -66,6 +74,25 @@ public class Player : MonoBehaviour
     private void OnDestroy()
     {
         _controls.Disable();
+    }
+
+    private void FindNewTargetPosition(Vector2 direction)
+    {
+        Vector2Int intDirection = new Vector2Int((int)direction.x, (int)direction.y);
+        MovingDirection = intDirection;
+        Vector2Int position = _currentPosition + intDirection;
+
+        if (position.x < 0 || position.y < 0
+            || position.x >= DungeonController.Instance.CurrentRoom.Size.x
+            || position.y >= DungeonController.Instance.CurrentRoom.Size.y)
+        {
+            return;
+        }
+
+        IsMoving = true;
+        _targetPosition = position;
+
+        Debug.Log("New Target called: direction " + direction + " new position: " + _targetPosition);
     }
 
     private void BeginMove(Vector2 direction)
@@ -87,7 +114,6 @@ public class Player : MonoBehaviour
             IsMoving = true;
             _targetPosition = position;
         }
-
     }
 
     void OnKill()

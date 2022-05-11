@@ -201,6 +201,7 @@ public class DungeonController : Singleton<DungeonController>
                     if (prefabObject != null)
                     {
                         GameObject newTileObj = Instantiate(prefabObject, new Vector3(x, 0, y), Quaternion.identity);
+                        //newTileObj.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f); // In case I will use the new models
                         newTileObj.transform.SetParent(CurrentRoom.Tiles[x, y].transform);
                         CurrentRoom.Tiles[x, y].TileObjects.Add(newTileObj);
                     }
