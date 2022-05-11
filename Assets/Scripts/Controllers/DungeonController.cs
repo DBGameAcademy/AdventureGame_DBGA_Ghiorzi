@@ -119,8 +119,8 @@ public class DungeonController : Singleton<DungeonController>
                     // If floor 0
                     if (i == 0)
                     {
-                        // we are saving it (?)
                         _roomPosition = room.RoomPosition;
+                        GameController.Instance.Player.SetPosition(_roomPosition);
                     }
                     placedFloorUp = true;
                 }

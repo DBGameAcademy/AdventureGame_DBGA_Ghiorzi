@@ -1,6 +1,7 @@
-public class Player
+using UnityEngine;
+
+public class Player : MonoBehaviour
 {
-    private string name;
     private int maxHealth;
     private int currentHealth;
     private int experience;
@@ -9,6 +10,15 @@ public class Player
     private Armour equipedArmour;
     private Item[] consumables;
     private float potionCooldown;
+
+    private Vector2Int _currentPosition;
+
+    public void SetPosition(Vector2Int position)
+    {
+        _currentPosition = position;
+        transform.position = new Vector3(_currentPosition.x, 0.28f, _currentPosition.y);
+
+    }
 
     void OnKill()
     {
