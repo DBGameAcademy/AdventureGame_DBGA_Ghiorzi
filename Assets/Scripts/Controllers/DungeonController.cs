@@ -174,7 +174,8 @@ public class DungeonController : Singleton<DungeonController>
         {
             for(int y=0; y< CurrentRoom.Size.y; ++y)
             {
-                GameObject defaultTile = Instantiate(tileSet.GetTilePrototype(TilePrototype.eTileID.Empty).PrefabObject, new Vector3(x,0,y), Quaternion.identity);
+                GameObject defaultTile = Instantiate(tileSet.GetTilePrototype(TilePrototype.eTileID.Empty).PrefabObject, new Vector3(x,-0.5f,y), Quaternion.identity);
+                defaultTile.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
 
                 CurrentRoom.Tiles[x, y].TileObjects.Add(defaultTile);
 
