@@ -139,8 +139,6 @@ public class DungeonController : Singleton<DungeonController>
             bool placedFloorUp = false;
             do
             {
-                // What if random we set FloorUp and FloorDown on the same tile? - we are not checking that, we are checking only the type, with typeof(Tile)
-                // but ofc they will be of type Tile (?)
                 if(TrySetRandomTile(_currentDungeon.Floors[i],Tile.eTileID.FloorUp,out Vector2Int tilePos, out Room room))
                 {
                     // If floor 0
@@ -308,6 +306,9 @@ public class DungeonController : Singleton<DungeonController>
         {
             return false;
         }
+
+        if (room.Tiles[pos.x, pos.y].ID != Tile.eTileID.Empty)
+            return false;
 
         room.Tiles[pos.x, pos.y].ID = tileID;
         return true;
