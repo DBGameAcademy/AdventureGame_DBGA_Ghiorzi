@@ -38,12 +38,20 @@ public class DungeonController : Singleton<DungeonController>
             case Tile.eTileID.DoorRight:
                 MoveRoom(Vector2Int.right);
                 break;
+
+            case Tile.eTileID.FloorDown:
+                MoveFloorDown();
+                break;
+            case Tile.eTileID.FloorUp:
+                MoveFloorUp();
+                break;
         }
     }
 
     public void CreateNewDungeon()
     {
         _currentDungeon = new Dungeon();
+        _currentDungeon.Floors = new List<Floor>();
 
         for(int i=0; i<noOfFloor; ++i)
         {
@@ -53,7 +61,6 @@ public class DungeonController : Singleton<DungeonController>
             Floor floor = floorObj.AddComponent<Floor>();
 
             // Add current floor to current dungeon
-            _currentDungeon.Floors = new List<Floor>();
             _currentDungeon.Floors.Add(floor);
 
             // Initialize floor's rooms
@@ -143,6 +150,7 @@ public class DungeonController : Singleton<DungeonController>
                         GameController.Instance.Player.SetPosition(_roomPosition);
                     }
                     placedFloorUp = true;
+                    _currentDungeon.Floors[i].FloorUpTransition = new FloorTransition(room, tilePos);
                 }
             }
             while (!placedFloorUp);
@@ -153,6 +161,7 @@ public class DungeonController : Singleton<DungeonController>
                 if(TrySetRandomTile(_currentDungeon.Floors[i],Tile.eTileID.FloorDown, out Vector2Int tilePos, out Room room))
                 {
                     placedFloorDown = true;
+                    _currentDungeon.Floors[i].FloorDownTransition = new FloorTransition(room, tilePos);
                 }
 
             } while (!placedFloorDown);
@@ -216,6 +225,24 @@ public class DungeonController : Singleton<DungeonController>
                 CurrentRoom.Tiles[x, y].TileObjects.Clear();
             }
         }
+    }
+
+    private void MoveFloorUp()
+    {
+        ClearCurrentRoom();
+        _floorIndex--;
+        _roomPosition = CurrentFloor.FloorDownTransition.TargetRoom.RoomPosition;
+        MakeCurrentRoom();
+        GameController.Instance.Player.SetPosition(CurrentFloor.FloorDownTransition.TilePosition);
+    }
+
+    private void MoveFloorDown()
+    {
+        ClearCurrentRoom();
+        _floorIndex++;
+        _roomPosition = CurrentFloor.FloorUpTransition.TargetRoom.RoomPosition;
+        MakeCurrentRoom();
+        GameController.Instance.Player.SetPosition(CurrentFloor.FloorUpTransition.TilePosition);
     }
 
     private void MoveRoom(Vector2Int direction)
