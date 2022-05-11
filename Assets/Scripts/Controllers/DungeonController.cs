@@ -24,6 +24,21 @@ public class DungeonController : Singleton<DungeonController>
     public void EnterTile(Tile tile)
     {
         // Handle tile enter based on tile type
+        switch (tile.ID)
+        {
+            case Tile.eTileID.DoorDown:
+                MoveRoom(Vector2Int.down);
+                break;
+            case Tile.eTileID.DoorUp:
+                MoveRoom(Vector2Int.up);
+                break;
+            case Tile.eTileID.DoorLeft:
+                MoveRoom(Vector2Int.left);
+                break;
+            case Tile.eTileID.DoorRight:
+                MoveRoom(Vector2Int.right);
+                break;
+        }
     }
 
     public void CreateNewDungeon()
@@ -152,6 +167,8 @@ public class DungeonController : Singleton<DungeonController>
             {
                 GameObject defaultTile = Instantiate(tileSet.GetTilePrototype(TilePrototype.eTileID.Empty).PrefabObject, new Vector3(x,0,y), Quaternion.identity);
 
+                CurrentRoom.Tiles[x, y].TileObjects.Add(defaultTile);
+
                 TilePrototype.eTileID id = TilePrototype.eTileID.Empty;
                 switch (CurrentRoom.Tiles[x, y].ID)
                 {
@@ -175,6 +192,7 @@ public class DungeonController : Singleton<DungeonController>
                     {
                         GameObject newTileObj = Instantiate(prefabObject, new Vector3(x, 0, y), Quaternion.identity);
                         newTileObj.transform.SetParent(CurrentRoom.Tiles[x, y].transform);
+                        CurrentRoom.Tiles[x, y].TileObjects.Add(newTileObj);
                     }
                     else
                     {
@@ -183,6 +201,50 @@ public class DungeonController : Singleton<DungeonController>
                 }
             }
         }
+    }
+
+    private void ClearCurrentRoom()
+    {
+        for(int x=0; x<CurrentRoom.Size.x; ++x)
+        {
+            for(int y=0; y<CurrentRoom.Size.y; ++y)
+            {
+                for(int i = CurrentRoom.Tiles[x,y].TileObjects.Count - 1; i>=0; i--)
+                {
+                    Destroy(CurrentRoom.Tiles[x,y].TileObjects[i]);
+                }
+                CurrentRoom.Tiles[x, y].TileObjects.Clear();
+            }
+        }
+    }
+
+    private void MoveRoom(Vector2Int direction)
+    {
+        Vector2Int targetRoomPos = CurrentRoom.RoomPosition + direction;
+        Room targetRoom = CurrentFloor.Rooms[targetRoomPos.x, targetRoomPos.y];
+
+        ClearCurrentRoom();
+
+        _roomPosition = targetRoom.RoomPosition;
+
+        if(direction.x < 0) // Left
+        {
+            GameController.Instance.Player.SetPosition(new Vector2Int(CurrentRoom.Size.x - 1, CurrentRoom.Size.y / 2));
+        }
+        else if(direction.x > 0) // Right
+        {
+            GameController.Instance.Player.SetPosition(new Vector2Int(0, CurrentRoom.Size.y / 2));
+        }
+        else if (direction.y < 0) // Down
+        {
+            GameController.Instance.Player.SetPosition(new Vector2Int(CurrentRoom.Size.x /2, CurrentRoom.Size.y -1));
+        }
+        else if(direction.y > 0) // Up
+        {
+            GameController.Instance.Player.SetPosition(new Vector2Int(CurrentRoom.Size.x / 2, 0));
+        }
+
+        MakeCurrentRoom();
     }
 
     private bool RoomHasNeighbour(Room checkRoom, Vector2Int direction)
