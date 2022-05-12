@@ -5,25 +5,25 @@ using UnityEngine;
 [CreateAssetMenu(fileName ="New Tileset", menuName = "Create Tileset")]
 public class TileSet : ScriptableObject
 {
-    public List<TilePrototype> TilePrototypes = new List<TilePrototype>();
-
-    public TilePrototype GetTilePrototype(TilePrototype.eTileID type) 
+    public List<GameObject> tilesPrefab = new List<GameObject>();
+ 
+    public GameObject GetTilePrefab(Tile tile) 
     {
         // Pick random tile of the same time
         // (I can have multiple tiles of the same type that looks different from each other)
-        List<TilePrototype> possibleTiles = new List<TilePrototype> ();
+        List<GameObject> possiblePrefabs = new List<GameObject> ();
 
-        foreach(TilePrototype tile in TilePrototypes)
-        {
-            if(tile.TileType == type)
+        foreach (GameObject prefab in tilesPrefab) {
+
+            if (prefab.GetComponent<Tile>().GetType() == tile.GetType())
             {
-                possibleTiles.Add(tile);
+                possiblePrefabs.Add(prefab);
             }
         }
 
-        if (possibleTiles.Count == 0)
-            Debug.LogError("No tiles for type: " + type);
+        if (possiblePrefabs.Count == 0)
+            Debug.LogError("No tiles for type: " + tile.GetType());
 
-        return possibleTiles[Random.Range(0, possibleTiles.Count)];
+        return possiblePrefabs[Random.Range(0, possiblePrefabs.Count)];
     }
 }

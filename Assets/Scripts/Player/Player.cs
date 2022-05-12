@@ -52,7 +52,8 @@ public class Player : MonoBehaviour
                 _currentPosition = _targetPosition;
 
                 Tile tile = DungeonController.Instance.CurrentRoom.Tiles[_currentPosition.x, _currentPosition.y];
-                DungeonController.Instance.EnterTile(tile);
+                //DungeonController.Instance.EnterTile(tile);
+                tile.EnterTile();
 
                 if (_controls.Player.Move.inProgress)
                 {

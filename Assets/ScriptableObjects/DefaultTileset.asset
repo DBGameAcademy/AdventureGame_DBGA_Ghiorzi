@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 545a362b060ae9d4f97f351e1e699ba2, type: 3}
-  m_Name: DefaultTileset
+  m_Name: DefaultTileSet
   m_EditorClassIdentifier: 
-  TilePrototypes:
-  - {fileID: 11400000, guid: ead3c8fecd6fce24ab06345636d13efd, type: 2}
-  - {fileID: 11400000, guid: 917cd7da4f3da674c92ad84d5214e515, type: 2}
-  - {fileID: 11400000, guid: d72fbd4949cb7de44922a882b120e81f, type: 2}
-  - {fileID: 11400000, guid: d076f1395936ab54faa4cf8f701ba3af, type: 2}
+  tilesPrefab:
+  - {fileID: 8598288399218147306, guid: e02db4b1d5a856249a49c7db2e4f6cd6, type: 3}
+  - {fileID: 7129761128620195995, guid: 5f83ede1a358cf440a60c65dea8f42e4, type: 3}
+  - {fileID: 6768054464473738746, guid: 5a48907042946e147ba7c03de9254fed, type: 3}
+  - {fileID: 3417783856742498320, guid: 13ff58ad7123efd4dac77ff4c71a360e, type: 3}
