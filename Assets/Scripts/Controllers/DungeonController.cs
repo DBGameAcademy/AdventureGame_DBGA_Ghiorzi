@@ -183,7 +183,6 @@ public class DungeonController : Singleton<DungeonController>
             for(int y=0; y< CurrentRoom.Size.y; ++y)
             {
                 CurrentRoom.Tiles[x,y].TileObj = Instantiate(tileSet.GetTilePrefab(CurrentRoom.Tiles[x, y]),new Vector3(x,-0.5f,y), Quaternion.identity);
-                Debug.Log("Tile of type " + CurrentRoom.Tiles[x, y].GetType() + " position " + CurrentRoom.Tiles[x, y].Position);
             }
         }
     }
