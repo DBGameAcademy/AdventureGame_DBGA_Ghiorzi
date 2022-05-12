@@ -759,7 +759,7 @@ MonoBehaviour:
   tileSet: {fileID: 11400000, guid: 37e805dc523b5d94987870c98ee4ff91, type: 2}
   noOfFloor: 5
   roomsPerFloor: {x: 3, y: 3}
-  roomSize: {x: 5, y: 3}
+  roomSize: {x: 6, y: 4}
 --- !u!4 &1005129239
 Transform:
   m_ObjectHideFlags: 0
