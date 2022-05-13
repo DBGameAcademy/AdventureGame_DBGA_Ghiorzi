@@ -100,7 +100,6 @@ public class DungeonController : Singleton<DungeonController>
         }
 
         bool isPlayerPlaced = false;
-
         // Populate tiles
         for (int tilex = 0; tilex < width; ++tilex)
         {
@@ -125,7 +124,8 @@ public class DungeonController : Singleton<DungeonController>
                     // Place player
                     if (!isPlayerPlaced)
                     {
-                        GameController.Instance.Player.SetPosition(new Vector2Int(tilex,tiley));
+                        GameController.Instance.Player.SetPosition(new Vector2Int(tilex, tiley));
+                        GameController.Instance.Player.SetHeight(6.0f);
                         isPlayerPlaced = true;
                     }
                 }

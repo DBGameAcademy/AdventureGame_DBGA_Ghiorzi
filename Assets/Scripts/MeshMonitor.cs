@@ -28,14 +28,12 @@ public class MeshMonitor : MonoBehaviour
             {
                 objRenderer.enabled = true; // Show Object
                 visible = true;
-                Debug.Log("Visible");
             }
         }
         else if (visible)
         {
             objRenderer.enabled = false; // Hide Object
             visible = false;
-            Debug.Log("InVisible");
         }
     }
 }

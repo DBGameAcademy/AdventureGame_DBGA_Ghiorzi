@@ -31,5 +31,16 @@ public class PlayerAnimation : MonoBehaviour
             }
         }
         _animator.SetBool("IsMoving", player.IsMoving);
+
+        if(this.transform.position.y > 0.28f)
+        {
+            CinematicController.Instance.StartCinematic();
+            _animator.SetBool("IsGrounded",false);
+        }
+        else
+        {
+            CinematicController.Instance.EndCinematic();
+            _animator.SetBool("IsGrounded",true);
+        }
     }
 }

@@ -22,7 +22,7 @@ public class GameController : Singleton<GameController>
         //DungeonController.Instance.CreateNewDungeon(5, new Vector2Int(3,3), new Vector2Int(6,6));
     }
 
-    private void CreatePlayer()
+    public void CreatePlayer()
     {
         GameObject playerObj = Instantiate(playerPrefab, Vector3.zero, Quaternion.identity);
         Player = playerObj.GetComponent<Player>();

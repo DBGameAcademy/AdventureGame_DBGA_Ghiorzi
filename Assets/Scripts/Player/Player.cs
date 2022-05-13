@@ -26,8 +26,13 @@ public class Player : MonoBehaviour
     public void SetPosition(Vector2Int position)
     {
         _currentPosition = position;
-        transform.position = new Vector3(_currentPosition.x, 0.28f, _currentPosition.y);
+        transform.position = new Vector3(_currentPosition.x, transform.position.y, _currentPosition.y);
 
+    }
+
+    public void SetHeight(float height)
+    {
+        transform.position = new Vector3(_currentPosition.x, height, _currentPosition.y);
     }
 
     private void Awake()
@@ -98,6 +103,9 @@ public class Player : MonoBehaviour
 
     private void BeginMove(Vector2 direction)
     {
+        if (CinematicController.Instance.IsPlaying)
+            return;
+
         Vector2Int intDirection = new Vector2Int((int)direction.x, (int)direction.y);
         MovingDirection = intDirection;
         Vector2Int position = _currentPosition + intDirection;
