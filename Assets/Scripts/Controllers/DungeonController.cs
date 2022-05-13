@@ -133,8 +133,26 @@ public class DungeonController : Singleton<DungeonController>
         }
         List<Region> regions = new List<Region>();
         Debug.Log(IslandFinder.CountIslands(positions,out regions,false));
+        for(int i = 0; i<regions.Count; i++)
+            for(int j=0; j<regions.Count; j++)
+            {
+                if (i != j)
+                {
+                    var closePoint = regions[i].FindClosestPointToRegion(regions[j]);
+                    regions[i].RegionConnections.Add(closePoint);
+                }
+            }
+        int r = 0;
         foreach(Region region in regions)
-            Debug.Log(region.TilePositions[0]);
+        {
+            region.RemoveToMinConnection();
+            Debug.Log("Region "+r+" "+region.RegionConnections.Count);
+            foreach(ConnectionPoint p in region.RegionConnections)
+            {
+                Debug.Log("" + p.FirstTilePoistion.ToString() + " --> " + p.SecondTilePosition.ToString() + " with distance: " + p.Distance);
+            }
+            ++r;
+        }
     }
 
     public void CreateNewDungeon(int noOfFloor, Vector2Int roomsPerFloor, Vector2Int roomSize)
