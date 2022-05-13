@@ -757,8 +757,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileSet: {fileID: 11400000, guid: 37e805dc523b5d94987870c98ee4ff91, type: 2}
-  height: 100
-  width: 100
+  height: 50
+  width: 50
   iterations: 3
   neighbours: 5
 --- !u!4 &1005129239
