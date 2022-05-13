@@ -145,6 +145,8 @@ public class DungeonController : Singleton<DungeonController>
         int r = 0;
         foreach(Region region in regions)
         {
+            if (region.TilePositions.Count < 4)
+                break;
             region.RemoveToMinConnection();
             Debug.Log("Region "+r+" "+region.RegionConnections.Count);
             foreach(ConnectionPoint p in region.RegionConnections)
@@ -153,7 +155,8 @@ public class DungeonController : Singleton<DungeonController>
 
                 // FIRST
                 // Destroy tile before
-                Destroy(CurrentRoom.Tiles[p.FirstTilePoistion.x, p.FirstTilePoistion.y].TileObj);
+                if(CurrentRoom.Tiles[p.FirstTilePoistion.x, p.FirstTilePoistion.y].TileObj!=null)
+                    Destroy(CurrentRoom.Tiles[p.FirstTilePoistion.x, p.FirstTilePoistion.y].TileObj);
 
                 // Create Tile object
                 GameObject tileObj = new GameObject("Teleport (" + p.FirstTilePoistion.x + ";" + p.FirstTilePoistion.y + ")");
@@ -170,7 +173,8 @@ public class DungeonController : Singleton<DungeonController>
                                                                         new Vector3(p.FirstTilePoistion.x, -0.5f, p.FirstTilePoistion.y),
                                                                         Quaternion.identity);
                 // SECOND
-                Destroy(CurrentRoom.Tiles[p.SecondTilePosition.x, p.SecondTilePosition.y].TileObj);
+                if (CurrentRoom.Tiles[p.SecondTilePosition.x, p.SecondTilePosition.y].TileObj != null)
+                    Destroy(CurrentRoom.Tiles[p.SecondTilePosition.x, p.SecondTilePosition.y].TileObj);
 
                 // Create Tile object
                 tileObj = new GameObject("Teleport (" + p.SecondTilePosition.x + ";" + p.SecondTilePosition.y + ")");
