@@ -18,8 +18,8 @@ public class GameController : Singleton<GameController>
     private void StartNewGame()
     {
         CreatePlayer();
-        DungeonController.Instance.CreateNewDungeon();
-        DungeonController.Instance.MakeCurrentRoom();
+        DungeonController.Instance.CreateNewMap();
+        //DungeonController.Instance.CreateNewDungeon(5, new Vector2Int(3,3), new Vector2Int(6,6));
     }
 
     private void CreatePlayer()

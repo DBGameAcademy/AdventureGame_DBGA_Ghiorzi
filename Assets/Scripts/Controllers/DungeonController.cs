@@ -7,21 +7,133 @@ public class DungeonController : Singleton<DungeonController>
     public Floor CurrentFloor { get { return _currentDungeon.Floors[_floorIndex]; } }
     public Room CurrentRoom { get { return _currentDungeon.Floors[_floorIndex].Rooms[_roomPosition.x,_roomPosition.y]; } }
 
+    [Header("TileSets")]
     [SerializeField]
     private TileSet tileSet;
 
+    [Header("Map generation")]
     [SerializeField]
-    private int noOfFloor;
+    private int height;
     [SerializeField]
-    private Vector2Int roomsPerFloor;
+    private int width;
     [SerializeField]
-    private Vector2Int roomSize;
-    
+    private int iterations = 3; // Conway GoL iterations
+    [SerializeField]
+    private int neighbours = 5;
+
     private Dungeon _currentDungeon;
     private int _floorIndex = 0;
     private Vector2Int _roomPosition;
 
-    public void CreateNewDungeon()
+    public void CreateNewMap()
+    {
+        _currentDungeon = new Dungeon();
+        _currentDungeon.Floors = new List<Floor>();
+        // Create floor object
+        GameObject floorObj = new GameObject("Floor " + 0);
+        floorObj.transform.SetParent(transform);
+        Floor floor = floorObj.AddComponent<Floor>();
+
+        // Add current floor to current dungeon
+        _currentDungeon.Floors.Add(floor);
+
+        // Initialize floor's rooms
+        floor.Rooms = new Room[1, 1];
+
+        // Create Room object
+        GameObject roomObj = new GameObject("Room (" + 0 + ";" + 0 + ")");
+        roomObj.transform.SetParent(floorObj.transform);
+        Room room = roomObj.AddComponent<Room>();
+
+        // Add current room to the floor
+        floor.Rooms[0, 0] = room;
+
+        // Initialize room
+        room.RoomPosition = new Vector2Int(0, 0);
+        room.Tiles = new Tile[width, height];
+
+
+        Vector2Int size = new Vector2Int(width, height);
+
+        bool[,] positions = new bool[size.x, size.y];
+
+        // Random first pass
+        for (int x = 0; x < size.x; x++)
+        {
+            for (int y = 0; y < size.y; y++)
+            {
+                positions[x, y] = (Random.Range(0, 2) == 0);
+            }
+        }
+
+        // Smoothing - Conway
+        for (int i = 0; i < iterations; i++)
+        {
+            bool[,] newPositions = new bool[size.x, size.y];
+
+            for (int x = 0; x < size.x; x++)
+            {
+                for (int y = 0; y < size.y; y++)
+                {
+                    int neighbourCount = 0;
+                    for (int xOffset = -1; xOffset <= 1; xOffset++)
+                    {
+                        for (int yOffset = -1; yOffset <= 1; yOffset++)
+                        {
+                            if (x + xOffset < 0 || y + yOffset < 0 || x + xOffset >= size.x || y + yOffset >= size.y)
+                            {
+                                neighbourCount++;
+                            }
+                            else if (positions[x + xOffset, y + yOffset])
+                            {
+                                neighbourCount++;
+                            }
+                        }
+                    }
+                    if (neighbourCount >= neighbours)
+                    {
+                        newPositions[x, y] = true;
+                    }
+                }
+            }
+            positions = newPositions;
+        }
+
+        bool isPlayerPlaced = false;
+
+        // Populate tiles
+        for (int tilex = 0; tilex < width; ++tilex)
+        {
+            for (int tiley = 0; tiley < height; ++tiley)
+            {
+                if (!positions[tilex, tiley])
+                {
+                    // Create Tile object
+                    GameObject tileObj = new GameObject("Tile (" + tilex + ";" + tiley + ")");
+                    tileObj.transform.SetParent(roomObj.transform);
+
+                    // Add tile to room's tiles
+                    room.Tiles[tilex, tiley] = tileObj.AddComponent<EmptyTile>();
+
+                    // Initialize tile
+                    room.Tiles[tilex, tiley].Position = new Vector2Int(tilex, tiley);
+
+                    // Create Map
+                    CurrentRoom.Tiles[tilex, tiley].TileObj = Instantiate(tileSet.GetTilePrefab(CurrentRoom.Tiles[tilex, tiley]),
+                                                                            new Vector3(tilex, -0.5f, tiley),
+                                                                            Quaternion.identity);
+                    // Place player
+                    if (!isPlayerPlaced)
+                    {
+                        GameController.Instance.Player.SetPosition(new Vector2Int(tilex,tiley));
+                        isPlayerPlaced = true;
+                    }
+                }
+            }
+        }
+    }
+
+    public void CreateNewDungeon(int noOfFloor, Vector2Int roomsPerFloor, Vector2Int roomSize)
     {
         _currentDungeon = new Dungeon();
         _currentDungeon.Floors = new List<Floor>();
@@ -173,10 +285,11 @@ public class DungeonController : Singleton<DungeonController>
 
             } while (!placedFloorDown);
         }
-        
+
+        MakeCurrentRoom();
     }
 
-    public void MakeCurrentRoom()
+    private void MakeCurrentRoom()
     {
         for(int x=0; x < CurrentRoom.Size.x; ++x)
         {
