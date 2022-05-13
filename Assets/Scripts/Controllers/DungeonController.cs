@@ -131,8 +131,10 @@ public class DungeonController : Singleton<DungeonController>
                 }
             }
         }
-
-        Debug.Log(IslandFinder.CountIslands(positions,false));
+        List<Region> regions = new List<Region>();
+        Debug.Log(IslandFinder.CountIslands(positions,out regions,false));
+        foreach(Region region in regions)
+            Debug.Log(region.TilePositions[0]);
     }
 
     public void CreateNewDungeon(int noOfFloor, Vector2Int roomsPerFloor, Vector2Int roomSize)

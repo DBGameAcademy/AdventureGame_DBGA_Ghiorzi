@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class Region
 {
-    List<Vector2Int> TilePositions { get => _tilesPosition; }
-    List<Vector2Int> _tilesPosition = new List<Vector2Int>();
+    public List<Vector2Int> TilePositions { get => _tilesPosition; }
+    private List<Vector2Int> _tilesPosition = new List<Vector2Int>();
 }
