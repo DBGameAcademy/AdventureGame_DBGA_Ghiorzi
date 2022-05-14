@@ -17,7 +17,11 @@ public class TeleportTile : Tile
         // Teleport
         StartCoroutine(COWaitBeforeAction(1.0f, () => {
             GameController.Instance.Player.SetPosition(Destination);
-            CinematicController.Instance.EndCinematic(); }));
+            StartCoroutine(COWaitBeforeAction(0.5f, () =>
+            {
+                CinematicController.Instance.EndCinematic();
+            }));
+        }));
         
     }
 
