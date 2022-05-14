@@ -154,7 +154,46 @@ public class DungeonController : Singleton<DungeonController>
                 {
                     if(point.ConnectedRegion == region)
                     {
+                        
                         Debug.Log(parent.RegionIndex+" with point "+point.FirstTilePoistion+" AND "+point.SecondTilePosition);
+
+                        // FIRST
+                        // Destroy tile before
+                        if (CurrentRoom.Tiles[point.FirstTilePoistion.x, point.FirstTilePoistion.y].TileObj != null)
+                            Destroy(CurrentRoom.Tiles[point.FirstTilePoistion.x, point.FirstTilePoistion.y].TileObj);
+
+                        // Create Tile object
+                        GameObject tileObj = new GameObject("Teleport (" + point.FirstTilePoistion.x + ";" + point.FirstTilePoistion.y + ")");
+                        tileObj.transform.SetParent(room.Tiles[point.FirstTilePoistion.x, point.FirstTilePoistion.y].transform);
+
+                        // Add tile to room's tiles
+                        room.Tiles[point.FirstTilePoistion.x, point.FirstTilePoistion.y] = tileObj.AddComponent<TeleportTile>();
+
+                        // Initialize tile
+                        room.Tiles[point.FirstTilePoistion.x, point.FirstTilePoistion.y].Position = new Vector2Int(point.FirstTilePoistion.x, point.FirstTilePoistion.y);
+
+                        // Create obj in Map
+                        CurrentRoom.Tiles[point.FirstTilePoistion.x, point.FirstTilePoistion.y].TileObj = Instantiate(tileSet.GetTilePrefab(CurrentRoom.Tiles[point.FirstTilePoistion.x, point.FirstTilePoistion.y]),
+                                                                                new Vector3(point.FirstTilePoistion.x, -0.5f, point.FirstTilePoistion.y),
+                                                                                Quaternion.identity);
+                        // SECOND
+                        if (CurrentRoom.Tiles[point.SecondTilePosition.x, point.SecondTilePosition.y].TileObj != null)
+                            Destroy(CurrentRoom.Tiles[point.SecondTilePosition.x, point.SecondTilePosition.y].TileObj);
+
+                        // Create Tile object
+                        tileObj = new GameObject("Teleport (" + point.SecondTilePosition.x + ";" + point.SecondTilePosition.y + ")");
+                        tileObj.transform.SetParent(room.Tiles[point.SecondTilePosition.x, point.SecondTilePosition.y].transform);
+
+                        // Add tile to room's tiles
+                        room.Tiles[point.SecondTilePosition.x, point.SecondTilePosition.y] = tileObj.AddComponent<TeleportTile>();
+
+                        // Initialize tile
+                        room.Tiles[point.SecondTilePosition.x, point.SecondTilePosition.y].Position = new Vector2Int(point.SecondTilePosition.x, point.SecondTilePosition.y);
+
+                        // Create obj in Map
+                        CurrentRoom.Tiles[point.SecondTilePosition.x, point.SecondTilePosition.y].TileObj = Instantiate(tileSet.GetTilePrefab(CurrentRoom.Tiles[point.SecondTilePosition.x, point.SecondTilePosition.y]),
+                                                                                new Vector3(point.SecondTilePosition.x, -0.5f, point.SecondTilePosition.y),
+                                                                                Quaternion.identity);
                     }
                 }
             }
