@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class TeleportTile : Tile
 {
@@ -10,7 +11,16 @@ public class TeleportTile : Tile
     {
         if (Destination == null)
             return;
-        // Teleport
+        CinematicController.Instance.StartCinematic();
         GameController.Instance.Player.SetPosition(Destination);
+        // Teleport
+        StartCoroutine(COWaitBeforeAction(1.0f, () => { CinematicController.Instance.EndCinematic(); }));
+        
+    }
+
+    private IEnumerator COWaitBeforeAction(float delay,Action Callback)
+    {
+        yield return new WaitForSeconds(delay);        
+        Callback?.Invoke();
     }
 }

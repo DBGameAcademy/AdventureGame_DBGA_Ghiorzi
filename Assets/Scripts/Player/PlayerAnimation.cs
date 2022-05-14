@@ -11,6 +11,8 @@ public class PlayerAnimation : MonoBehaviour
     private Animator _animator;
     private SpriteRenderer _spriteRenderer;
 
+    private bool _didFallPlay = false;
+
     private void Awake()
     {
         _animator = GetComponent<Animator>();
@@ -36,11 +38,13 @@ public class PlayerAnimation : MonoBehaviour
         {
             CinematicController.Instance.StartCinematic();
             _animator.SetBool("IsGrounded",false);
+            _didFallPlay = true;
         }
-        else
+        else if(_didFallPlay)
         {
             CinematicController.Instance.EndCinematic();
             _animator.SetBool("IsGrounded",true);
+            _didFallPlay = false;
         }
     }
 }
