@@ -183,6 +183,8 @@ public class DungeonController : Singleton<DungeonController>
                         CurrentRoom.Tiles[point.FirstTilePoistion.x, point.FirstTilePoistion.y].TileObj = Instantiate(tileSet.GetTilePrefab(CurrentRoom.Tiles[point.FirstTilePoistion.x, point.FirstTilePoistion.y]),
                                                                                 new Vector3(point.FirstTilePoistion.x, -0.5f, point.FirstTilePoistion.y),
                                                                                 Quaternion.identity);
+                        tp.Particle = CurrentRoom.Tiles[point.FirstTilePoistion.x, point.FirstTilePoistion.y].TileObj.GetComponent<TeleportTile>().Particle;
+
                         // SECOND
                         if (CurrentRoom.Tiles[point.SecondTilePosition.x, point.SecondTilePosition.y].TileObj != null)
                             Destroy(CurrentRoom.Tiles[point.SecondTilePosition.x, point.SecondTilePosition.y].TileObj);
@@ -203,6 +205,7 @@ public class DungeonController : Singleton<DungeonController>
                         CurrentRoom.Tiles[point.SecondTilePosition.x, point.SecondTilePosition.y].TileObj = Instantiate(tileSet.GetTilePrefab(CurrentRoom.Tiles[point.SecondTilePosition.x, point.SecondTilePosition.y]),
                                                                                 new Vector3(point.SecondTilePosition.x, -0.5f, point.SecondTilePosition.y),
                                                                                 Quaternion.identity);
+                        tp.Particle = CurrentRoom.Tiles[point.SecondTilePosition.x, point.SecondTilePosition.y].TileObj.GetComponent<TeleportTile>().Particle;
                     }
                 }
             }

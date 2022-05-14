@@ -5,7 +5,10 @@ using System;
 
 public class TeleportTile : Tile
 {
-    public Vector2Int Destination;
+    public ParticleSystem Particle { get => lightParticle; set => lightParticle = value; }
+    public Vector2Int Destination { get; set; }
+    [SerializeField]
+    private ParticleSystem lightParticle;
 
     public override void EnterTile()
     {
@@ -13,9 +16,9 @@ public class TeleportTile : Tile
             return;
         GameController.Instance.Player.StopMoving();
         CinematicController.Instance.StartCinematic();
-       
+        lightParticle.Play();
         // Teleport
-        StartCoroutine(COWaitBeforeAction(1.0f, () => {
+        StartCoroutine(COWaitBeforeAction(1.5f, () => {
             GameController.Instance.Player.SetPosition(Destination);
             StartCoroutine(COWaitBeforeAction(0.5f, () =>
             {
