@@ -53,8 +53,11 @@ public static class IslandFinder
                     // Visit all cells in this island and increment island count
                     DFS(matrix, i, j, visited,region,check);
                     region.RegionIndex = count;
-                    regions.Add(region);
-                    ++count;
+                    if(!(region.TilePositions.Count < 4))
+                    {
+                        regions.Add(region);
+                        ++count;
+                    }
                 }
 
         return count;

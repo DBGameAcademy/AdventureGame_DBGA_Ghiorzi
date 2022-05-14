@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class Dijkstra
 {
-    public static List<Region> Calculate(List<Region> regions)
+    public static void Calculate(List<Region> regions)
     {
         // Create a set sptSet (shortest path tree set) that keeps track of vertices included in the shortest-path tree
         List<Region> sptSet = new List<Region>();
@@ -24,15 +24,15 @@ public static class Dijkstra
             }
         }
         // While sptSet doesn’t include all vertices
-        while(sptSet.Count < regions.Count)
+        while (sptSet.Count < regions.Count)
         {
             //  Pick a vertex U which is not there in sptSet and has a minimum distance value
-            Region U = FindMin(sptSet,distanceValue);
+            Region U = FindMin(sptSet, distanceValue);
             // Include U to sptSet
             sptSet.Add(U);
             // Update distance value of all adjacent vertices of U
             // To update the distance values, iterate through all adjacent vertices
-            foreach(ConnectionPoint connPoint in U.RegionConnections)
+            foreach (ConnectionPoint connPoint in U.RegionConnections)
             {
                 // For every adjacent vertex V
                 Region adjacentVertexV = connPoint.ConnectedRegion;
@@ -42,7 +42,7 @@ public static class Dijkstra
                 // ... and weight of edge U-V ...
                 sum += connPoint.Distance;
                 // ... is less than the distance value of V
-                if(sum < distanceValue[adjacentVertexV])
+                if (sum < distanceValue[adjacentVertexV])
                 {
                     // Then update the distance value of V
                     distanceValue[adjacentVertexV] = sum;
@@ -50,7 +50,6 @@ public static class Dijkstra
                 }
             }
         }
-        return sptSet;
     }
 
     private static Region FindMin(List<Region> sptSet, Dictionary<Region,float> distanceValue)

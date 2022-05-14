@@ -132,7 +132,8 @@ public class DungeonController : Singleton<DungeonController>
             }
         }
         List<Region> regions = new List<Region>();
-        Debug.Log(IslandFinder.CountIslands(positions,out regions,false));
+        int count = IslandFinder.CountIslands(positions, out regions, false);
+        Debug.Log(count);
         for (int i = 0; i < regions.Count; i++)
         {
             for (int j = 0; j < regions.Count; j++)
@@ -144,18 +145,22 @@ public class DungeonController : Singleton<DungeonController>
                 }
             }
         }
-        List<Region> regionTree = Dijkstra.Calculate(regions);
-        foreach(Region region in regions)
+        
+        // Fill parents for regions
+        Dijkstra.Calculate(regions);
+
+        // Create teleports
+        foreach (Region region in regions)
         {
             Debug.Log("Region: " + region.RegionIndex + " has as parents: ");
             foreach (Region parent in region.Parents)
             {
-                foreach(ConnectionPoint point in parent.RegionConnections)
+                foreach (ConnectionPoint point in parent.RegionConnections)
                 {
-                    if(point.ConnectedRegion == region)
+                    if (point.ConnectedRegion == region)
                     {
-                        
-                        Debug.Log(parent.RegionIndex+" with point "+point.FirstTilePoistion+" AND "+point.SecondTilePosition);
+
+                        Debug.Log(parent.RegionIndex + " with point " + point.FirstTilePoistion + " AND " + point.SecondTilePosition);
 
                         // FIRST
                         // Destroy tile before
@@ -168,7 +173,7 @@ public class DungeonController : Singleton<DungeonController>
 
                         // Add tile to room's tiles
                         room.Tiles[point.FirstTilePoistion.x, point.FirstTilePoistion.y] = tileObj.AddComponent<TeleportTile>();
-                        
+
                         // Initialize tile
                         room.Tiles[point.FirstTilePoistion.x, point.FirstTilePoistion.y].Position = new Vector2Int(point.FirstTilePoistion.x, point.FirstTilePoistion.y);
                         TeleportTile tp = (TeleportTile)room.Tiles[point.FirstTilePoistion.x, point.FirstTilePoistion.y];
@@ -202,70 +207,6 @@ public class DungeonController : Singleton<DungeonController>
                 }
             }
         }
-        /*
-        foreach(Region region in regions)
-        {
-            if (region.TilePositions.Count < 4)
-                break;
-            region.RemoveToMinConnection();
-
-            Debug.Log("Region "+r+" "+region.RegionConnections.Count);
-
-            List<Region> connectedRegions = new List<Region>();
-
-            foreach(ConnectionPoint p in region.RegionConnections)
-            {
-                Debug.Log("" + p.FirstTilePoistion.ToString() + " --> " + p.SecondTilePosition.ToString() + " with distance: " + p.Distance);
-                if (connectedRegions.Contains(p.ConnectedRegion) || p.ConnectedRegion.TilePositions.Count < 4)
-                {
-                    continue;
-                }
-                else
-                {
-                    connectedRegions.Add(p.ConnectedRegion);
-                }
-
-                // FIRST
-                // Destroy tile before
-                if(CurrentRoom.Tiles[p.FirstTilePoistion.x, p.FirstTilePoistion.y].TileObj!=null)
-                    Destroy(CurrentRoom.Tiles[p.FirstTilePoistion.x, p.FirstTilePoistion.y].TileObj);
-
-                // Create Tile object
-                GameObject tileObj = new GameObject("Teleport (" + p.FirstTilePoistion.x + ";" + p.FirstTilePoistion.y + ")");
-                tileObj.transform.SetParent(room.Tiles[p.FirstTilePoistion.x,p.FirstTilePoistion.y].transform);
-
-                // Add tile to room's tiles
-                room.Tiles[p.FirstTilePoistion.x, p.FirstTilePoistion.y] = tileObj.AddComponent<TeleportTile>();
-
-                // Initialize tile
-                room.Tiles[p.FirstTilePoistion.x, p.FirstTilePoistion.y].Position = new Vector2Int(p.FirstTilePoistion.x, p.FirstTilePoistion.y);
-
-                // Create obj in Map
-                CurrentRoom.Tiles[p.FirstTilePoistion.x, p.FirstTilePoistion.y].TileObj = Instantiate(tileSet.GetTilePrefab(CurrentRoom.Tiles[p.FirstTilePoistion.x, p.FirstTilePoistion.y]),
-                                                                        new Vector3(p.FirstTilePoistion.x, -0.5f, p.FirstTilePoistion.y),
-                                                                        Quaternion.identity);
-                // SECOND
-                if (CurrentRoom.Tiles[p.SecondTilePosition.x, p.SecondTilePosition.y].TileObj != null)
-                    Destroy(CurrentRoom.Tiles[p.SecondTilePosition.x, p.SecondTilePosition.y].TileObj);
-
-                // Create Tile object
-                tileObj = new GameObject("Teleport (" + p.SecondTilePosition.x + ";" + p.SecondTilePosition.y + ")");
-                tileObj.transform.SetParent(room.Tiles[p.SecondTilePosition.x, p.SecondTilePosition.y].transform);
-
-                // Add tile to room's tiles
-                room.Tiles[p.SecondTilePosition.x, p.SecondTilePosition.y] = tileObj.AddComponent<TeleportTile>();
-
-                // Initialize tile
-                room.Tiles[p.SecondTilePosition.x, p.SecondTilePosition.y].Position = new Vector2Int(p.SecondTilePosition.x, p.SecondTilePosition.y);
-
-                // Create obj in Map
-                CurrentRoom.Tiles[p.SecondTilePosition.x, p.SecondTilePosition.y].TileObj = Instantiate(tileSet.GetTilePrefab(CurrentRoom.Tiles[p.SecondTilePosition.x, p.SecondTilePosition.y]),
-                                                                        new Vector3(p.SecondTilePosition.x, -0.5f, p.SecondTilePosition.y),
-                                                                        Quaternion.identity);
-            }
-            ++r;
-        }
-        */
     }
 
     public void CreateNewDungeon(int noOfFloor, Vector2Int roomsPerFloor, Vector2Int roomSize)
