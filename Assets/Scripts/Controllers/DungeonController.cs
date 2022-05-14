@@ -168,9 +168,11 @@ public class DungeonController : Singleton<DungeonController>
 
                         // Add tile to room's tiles
                         room.Tiles[point.FirstTilePoistion.x, point.FirstTilePoistion.y] = tileObj.AddComponent<TeleportTile>();
-
+                        
                         // Initialize tile
                         room.Tiles[point.FirstTilePoistion.x, point.FirstTilePoistion.y].Position = new Vector2Int(point.FirstTilePoistion.x, point.FirstTilePoistion.y);
+                        TeleportTile tp = (TeleportTile)room.Tiles[point.FirstTilePoistion.x, point.FirstTilePoistion.y];
+                        tp.Destination = point.SecondTilePosition;
 
                         // Create obj in Map
                         CurrentRoom.Tiles[point.FirstTilePoistion.x, point.FirstTilePoistion.y].TileObj = Instantiate(tileSet.GetTilePrefab(CurrentRoom.Tiles[point.FirstTilePoistion.x, point.FirstTilePoistion.y]),
@@ -189,6 +191,8 @@ public class DungeonController : Singleton<DungeonController>
 
                         // Initialize tile
                         room.Tiles[point.SecondTilePosition.x, point.SecondTilePosition.y].Position = new Vector2Int(point.SecondTilePosition.x, point.SecondTilePosition.y);
+                        tp = (TeleportTile)room.Tiles[point.SecondTilePosition.x, point.SecondTilePosition.y];
+                        tp.Destination = point.FirstTilePoistion;
 
                         // Create obj in Map
                         CurrentRoom.Tiles[point.SecondTilePosition.x, point.SecondTilePosition.y].TileObj = Instantiate(tileSet.GetTilePrefab(CurrentRoom.Tiles[point.SecondTilePosition.x, point.SecondTilePosition.y]),
