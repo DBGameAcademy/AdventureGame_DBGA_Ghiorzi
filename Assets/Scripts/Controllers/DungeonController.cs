@@ -27,12 +27,15 @@ public class DungeonController : Singleton<DungeonController>
     private int _floorIndex = 0;
     private Vector2Int _roomPosition;
 
+    private bool _wasMap = false;
+
     public void CreateNewMap()
     {
+        _wasMap = true;
         _currentDungeon = new Dungeon();
         _currentDungeon.Floors = new List<Floor>();
         // Create floor object
-        GameObject floorObj = new GameObject("Floor " + 0);
+        GameObject floorObj = new GameObject("Floor Map " + 0);
         floorObj.transform.SetParent(transform);
         Floor floor = floorObj.AddComponent<Floor>();
 
@@ -133,6 +136,8 @@ public class DungeonController : Singleton<DungeonController>
                 }
             }
         }
+
+        // Find Regions
         List<Region> regions = new List<Region>();
         int count = IslandFinder.CountIslands(positions, out regions, false);
         Debug.Log(count);
@@ -516,12 +521,22 @@ public class DungeonController : Singleton<DungeonController>
         {
             for(int y=0; y<CurrentRoom.Size.y; ++y)
             {
-                if(CurrentRoom.Tiles[x,y]!=null)
-                    Destroy(CurrentRoom.Tiles[x,y].TileObj);  
+                if (CurrentRoom.Tiles[x, y] != null)
+                {
+                    // Destroy Map prefab
+                    Destroy(CurrentRoom.Tiles[x, y].TileObj);
+                }
             }
         }
+        if (_wasMap)
+        {
+            // Destroy objects script
+            Destroy(CurrentRoom.gameObject);
+            Destroy(CurrentFloor.gameObject);
+            _wasMap = false;
+        }
     }
-    
+
     public void MoveFloorUp()
     {
         ClearCurrentRoom();
