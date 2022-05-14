@@ -52,6 +52,7 @@ public static class IslandFinder
                     // If a cell with value 1 is not visited yet, then new island found.
                     // Visit all cells in this island and increment island count
                     DFS(matrix, i, j, visited,region,check);
+                    region.RegionIndex = count;
                     regions.Add(region);
                     ++count;
                 }

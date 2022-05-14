@@ -133,8 +133,9 @@ public class DungeonController : Singleton<DungeonController>
         }
         List<Region> regions = new List<Region>();
         Debug.Log(IslandFinder.CountIslands(positions,out regions,false));
-        for(int i = 0; i<regions.Count; i++)
-            for(int j=0; j<regions.Count; j++)
+        for (int i = 0; i < regions.Count; i++)
+        {
+            for (int j = 0; j < regions.Count; j++)
             {
                 if (i != j)
                 {
@@ -142,16 +143,44 @@ public class DungeonController : Singleton<DungeonController>
                     regions[i].RegionConnections.Add(closePoint);
                 }
             }
-        int r = 0;
+        }
+        List<Region> regionTree = Dijkstra.Calculate(regions);
+        foreach(Region region in regions)
+        {
+            Debug.Log("Region: " + region.RegionIndex + " has as parents: ");
+            foreach (Region parent in region.Parents)
+            {
+                foreach(ConnectionPoint point in parent.RegionConnections)
+                {
+                    if(point.ConnectedRegion == region)
+                    {
+                        Debug.Log(parent.RegionIndex+" with point "+point.FirstTilePoistion+" AND "+point.SecondTilePosition);
+                    }
+                }
+            }
+        }
+        /*
         foreach(Region region in regions)
         {
             if (region.TilePositions.Count < 4)
                 break;
             region.RemoveToMinConnection();
+
             Debug.Log("Region "+r+" "+region.RegionConnections.Count);
+
+            List<Region> connectedRegions = new List<Region>();
+
             foreach(ConnectionPoint p in region.RegionConnections)
             {
                 Debug.Log("" + p.FirstTilePoistion.ToString() + " --> " + p.SecondTilePosition.ToString() + " with distance: " + p.Distance);
+                if (connectedRegions.Contains(p.ConnectedRegion) || p.ConnectedRegion.TilePositions.Count < 4)
+                {
+                    continue;
+                }
+                else
+                {
+                    connectedRegions.Add(p.ConnectedRegion);
+                }
 
                 // FIRST
                 // Destroy tile before
@@ -193,6 +222,7 @@ public class DungeonController : Singleton<DungeonController>
             }
             ++r;
         }
+        */
     }
 
     public void CreateNewDungeon(int noOfFloor, Vector2Int roomsPerFloor, Vector2Int roomSize)
