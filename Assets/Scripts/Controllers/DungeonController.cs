@@ -27,11 +27,11 @@ public class DungeonController : Singleton<DungeonController>
     private int _floorIndex = 0;
     private Vector2Int _roomPosition;
 
-    private bool _wasMap = false;
+    private Floor _savedMapFloor;
+    private Vector2Int _savedPlayerPos;
 
     public void CreateNewMap()
     {
-        _wasMap = true;
         _currentDungeon = new Dungeon();
         _currentDungeon.Floors = new List<Floor>();
         // Create floor object
@@ -344,11 +344,12 @@ public class DungeonController : Singleton<DungeonController>
 
             } while (!isPlaced);
         }
-       
+        SaveMap();
     }
 
     public void CreateNewDungeon(int noOfFloor, Vector2Int roomsPerFloor, Vector2Int roomSize)
     {
+        SavePlayerPosition();
         ClearCurrentRoom();
         _currentDungeon = new Dungeon();
         _currentDungeon.Floors = new List<Floor>();
@@ -528,18 +529,66 @@ public class DungeonController : Singleton<DungeonController>
                 }
             }
         }
-        if (_wasMap)
+    }
+
+    private void SaveMap()
+    {
+        _savedMapFloor = CurrentFloor;
+    }
+    private void SavePlayerPosition()
+    {
+        _savedPlayerPos = new Vector2Int((int)GameController.Instance.Player.transform.position.x, (int)GameController.Instance.Player.transform.position.z);
+    }
+
+    private void LoadMap()
+    {
+        for (int i = 0; i < _currentDungeon.Floors.Count; ++i)
         {
-            // Destroy objects script
-            Destroy(CurrentRoom.gameObject);
-            Destroy(CurrentFloor.gameObject);
-            _wasMap = false;
+            Destroy(_currentDungeon.Floors[i].gameObject);
         }
+        _currentDungeon.Floors[0] = _savedMapFloor;
+        
+        //CurrentRoom = _savedMapRoom;
+    }
+    private void MakeMap()
+    {
+        _floorIndex = 0;
+        _roomPosition = Vector2Int.zero;
+        for (int x = 0; x < CurrentRoom.Size.x; ++x)
+        {
+            for (int y = 0; y < CurrentRoom.Size.y; ++y)
+            {
+                if (CurrentRoom.Tiles[x, y] == null)
+                    continue;
+                if(CurrentRoom.Tiles[x,y].GetType() == typeof(DungeonEntranceTile))
+                {
+                    CurrentRoom.Tiles[x, y].TileObj = Instantiate(tileSet.GetTilePrefab(CurrentRoom.Tiles[x, y]),
+                                                                           new Vector3(x, -1.0f, y + 1),
+                                                                           Quaternion.Euler(0.0f, 180.0f, 0.0f));
+                }
+                else if (CurrentRoom.Tiles[x, y].GetType() == typeof(TeleportTile))
+                {
+                    CurrentRoom.Tiles[x, y].TileObj = Instantiate(tileSet.GetTilePrefab(CurrentRoom.Tiles[x, y]), new Vector3(x, -0.5f, y), Quaternion.identity);
+                    TeleportTile tp = (TeleportTile)CurrentRoom.Tiles[x, y];
+                    tp.Particle = CurrentRoom.Tiles[x, y].TileObj.GetComponent<TeleportTile>().Particle;
+                }
+                else
+                    CurrentRoom.Tiles[x, y].TileObj = Instantiate(tileSet.GetTilePrefab(CurrentRoom.Tiles[x, y]), new Vector3(x, -0.5f, y), Quaternion.identity);
+            }
+        }
+        GameController.Instance.Player.SetPosition(_savedPlayerPos);
     }
 
     public void MoveFloorUp()
     {
         ClearCurrentRoom();
+        if (_floorIndex-1 < 0)
+        {
+            // Back to Map
+            LoadMap();
+            MakeMap();
+            return;
+        }
         _floorIndex--;
         _roomPosition = CurrentFloor.FloorDownTransition.TargetRoom.RoomPosition;
         MakeCurrentRoom();
