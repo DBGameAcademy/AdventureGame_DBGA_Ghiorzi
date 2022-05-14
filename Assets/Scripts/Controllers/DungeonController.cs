@@ -20,6 +20,8 @@ public class DungeonController : Singleton<DungeonController>
     private int iterations = 3; // Conway GoL iterations
     [SerializeField]
     private int neighbours = 5;
+    [SerializeField]
+    private int numberOfDungeons = 3;
 
     private Dungeon _currentDungeon;
     private int _floorIndex = 0;
@@ -210,6 +212,110 @@ public class DungeonController : Singleton<DungeonController>
                 }
             }
         }
+
+        // Create DungeonEntrance - only 1 for each region
+        List<Region> regionsWithDungeon = new List<Region>();
+        for(int i=0; i<numberOfDungeons; i++) 
+        {
+            Region randomRegion = null;
+            do
+            {
+                randomRegion = regions[Random.Range(0, regions.Count)];
+
+            } while (regionsWithDungeon.Contains(randomRegion));
+            regionsWithDungeon.Add(randomRegion);
+
+            // Find random position
+            bool isPlaced = false;
+            do
+            {
+                Vector2Int pos = randomRegion.TilePositions[Random.Range(0, randomRegion.TilePositions.Count)];
+                if (room.Tiles[pos.x, pos.y] == null || room.Tiles[pos.x, pos.y].GetType() != typeof(EmptyTile))
+                {
+                    isPlaced =  false;
+                    continue;
+                }
+                isPlaced = true;
+                // Create object
+                // Destroy prev if any
+                if (CurrentRoom.Tiles[pos.x, pos.y].TileObj != null)
+                    Destroy(CurrentRoom.Tiles[pos.x, pos.y].TileObj);
+                // Create Tile object
+                GameObject tileObj = new GameObject("DungeonEntrance (" + pos.x + ";" + pos.y + ")");
+                tileObj.transform.SetParent(room.Tiles[pos.x, pos.y].transform);
+                // Add tile to room's tiles
+                room.Tiles[pos.x, pos.y] = tileObj.AddComponent<DungeonEntranceTile>();
+                // Initialize tile
+                room.Tiles[pos.x, pos.y].Position = new Vector2Int(pos.x, pos.y);
+                // Create map object
+                CurrentRoom.Tiles[pos.x, pos.y].TileObj = Instantiate(tileSet.GetTilePrefab(CurrentRoom.Tiles[pos.x, pos.y]),
+                                                                           new Vector3(pos.x, -1.0f, pos.y + 1),
+                                                                           Quaternion.Euler(0.0f, 180.0f, 0.0f));
+                // Fill empty tiles around Dungeon Entrance
+                if (!TileHasNeighbour(pos, Vector2Int.up))
+                {
+                    Vector2Int newPos = pos + Vector2Int.up;
+                    // Create Tile object
+                    tileObj = new GameObject("Dungeon Extra Tile "+Vector2Int.up.ToString());
+                    tileObj.transform.SetParent(room.Tiles[pos.x, pos.y].transform);
+                    // Add tile to room's tiles
+                    room.Tiles[newPos.x, newPos.y] = tileObj.AddComponent<EmptyTile>();
+                    // Initialize tile
+                    room.Tiles[newPos.x, newPos.y].Position = new Vector2Int(newPos.x, newPos.y);
+                    // Create map object
+                    CurrentRoom.Tiles[newPos.x, newPos.y].TileObj = Instantiate(tileSet.GetTilePrefab(CurrentRoom.Tiles[newPos.x, newPos.y]),
+                                                                               new Vector3(newPos.x, -0.5f, newPos.y),
+                                                                               Quaternion.identity);
+                }
+                if (!TileHasNeighbour(pos, Vector2Int.down))
+                {
+                    Vector2Int newPos = pos + Vector2Int.down;
+                    // Create Tile object
+                    tileObj = new GameObject("Dungeon Extra Tile " + Vector2Int.down.ToString());
+                    tileObj.transform.SetParent(room.Tiles[pos.x, pos.y].transform);
+                    // Add tile to room's tiles
+                    room.Tiles[newPos.x, newPos.y] = tileObj.AddComponent<EmptyTile>();
+                    // Initialize tile
+                    room.Tiles[newPos.x, newPos.y].Position = new Vector2Int(newPos.x, newPos.y);
+                    // Create map object
+                    CurrentRoom.Tiles[newPos.x, newPos.y].TileObj = Instantiate(tileSet.GetTilePrefab(CurrentRoom.Tiles[newPos.x, newPos.y]),
+                                                                               new Vector3(newPos.x, -0.5f, newPos.y),
+                                                                               Quaternion.identity);
+                }
+                if (!TileHasNeighbour(pos, Vector2Int.right))
+                {
+                    Vector2Int newPos = pos + Vector2Int.right;
+                    // Create Tile object
+                    tileObj = new GameObject("Dungeon Extra Tile " + Vector2Int.right.ToString());
+                    tileObj.transform.SetParent(room.Tiles[pos.x, pos.y].transform);
+                    // Add tile to room's tiles
+                    room.Tiles[newPos.x, newPos.y] = tileObj.AddComponent<EmptyTile>();
+                    // Initialize tile
+                    room.Tiles[newPos.x, newPos.y].Position = new Vector2Int(newPos.x, newPos.y);
+                    // Create map object
+                    CurrentRoom.Tiles[newPos.x, newPos.y].TileObj = Instantiate(tileSet.GetTilePrefab(CurrentRoom.Tiles[newPos.x, newPos.y]),
+                                                                               new Vector3(newPos.x, -0.5f, newPos.y),
+                                                                               Quaternion.identity);
+                }
+                if (!TileHasNeighbour(pos, Vector2Int.left))
+                {
+                    Vector2Int newPos = pos + Vector2Int.left;
+                    // Create Tile object
+                    tileObj = new GameObject("Dungeon Extra Tile " + Vector2Int.left.ToString());
+                    tileObj.transform.SetParent(room.Tiles[pos.x, pos.y].transform);
+                    // Add tile to room's tiles
+                    room.Tiles[newPos.x, newPos.y] = tileObj.AddComponent<EmptyTile>();
+                    // Initialize tile
+                    room.Tiles[newPos.x, newPos.y].Position = new Vector2Int(newPos.x, newPos.y);
+                    // Create map object
+                    CurrentRoom.Tiles[newPos.x, newPos.y].TileObj = Instantiate(tileSet.GetTilePrefab(CurrentRoom.Tiles[newPos.x, newPos.y]),
+                                                                               new Vector3(newPos.x, -0.5f, newPos.y),
+                                                                               Quaternion.identity);
+                }
+
+            } while (!isPlaced);
+        }
+       
     }
 
     public void CreateNewDungeon(int noOfFloor, Vector2Int roomsPerFloor, Vector2Int roomSize)
@@ -408,7 +514,6 @@ public class DungeonController : Singleton<DungeonController>
         GameController.Instance.Player.SetPosition(CurrentFloor.FloorUpTransition.TilePosition);
     }
     
-    
     public void MoveRoom(Vector2Int direction)
     {
         Vector2Int targetRoomPos = CurrentRoom.RoomPosition + direction;
@@ -456,6 +561,23 @@ public class DungeonController : Singleton<DungeonController>
         return true;
     }
     
+    private bool TileHasNeighbour(Vector2Int pos, Vector2Int direction)
+    {
+        Vector2Int testPos = pos + direction;
+        if (testPos.x < 0
+           || testPos.y < 0
+           || testPos.x >= CurrentRoom.Tiles.GetLength(0)
+           || testPos.y >= CurrentRoom.Tiles.GetLength(1))
+        {
+            return false;
+        }
+        if(CurrentRoom.Tiles[testPos.x,testPos.y] == null)
+        {
+            return false;
+        }
+        return true;
+    }
+
     private bool TrySetRandomTile(Floor floor, Tile tile, out Vector2Int pos, out Room room)
     {
         pos = Vector2Int.zero;
