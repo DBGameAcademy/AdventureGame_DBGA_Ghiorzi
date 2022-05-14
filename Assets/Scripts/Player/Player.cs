@@ -35,6 +35,11 @@ public class Player : MonoBehaviour
         transform.position = new Vector3(_currentPosition.x, height, _currentPosition.y);
     }
 
+    public void StopMoving()
+    {
+        IsMoving = false;
+    }
+
     private void Awake()
     {
         IsMoving = false;
@@ -61,7 +66,7 @@ public class Player : MonoBehaviour
                 {
                     tile.EnterTile();
 
-                    if (_controls.Player.Move.inProgress)
+                    if (_controls.Player.Move.inProgress && IsMoving)
                     {
                         FindNewTargetPosition(MovingDirection);
                         return;

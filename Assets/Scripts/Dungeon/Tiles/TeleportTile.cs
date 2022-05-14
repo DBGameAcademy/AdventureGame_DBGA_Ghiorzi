@@ -11,10 +11,13 @@ public class TeleportTile : Tile
     {
         if (Destination == null)
             return;
+        GameController.Instance.Player.StopMoving();
         CinematicController.Instance.StartCinematic();
-        GameController.Instance.Player.SetPosition(Destination);
+       
         // Teleport
-        StartCoroutine(COWaitBeforeAction(1.0f, () => { CinematicController.Instance.EndCinematic(); }));
+        StartCoroutine(COWaitBeforeAction(1.0f, () => {
+            GameController.Instance.Player.SetPosition(Destination);
+            CinematicController.Instance.EndCinematic(); }));
         
     }
 
