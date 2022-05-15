@@ -159,16 +159,12 @@ public class DungeonController : Singleton<DungeonController>
         // Create teleports
         foreach (Region region in regions)
         {
-            Debug.Log("Region: " + region.RegionIndex + " has as parents: ");
             foreach (Region parent in region.Parents)
             {
                 foreach (ConnectionPoint point in parent.RegionConnections)
                 {
                     if (point.ConnectedRegion == region)
                     {
-
-                        Debug.Log(parent.RegionIndex + " with point " + point.FirstTilePoistion + " AND " + point.SecondTilePosition);
-
                         // FIRST
                         // Destroy tile before
                         if (CurrentRoom.Tiles[point.FirstTilePoistion.x, point.FirstTilePoistion.y].TileObj != null)
@@ -531,54 +527,6 @@ public class DungeonController : Singleton<DungeonController>
         }
     }
 
-    private void SaveMap()
-    {
-        _savedMapFloor = CurrentFloor;
-    }
-    private void SavePlayerPosition()
-    {
-        _savedPlayerPos = new Vector2Int((int)GameController.Instance.Player.transform.position.x, (int)GameController.Instance.Player.transform.position.z);
-    }
-
-    private void LoadMap()
-    {
-        for (int i = 0; i < _currentDungeon.Floors.Count; ++i)
-        {
-            Destroy(_currentDungeon.Floors[i].gameObject);
-        }
-        _currentDungeon.Floors[0] = _savedMapFloor;
-        
-        //CurrentRoom = _savedMapRoom;
-    }
-    private void MakeMap()
-    {
-        _floorIndex = 0;
-        _roomPosition = Vector2Int.zero;
-        for (int x = 0; x < CurrentRoom.Size.x; ++x)
-        {
-            for (int y = 0; y < CurrentRoom.Size.y; ++y)
-            {
-                if (CurrentRoom.Tiles[x, y] == null)
-                    continue;
-                if(CurrentRoom.Tiles[x,y].GetType() == typeof(DungeonEntranceTile))
-                {
-                    CurrentRoom.Tiles[x, y].TileObj = Instantiate(tileSet.GetTilePrefab(CurrentRoom.Tiles[x, y]),
-                                                                           new Vector3(x, -1.0f, y + 1),
-                                                                           Quaternion.Euler(0.0f, 180.0f, 0.0f));
-                }
-                else if (CurrentRoom.Tiles[x, y].GetType() == typeof(TeleportTile))
-                {
-                    CurrentRoom.Tiles[x, y].TileObj = Instantiate(tileSet.GetTilePrefab(CurrentRoom.Tiles[x, y]), new Vector3(x, -0.5f, y), Quaternion.identity);
-                    TeleportTile tp = (TeleportTile)CurrentRoom.Tiles[x, y];
-                    tp.Particle = CurrentRoom.Tiles[x, y].TileObj.GetComponent<TeleportTile>().Particle;
-                }
-                else
-                    CurrentRoom.Tiles[x, y].TileObj = Instantiate(tileSet.GetTilePrefab(CurrentRoom.Tiles[x, y]), new Vector3(x, -0.5f, y), Quaternion.identity);
-            }
-        }
-        GameController.Instance.Player.SetPosition(_savedPlayerPos);
-    }
-
     public void MoveFloorUp()
     {
         ClearCurrentRoom();
@@ -631,6 +579,11 @@ public class DungeonController : Singleton<DungeonController>
         }
 
         MakeCurrentRoom();
+    }
+
+    public Tile GetTile(Vector2Int position)
+    {
+        return CurrentRoom.Tiles[position.x, position.y];
     }
     
     private bool RoomHasNeighbour(Room checkRoom, Vector2Int direction)
@@ -697,4 +650,50 @@ public class DungeonController : Singleton<DungeonController>
 
         return true;
     }
+
+    private void SaveMap()
+    {
+        _savedMapFloor = CurrentFloor;
+    }
+    private void SavePlayerPosition()
+    {
+        _savedPlayerPos = new Vector2Int((int)GameController.Instance.Player.transform.position.x, (int)GameController.Instance.Player.transform.position.z);
+    }
+    private void LoadMap()
+    {
+        for (int i = 0; i < _currentDungeon.Floors.Count; ++i)
+        {
+            Destroy(_currentDungeon.Floors[i].gameObject);
+        }
+        _currentDungeon.Floors[0] = _savedMapFloor;
+    }
+    private void MakeMap()
+    {
+        _floorIndex = 0;
+        _roomPosition = Vector2Int.zero;
+        for (int x = 0; x < CurrentRoom.Size.x; ++x)
+        {
+            for (int y = 0; y < CurrentRoom.Size.y; ++y)
+            {
+                if (CurrentRoom.Tiles[x, y] == null)
+                    continue;
+                if (CurrentRoom.Tiles[x, y].GetType() == typeof(DungeonEntranceTile))
+                {
+                    CurrentRoom.Tiles[x, y].TileObj = Instantiate(tileSet.GetTilePrefab(CurrentRoom.Tiles[x, y]),
+                                                                           new Vector3(x, -1.0f, y + 1),
+                                                                           Quaternion.Euler(0.0f, 180.0f, 0.0f));
+                }
+                else if (CurrentRoom.Tiles[x, y].GetType() == typeof(TeleportTile))
+                {
+                    CurrentRoom.Tiles[x, y].TileObj = Instantiate(tileSet.GetTilePrefab(CurrentRoom.Tiles[x, y]), new Vector3(x, -0.5f, y), Quaternion.identity);
+                    TeleportTile tp = (TeleportTile)CurrentRoom.Tiles[x, y];
+                    tp.Particle = CurrentRoom.Tiles[x, y].TileObj.GetComponent<TeleportTile>().Particle;
+                }
+                else
+                    CurrentRoom.Tiles[x, y].TileObj = Instantiate(tileSet.GetTilePrefab(CurrentRoom.Tiles[x, y]), new Vector3(x, -0.5f, y), Quaternion.identity);
+            }
+        }
+        GameController.Instance.Player.SetPosition(_savedPlayerPos);
+    }
+
 }
