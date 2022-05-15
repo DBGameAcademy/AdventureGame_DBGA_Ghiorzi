@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 545a362b060ae9d4f97f351e1e699ba2, type: 3}
-  m_Name: DefaultTileSet
+  m_Name: MapTileSet
   m_EditorClassIdentifier: 
   tilesPrefab:
   - {fileID: 8598288399218147306, guid: e02db4b1d5a856249a49c7db2e4f6cd6, type: 3}

@@ -9,7 +9,9 @@ public class DungeonController : Singleton<DungeonController>
 
     [Header("TileSets")]
     [SerializeField]
-    private TileSet tileSet;
+    private TileSet mapTileSet;
+    [SerializeField]
+    private TileSet dungeonTileSet;
 
     [Header("Map generation")]
     [SerializeField]
@@ -127,7 +129,7 @@ public class DungeonController : Singleton<DungeonController>
                     room.Tiles[tilex, tiley].Position = new Vector2Int(tilex, tiley);
 
                     // Create Map
-                    CurrentRoom.Tiles[tilex, tiley].TileObj = Instantiate(tileSet.GetTilePrefab(CurrentRoom.Tiles[tilex, tiley]),
+                    CurrentRoom.Tiles[tilex, tiley].TileObj = Instantiate(mapTileSet.GetTilePrefab(CurrentRoom.Tiles[tilex, tiley]),
                                                                             new Vector3(tilex, -0.5f, tiley),
                                                                             Quaternion.identity);
                     // Place player
@@ -187,7 +189,7 @@ public class DungeonController : Singleton<DungeonController>
                         tp.Destination = point.SecondTilePosition;
 
                         // Create obj in Map
-                        CurrentRoom.Tiles[point.FirstTilePoistion.x, point.FirstTilePoistion.y].TileObj = Instantiate(tileSet.GetTilePrefab(CurrentRoom.Tiles[point.FirstTilePoistion.x, point.FirstTilePoistion.y]),
+                        CurrentRoom.Tiles[point.FirstTilePoistion.x, point.FirstTilePoistion.y].TileObj = Instantiate(mapTileSet.GetTilePrefab(CurrentRoom.Tiles[point.FirstTilePoistion.x, point.FirstTilePoistion.y]),
                                                                                 new Vector3(point.FirstTilePoistion.x, -0.5f, point.FirstTilePoistion.y),
                                                                                 Quaternion.identity);
                         tp.Particle = CurrentRoom.Tiles[point.FirstTilePoistion.x, point.FirstTilePoistion.y].TileObj.GetComponent<TeleportTile>().Particle;
@@ -209,7 +211,7 @@ public class DungeonController : Singleton<DungeonController>
                         tp.Destination = point.FirstTilePoistion;
 
                         // Create obj in Map
-                        CurrentRoom.Tiles[point.SecondTilePosition.x, point.SecondTilePosition.y].TileObj = Instantiate(tileSet.GetTilePrefab(CurrentRoom.Tiles[point.SecondTilePosition.x, point.SecondTilePosition.y]),
+                        CurrentRoom.Tiles[point.SecondTilePosition.x, point.SecondTilePosition.y].TileObj = Instantiate(mapTileSet.GetTilePrefab(CurrentRoom.Tiles[point.SecondTilePosition.x, point.SecondTilePosition.y]),
                                                                                 new Vector3(point.SecondTilePosition.x, -0.5f, point.SecondTilePosition.y),
                                                                                 Quaternion.identity);
                         tp.Particle = CurrentRoom.Tiles[point.SecondTilePosition.x, point.SecondTilePosition.y].TileObj.GetComponent<TeleportTile>().Particle;
@@ -253,7 +255,7 @@ public class DungeonController : Singleton<DungeonController>
                 // Initialize tile
                 room.Tiles[pos.x, pos.y].Position = new Vector2Int(pos.x, pos.y);
                 // Create map object
-                CurrentRoom.Tiles[pos.x, pos.y].TileObj = Instantiate(tileSet.GetTilePrefab(CurrentRoom.Tiles[pos.x, pos.y]),
+                CurrentRoom.Tiles[pos.x, pos.y].TileObj = Instantiate(mapTileSet.GetTilePrefab(CurrentRoom.Tiles[pos.x, pos.y]),
                                                                            new Vector3(pos.x, -1.0f, pos.y + 1),
                                                                            Quaternion.Euler(0.0f, 180.0f, 0.0f));
                 // Fill empty tiles around Dungeon Entrance
@@ -273,7 +275,7 @@ public class DungeonController : Singleton<DungeonController>
                         // Initialize tile
                         room.Tiles[newPos.x, newPos.y].Position = new Vector2Int(newPos.x, newPos.y);
                         // Create map object
-                        CurrentRoom.Tiles[newPos.x, newPos.y].TileObj = Instantiate(tileSet.GetTilePrefab(CurrentRoom.Tiles[newPos.x, newPos.y]),
+                        CurrentRoom.Tiles[newPos.x, newPos.y].TileObj = Instantiate(mapTileSet.GetTilePrefab(CurrentRoom.Tiles[newPos.x, newPos.y]),
                                                                                    new Vector3(newPos.x, -0.5f, newPos.y),
                                                                                    Quaternion.identity);
                     }
@@ -294,7 +296,7 @@ public class DungeonController : Singleton<DungeonController>
                         // Initialize tile
                         room.Tiles[newPos.x, newPos.y].Position = new Vector2Int(newPos.x, newPos.y);
                         // Create map object
-                        CurrentRoom.Tiles[newPos.x, newPos.y].TileObj = Instantiate(tileSet.GetTilePrefab(CurrentRoom.Tiles[newPos.x, newPos.y]),
+                        CurrentRoom.Tiles[newPos.x, newPos.y].TileObj = Instantiate(mapTileSet.GetTilePrefab(CurrentRoom.Tiles[newPos.x, newPos.y]),
                                                                                    new Vector3(newPos.x, -0.5f, newPos.y),
                                                                                    Quaternion.identity);
                     }
@@ -315,7 +317,7 @@ public class DungeonController : Singleton<DungeonController>
                         // Initialize tile
                         room.Tiles[newPos.x, newPos.y].Position = new Vector2Int(newPos.x, newPos.y);
                         // Create map object
-                        CurrentRoom.Tiles[newPos.x, newPos.y].TileObj = Instantiate(tileSet.GetTilePrefab(CurrentRoom.Tiles[newPos.x, newPos.y]),
+                        CurrentRoom.Tiles[newPos.x, newPos.y].TileObj = Instantiate(mapTileSet.GetTilePrefab(CurrentRoom.Tiles[newPos.x, newPos.y]),
                                                                                    new Vector3(newPos.x, -0.5f, newPos.y),
                                                                                    Quaternion.identity);
                     }
@@ -336,7 +338,7 @@ public class DungeonController : Singleton<DungeonController>
                         // Initialize tile
                         room.Tiles[newPos.x, newPos.y].Position = new Vector2Int(newPos.x, newPos.y);
                         // Create map object
-                        CurrentRoom.Tiles[newPos.x, newPos.y].TileObj = Instantiate(tileSet.GetTilePrefab(CurrentRoom.Tiles[newPos.x, newPos.y]),
+                        CurrentRoom.Tiles[newPos.x, newPos.y].TileObj = Instantiate(mapTileSet.GetTilePrefab(CurrentRoom.Tiles[newPos.x, newPos.y]),
                                                                                    new Vector3(newPos.x, -0.5f, newPos.y),
                                                                                    Quaternion.identity);
                     }
@@ -528,7 +530,7 @@ public class DungeonController : Singleton<DungeonController>
         {
             for(int y=0; y< CurrentRoom.Size.y; ++y)
             {
-                CurrentRoom.Tiles[x,y].TileObj = Instantiate(tileSet.GetTilePrefab(CurrentRoom.Tiles[x, y]),new Vector3(x,-0.5f,y), Quaternion.identity);
+                CurrentRoom.Tiles[x,y].TileObj = Instantiate(dungeonTileSet.GetTilePrefab(CurrentRoom.Tiles[x, y]),new Vector3(x,-0.5f,y), Quaternion.identity);
             }
         }
     }
@@ -720,18 +722,18 @@ public class DungeonController : Singleton<DungeonController>
                     continue;
                 if (CurrentRoom.Tiles[x, y].GetType() == typeof(DungeonEntranceTile))
                 {
-                    CurrentRoom.Tiles[x, y].TileObj = Instantiate(tileSet.GetTilePrefab(CurrentRoom.Tiles[x, y]),
+                    CurrentRoom.Tiles[x, y].TileObj = Instantiate(mapTileSet.GetTilePrefab(CurrentRoom.Tiles[x, y]),
                                                                            new Vector3(x, -1.0f, y + 1),
                                                                            Quaternion.Euler(0.0f, 180.0f, 0.0f));
                 }
                 else if (CurrentRoom.Tiles[x, y].GetType() == typeof(TeleportTile))
                 {
-                    CurrentRoom.Tiles[x, y].TileObj = Instantiate(tileSet.GetTilePrefab(CurrentRoom.Tiles[x, y]), new Vector3(x, -0.5f, y), Quaternion.identity);
+                    CurrentRoom.Tiles[x, y].TileObj = Instantiate(mapTileSet.GetTilePrefab(CurrentRoom.Tiles[x, y]), new Vector3(x, -0.5f, y), Quaternion.identity);
                     TeleportTile tp = (TeleportTile)CurrentRoom.Tiles[x, y];
                     tp.Particle = CurrentRoom.Tiles[x, y].TileObj.GetComponent<TeleportTile>().Particle;
                 }
                 else
-                    CurrentRoom.Tiles[x, y].TileObj = Instantiate(tileSet.GetTilePrefab(CurrentRoom.Tiles[x, y]), new Vector3(x, -0.5f, y), Quaternion.identity);
+                    CurrentRoom.Tiles[x, y].TileObj = Instantiate(mapTileSet.GetTilePrefab(CurrentRoom.Tiles[x, y]), new Vector3(x, -0.5f, y), Quaternion.identity);
             }
         }
         GameController.Instance.Player.SetPosition(_savedPlayerPos);

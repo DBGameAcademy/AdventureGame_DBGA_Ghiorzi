@@ -800,7 +800,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb449fb873e641c499d58d4ad98fc1f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileSet: {fileID: 11400000, guid: 37e805dc523b5d94987870c98ee4ff91, type: 2}
+  mapTileSet: {fileID: 11400000, guid: 37e805dc523b5d94987870c98ee4ff91, type: 2}
+  dungeonTileSet: {fileID: 11400000, guid: 1e3772a56882a014fab810220d60c05f, type: 2}
   height: 50
   width: 50
   iterations: 4
