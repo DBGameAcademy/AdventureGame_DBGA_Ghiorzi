@@ -15,7 +15,6 @@ public class MonsterCollection : ScriptableObject
             if(MonstersData[i].ID == id)
             {
                 data = MonstersData[i];
-                Debug.Log("Found");
                 break;
             }
         }
@@ -25,7 +24,6 @@ public class MonsterCollection : ScriptableObject
         Monster monster = newMonsterObj.GetComponent<Monster>();
 
         monster.SetupMonster(data);
-        Debug.Log(monster.name);
         return monster;
     }
 
