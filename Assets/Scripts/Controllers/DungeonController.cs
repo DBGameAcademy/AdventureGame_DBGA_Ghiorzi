@@ -23,6 +23,10 @@ public class DungeonController : Singleton<DungeonController>
     [SerializeField]
     private int numberOfDungeons = 3;
 
+    [Header("Monsters settings")]
+    [SerializeField]
+    private int mapMobDensity;
+
     private Dungeon _currentDungeon;
     private int _floorIndex = 0;
     private Vector2Int _roomPosition;
@@ -340,11 +344,28 @@ public class DungeonController : Singleton<DungeonController>
 
             } while (!isPlaced);
         }
+        
+        // Spawn Monsters
+        int spawnAttempts = 0;
+        do
+        {
+            if(TryGetRandomTile(_currentDungeon.Floors[0],out Tile tile, out Room tileRoom))
+            {
+                // Spawn only Slimes in the map for now
+                Monster monster = MonsterController.Instance.AddMonster(eMonsterID.Slime);
+                tile.SetCharacterObject(monster);
+                monster.SetPosition(tile.Position);
+            }
+            spawnAttempts++;
+        }
+        while (spawnAttempts < mapMobDensity);
+        
         SaveMap();
     }
 
     public void CreateNewDungeon(int noOfFloor, Vector2Int roomsPerFloor, Vector2Int roomSize)
     {
+        MonsterController.Instance.DestroyAllMonster();
         SavePlayerPosition();
         ClearCurrentRoom();
         _currentDungeon = new Dungeon();
@@ -651,6 +672,26 @@ public class DungeonController : Singleton<DungeonController>
         return true;
     }
 
+    private bool TryGetRandomTile(Floor floor, out Tile tile, out Room room)
+    {
+        Vector2Int pos = Vector2Int.zero;
+        tile = null;
+        room = floor.Rooms[Random.Range(0, floor.Rooms.GetLength(0)), Random.Range(0, floor.Rooms.GetLength(1))];
+        if (room == null)
+        {
+            return false;
+        }
+
+        pos = new Vector2Int(Random.Range(0, room.Size.x), Random.Range(0, room.Size.y));
+        tile = room.Tiles[pos.x, pos.y];
+        if (room.Tiles[pos.x,pos.y] == null || room.Tiles[pos.x, pos.y].GetType() != typeof(EmptyTile))
+        {
+            return false;
+        }
+
+        return true;
+    }
+
     private void SaveMap()
     {
         _savedMapFloor = CurrentFloor;
@@ -694,6 +735,20 @@ public class DungeonController : Singleton<DungeonController>
             }
         }
         GameController.Instance.Player.SetPosition(_savedPlayerPos);
-    }
 
+        // Spawn Monsters again
+        int spawnAttempts = 0;
+        do
+        {
+            if (TryGetRandomTile(_currentDungeon.Floors[0], out Tile tile, out Room tileRoom))
+            {
+                // Spawn only Slimes in the map for now
+                Monster monster = MonsterController.Instance.AddMonster(eMonsterID.Slime);
+                tile.SetCharacterObject(monster);
+                monster.SetPosition(tile.Position);
+            }
+            spawnAttempts++;
+        }
+        while (spawnAttempts < mapMobDensity);
+    }
 }

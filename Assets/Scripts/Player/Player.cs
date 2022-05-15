@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : Actor
 { 
     public bool IsMoving { get; private set; }
     public Vector2Int MovingDirection { get; private set; }
@@ -8,8 +8,6 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float moveSpeed;
 
-    private int maxHealth;
-    private int currentHealth;
     private int experience;
     private Quest[] quests;
     private Weapon heldWeapon;
@@ -64,7 +62,12 @@ public class Player : MonoBehaviour
                 Tile tile = DungeonController.Instance.CurrentRoom.Tiles[_currentPosition.x, _currentPosition.y];
                 if(tile != null && tile.IsWalkable)
                 {
+                    if(_lastTile!=null)
+                        _lastTile.UnsetCharacterObject();
+
                     tile.EnterTile();
+                    tile.SetCharacterObject(this);
+                    _lastTile = tile;
 
                     if (_controls.Player.Move.inProgress && IsMoving)
                     {
@@ -129,11 +132,6 @@ public class Player : MonoBehaviour
             IsMoving = true;
             _targetPosition = position;
         }
-    }
-
-    void OnKill()
-    {
-
     }
 
     void OnLevelUp()

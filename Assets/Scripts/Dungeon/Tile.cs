@@ -9,5 +9,19 @@ public abstract class Tile : MonoBehaviour
 
     public bool IsWalkable = true;
 
+    public CharacterObject CharacterObject { get; private set; }
+
+    public void SetCharacterObject(CharacterObject obj)
+    {
+        CharacterObject = obj;
+        IsWalkable = false;
+    }
+
+    public void UnsetCharacterObject()
+    {
+        CharacterObject = null;
+        IsWalkable = true;
+    }
+
     public abstract void EnterTile();
 }
