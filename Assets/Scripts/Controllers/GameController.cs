@@ -3,6 +3,13 @@ using Cinemachine;
 
 public class GameController : Singleton<GameController>
 {
+    public enum eGameState
+    {
+        InTown,
+        PlayerTurn,
+        MonsterTurn
+    }
+
     public Player Player { get; private set; }
 
     [SerializeField]

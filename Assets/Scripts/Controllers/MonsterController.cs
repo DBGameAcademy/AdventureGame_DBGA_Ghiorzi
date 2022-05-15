@@ -22,6 +22,7 @@ public class MonsterController : Singleton<MonsterController>
     {
         foreach(Monster monster in ActiveMonster)
         {
+            DungeonController.Instance.GetTile(new Vector2Int((int)monster.transform.position.x,(int)monster.transform.position.z)).UnsetCharacterObject();
             Destroy(monster.gameObject);
         }
         _activeMonsters.Clear();
