@@ -9,6 +9,8 @@ public class DungeonController : Singleton<DungeonController>
 
     [Header("Skyboxes")]
     [SerializeField]
+    private Light light;
+    [SerializeField]
     private Material mapSkybox;
     [SerializeField]
     private Material dungeonSkybox;
@@ -534,6 +536,7 @@ public class DungeonController : Singleton<DungeonController>
 
     private void MakeCurrentRoom()
     {
+        light.intensity = 0.2f;
         if (RenderSettings.skybox != dungeonSkybox)
             RenderSettings.skybox = dungeonSkybox;
         for(int x=0; x < CurrentRoom.Size.x; ++x)
@@ -722,6 +725,7 @@ public class DungeonController : Singleton<DungeonController>
     }
     private void MakeMap()
     {
+        light.intensity = 1.0f;
         if (RenderSettings.skybox != mapSkybox)
             RenderSettings.skybox = mapSkybox;
 
