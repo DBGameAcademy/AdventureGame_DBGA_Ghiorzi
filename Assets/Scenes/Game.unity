@@ -800,6 +800,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb449fb873e641c499d58d4ad98fc1f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mapSkybox: {fileID: 2100000, guid: 2bd8959f5fbd3644aa33af1a155fc147, type: 2}
+  dungeonSkybox: {fileID: 2100000, guid: 1cf6f4c6e6e0518419839d3f5448dd99, type: 2}
   mapTileSet: {fileID: 11400000, guid: 37e805dc523b5d94987870c98ee4ff91, type: 2}
   dungeonTileSet: {fileID: 11400000, guid: 1e3772a56882a014fab810220d60c05f, type: 2}
   height: 50

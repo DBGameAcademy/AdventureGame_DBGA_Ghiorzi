@@ -7,6 +7,12 @@ public class DungeonController : Singleton<DungeonController>
     public Floor CurrentFloor { get { return _currentDungeon.Floors[_floorIndex]; } }
     public Room CurrentRoom { get { return _currentDungeon.Floors[_floorIndex].Rooms[_roomPosition.x,_roomPosition.y]; } }
 
+    [Header("Skyboxes")]
+    [SerializeField]
+    private Material mapSkybox;
+    [SerializeField]
+    private Material dungeonSkybox;
+
     [Header("TileSets")]
     [SerializeField]
     private TileSet mapTileSet;
@@ -171,6 +177,8 @@ public class DungeonController : Singleton<DungeonController>
                 {
                     if (point.ConnectedRegion == region)
                     {
+                        if (CurrentRoom.Tiles[point.FirstTilePoistion.x, point.FirstTilePoistion.y] == null)
+                            continue;
                         // FIRST
                         // Destroy tile before
                         if (CurrentRoom.Tiles[point.FirstTilePoistion.x, point.FirstTilePoistion.y].TileObj != null)
@@ -526,6 +534,8 @@ public class DungeonController : Singleton<DungeonController>
 
     private void MakeCurrentRoom()
     {
+        if (RenderSettings.skybox != dungeonSkybox)
+            RenderSettings.skybox = dungeonSkybox;
         for(int x=0; x < CurrentRoom.Size.x; ++x)
         {
             for(int y=0; y< CurrentRoom.Size.y; ++y)
@@ -712,6 +722,9 @@ public class DungeonController : Singleton<DungeonController>
     }
     private void MakeMap()
     {
+        if (RenderSettings.skybox != mapSkybox)
+            RenderSettings.skybox = mapSkybox;
+
         _floorIndex = 0;
         _roomPosition = Vector2Int.zero;
         for (int x = 0; x < CurrentRoom.Size.x; ++x)
