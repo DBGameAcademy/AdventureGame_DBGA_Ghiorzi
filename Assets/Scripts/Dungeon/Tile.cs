@@ -7,5 +7,7 @@ public abstract class Tile : MonoBehaviour
     public Vector2Int Position { get; set; }
     public GameObject TileObj { get; set; }
 
+    public bool IsWalkable = true;
+
     public abstract void EnterTile();
 }

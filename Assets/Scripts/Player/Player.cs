@@ -62,7 +62,7 @@ public class Player : MonoBehaviour
                 _currentPosition = _targetPosition;
 
                 Tile tile = DungeonController.Instance.CurrentRoom.Tiles[_currentPosition.x, _currentPosition.y];
-                if(tile != null)
+                if(tile != null && tile.IsWalkable)
                 {
                     tile.EnterTile();
 
@@ -97,7 +97,8 @@ public class Player : MonoBehaviour
         if (position.x < 0 || position.y < 0
             || position.x >= DungeonController.Instance.CurrentRoom.Size.x
             || position.y >= DungeonController.Instance.CurrentRoom.Size.y
-            || DungeonController.Instance.CurrentRoom.Tiles[position.x,position.y]==null)
+            || DungeonController.Instance.CurrentRoom.Tiles[position.x,position.y]==null
+            || !DungeonController.Instance.GetTile(position).IsWalkable)
         {
             return;
         }
@@ -123,7 +124,7 @@ public class Player : MonoBehaviour
         }
 
         Tile tile = DungeonController.Instance.CurrentRoom.Tiles[position.x, position.y];
-        if(!IsMoving && tile != null)
+        if(!IsMoving && tile != null && tile.IsWalkable)
         {
             IsMoving = true;
             _targetPosition = position;
