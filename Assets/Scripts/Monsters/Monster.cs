@@ -78,6 +78,7 @@ public class Monster: Actor
     {
         if (_stateMachine.CurrentState.GetType() != typeof(Idle))
             return;
+
         _currentPosition = new Vector2Int((int)transform.position.x, (int)transform.position.z);
         // Find free tiles in range
         List<Vector2Int> freeDirections = new List<Vector2Int>();
@@ -136,15 +137,19 @@ public class Monster: Actor
         _lastTile.UnsetCharacterObject();
 
         // Get free random direction
-        int randIndex = Random.Range(0, freeDirections.Count);
-        Vector2Int moveDirection = freeDirections[randIndex];
-        MovingDirection = moveDirection;
-        BeginMove(moveDirection);
+        if(freeDirections.Count > 0)
+        {
+            int randIndex = Random.Range(0, freeDirections.Count);
+            Vector2Int moveDirection = freeDirections[randIndex];
+            MovingDirection = moveDirection;
+            BeginMove(moveDirection);
+        }
+        // Else don't move 
     }
 
-    private void BeginMove(Vector2 direction)
+    private void BeginMove(Vector2Int direction)
     {
-        Vector2Int intDirection = new Vector2Int((int)direction.x, (int)direction.y);
+        Vector2Int intDirection = direction;
         //MovingDirection = intDirection;
         Vector2Int position = _currentPosition + intDirection;
 
@@ -155,7 +160,7 @@ public class Monster: Actor
             return;
         }
 
-        Tile tile = DungeonController.Instance.CurrentRoom.Tiles[position.x, position.y];
+        Tile tile = DungeonController.Instance.GetTile(position);
         if (!IsMoving && tile != null && tile.IsWalkable)
         {
             IsMoving = true;
