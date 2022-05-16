@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MonsterController : Singleton<MonsterController>
 {
-    public List<Monster> ActiveMonster { get=>_activeMonsters;}
+    public List<Monster> ActiveMonsters { get=>_activeMonsters;}
 
     [SerializeField]
     private MonsterCollection monsterCollection;
@@ -14,17 +14,26 @@ public class MonsterController : Singleton<MonsterController>
     public Monster AddMonster(eMonsterID monsterID)
     {
         Monster newMonster = monsterCollection.GetMonster(monsterID);
-        ActiveMonster.Add(newMonster);
+        ActiveMonsters.Add(newMonster);
         return newMonster;
     }
 
     public void DestroyAllMonster()
     {
-        foreach(Monster monster in ActiveMonster)
+        foreach(Monster monster in ActiveMonsters)
         {
             DungeonController.Instance.GetTile(new Vector2Int((int)monster.transform.position.x,(int)monster.transform.position.z)).UnsetCharacterObject();
             Destroy(monster.gameObject);
         }
         _activeMonsters.Clear();
+    }
+
+    public void MoveMonsters()
+    {
+        Debug.Log("Active monsters " + ActiveMonsters.Count);
+        foreach(Monster monster in ActiveMonsters)
+        {
+            monster.Move();
+        }
     }
 }

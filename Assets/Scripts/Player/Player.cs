@@ -4,6 +4,7 @@ public class Player : Actor
 { 
     public bool IsMoving { get; private set; }
     public Vector2Int MovingDirection { get; private set; }
+    public Vector2Int TargetPosition { get => _targetPosition; }
     
     [SerializeField]
     private float moveSpeed;
@@ -69,13 +70,16 @@ public class Player : Actor
                     tile.SetCharacterObject(this);
                     _lastTile = tile;
 
+                    
+
                     if (_controls.Player.Move.inProgress && IsMoving)
                     {
                         FindNewTargetPosition(MovingDirection);
+                        MonsterController.Instance.MoveMonsters();
                         return;
                     }
                 }
-
+                MonsterController.Instance.MoveMonsters();
                 IsMoving = false;
             }
         }
@@ -121,7 +125,9 @@ public class Player : Actor
 
         if(position.x<0 || position.y < 0 
             || position.x >= DungeonController.Instance.CurrentRoom.Size.x
-            || position.y >= DungeonController.Instance.CurrentRoom.Size.y)
+            || position.y >= DungeonController.Instance.CurrentRoom.Size.y
+            || DungeonController.Instance.CurrentRoom.Tiles[position.x, position.y] == null
+            || !DungeonController.Instance.GetTile(position).IsWalkable)
         {
             return;
         }
