@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class Monster: Actor
 {
     public bool IsMoving { get; private set; }
+    public Vector2Int MovingDirection { get; private set; }
 
     private float _moveSpeed = 3;
 
@@ -137,6 +138,7 @@ public class Monster: Actor
         // Get free random direction
         int randIndex = Random.Range(0, freeDirections.Count);
         Vector2Int moveDirection = freeDirections[randIndex];
+        MovingDirection = moveDirection;
         BeginMove(moveDirection);
     }
 

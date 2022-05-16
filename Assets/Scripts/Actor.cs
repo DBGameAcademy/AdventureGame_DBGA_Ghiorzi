@@ -6,6 +6,7 @@ public class Actor : CharacterObject
 {
     protected int maxHealth;
     protected int currentHealth;
+    protected bool isInBattle = false;
 
     protected virtual void OnKill()
     {

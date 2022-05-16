@@ -30,7 +30,6 @@ public class MonsterController : Singleton<MonsterController>
 
     public void MoveMonsters()
     {
-        Debug.Log("Active monsters " + ActiveMonsters.Count);
         foreach(Monster monster in ActiveMonsters)
         {
             monster.Move();
