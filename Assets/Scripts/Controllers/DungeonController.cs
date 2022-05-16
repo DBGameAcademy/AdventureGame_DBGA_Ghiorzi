@@ -530,6 +530,98 @@ public class DungeonController : Singleton<DungeonController>
 
             } while (!placedFloorDown);
         }
+        // Place torch
+        foreach(Floor floor in _currentDungeon.Floors)
+        {
+            for (int x = 0; x < floor.Rooms.GetLength(0); ++x)
+            {
+                for (int y = 0; y < floor.Rooms.GetLength(1); ++y)
+                {
+                    Room room = floor.Rooms[x, y];
+                    int torchNumbers = Random.Range(0,3);
+                    List<int> positionList = new List<int>() { 0, 1, 2 }; 
+                    for(int i=0; i<torchNumbers; ++i)
+                    {
+                        int randomPosition = Random.Range(0,positionList.Count);
+                        if(positionList[randomPosition] == 0)
+                        {
+                            // Find Free tiles
+                            List<Tile> freeTiles = new List<Tile>();
+                            for(int tiley = 0; tiley < room.Tiles.GetLength(1); ++tiley)
+                            {
+                                if(room.Tiles[0, tiley].GetType() == typeof(EmptyTile))
+                                {
+                                    freeTiles.Add(room.Tiles[0, tiley]);
+                                }
+                            }
+                            int randomTilePos = Random.Range(0,freeTiles.Count);
+                            int randY = freeTiles[randomTilePos].Position.y;
+                            // Destroy tile before
+                            Destroy(room.Tiles[0, randY].TileObj);
+                            // Create Tile object
+                            GameObject tileObj = new GameObject("Torch (" + 0 + ";" +randY + ")");
+                            tileObj.transform.SetParent(room.Tiles[0, randY].transform);
+                            // Add tile to room's tiles
+                            room.Tiles[0, randY] = tileObj.AddComponent<TorchTile>();
+                            // Init
+                            room.Tiles[0, randY].Position = new Vector2Int(0, randY);
+                            
+                        }
+                        if (positionList[randomPosition] == 1)
+                        {
+                            // Find Free tiles
+                            List<Tile> freeTiles = new List<Tile>();
+                            int tiley = room.Tiles.GetLength(1) - 1;
+                            for (int tilex = 0; tilex < room.Tiles.GetLength(0); ++tilex)
+                            {
+                                if (room.Tiles[tilex, tiley].GetType() == typeof(EmptyTile))
+                                {
+                                    freeTiles.Add(room.Tiles[tilex, tiley]);
+                                }
+                            }
+                            int randomTilePos = Random.Range(0, freeTiles.Count);
+                            int randX = freeTiles[randomTilePos].Position.x;
+                            // Destroy tile before
+                            Destroy(room.Tiles[randX, tiley].TileObj);
+                            // Create Tile object
+                            GameObject tileObj = new GameObject("Torch (" + randX + ";" + tiley + ")");
+                            tileObj.transform.SetParent(room.Tiles[randX, tiley].transform);
+                            // Add tile to room's tiles
+                            room.Tiles[randX, tiley] = tileObj.AddComponent<TorchTile>();
+                            // Init
+                            room.Tiles[randX, tiley].Position = new Vector2Int(randX, tiley);
+                           
+                        }
+                        if (positionList[randomPosition] == 2)
+                        {
+                            // Find Free tiles
+                            List<Tile> freeTiles = new List<Tile>();
+                            int tilex = room.Tiles.GetLength(0) - 1;
+                            for (int tiley = 0; tiley < room.Tiles.GetLength(1); ++tiley)
+                            {
+                                if (room.Tiles[tilex, tiley].GetType() == typeof(EmptyTile))
+                                {
+                                    freeTiles.Add(room.Tiles[tilex, tiley]);
+                                }
+                            }
+                            int randomTilePos = Random.Range(0, freeTiles.Count);
+                            int randY = freeTiles[randomTilePos].Position.y;
+                            // Destroy tile before
+                            Destroy(room.Tiles[tilex, randY].TileObj);
+                            // Create Tile object
+                            GameObject tileObj = new GameObject("Torch (" + tilex + ";" + randY + ")");
+                            tileObj.transform.SetParent(room.Tiles[tilex, randY].transform);
+                            // Add tile to room's tiles
+                            room.Tiles[tilex, randY] = tileObj.AddComponent<TorchTile>();
+                            // Init
+                            room.Tiles[tilex, randY].Position = new Vector2Int(tilex, randY);
+                            
+                        }
+                        positionList.Remove(positionList[randomPosition]);
+                    }
+                }
+            }
+        }
 
         MakeCurrentRoom();
     }
@@ -543,7 +635,15 @@ public class DungeonController : Singleton<DungeonController>
         {
             for(int y=0; y< CurrentRoom.Size.y; ++y)
             {
-                CurrentRoom.Tiles[x,y].TileObj = Instantiate(dungeonTileSet.GetTilePrefab(CurrentRoom.Tiles[x, y]),new Vector3(x,-0.5f,y), Quaternion.identity);
+                Quaternion rotation = Quaternion.identity;
+                if(CurrentRoom.Tiles[x,y].GetType() == typeof(TorchTile))
+                {
+                    if (x == 0 && y < (CurrentRoom.Tiles.GetLength(1) - 1))
+                        rotation = Quaternion.Euler(0, -90, 0);
+                    else if (x == (CurrentRoom.Tiles.GetLength(0) - 1))
+                        rotation = Quaternion.Euler(0,90,0);
+                }
+                CurrentRoom.Tiles[x,y].TileObj = Instantiate(dungeonTileSet.GetTilePrefab(CurrentRoom.Tiles[x, y]),new Vector3(x,-0.5f,y), rotation);
             }
         }
     }
