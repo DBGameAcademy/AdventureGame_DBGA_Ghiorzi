@@ -53,7 +53,7 @@ public class Monster: Actor
     private void Update()
     {
         _stateMachine.Tick();
-
+        
         if (IsMoving)
         {
             Vector3 targetPos = new Vector3(_targetPosition.x, 0.19f, _targetPosition.y);
@@ -75,6 +75,8 @@ public class Monster: Actor
 
     public void Move()
     {
+        if (_stateMachine.CurrentState.GetType() != typeof(Idle))
+            return;
         _currentPosition = new Vector2Int((int)transform.position.x, (int)transform.position.z);
         // Find free tiles in range
         List<Vector2Int> freeDirections = new List<Vector2Int>();

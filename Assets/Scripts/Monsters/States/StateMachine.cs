@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class StateMachine
 {
+    public IState CurrentState { get => _currentState };
+
     private IState _currentState; // current state
     private Dictionary<Type, List<Transition>> _transitions = new Dictionary<Type, List<Transition>>(); // all transitions
     private List<Transition> _currentTransitions = new List<Transition>(); // all transitions of the current state
