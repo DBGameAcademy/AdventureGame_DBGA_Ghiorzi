@@ -160,6 +160,7 @@ public class Monster: Actor
         {
             IsMoving = true;
             _targetPosition = position;
+            tile.SetCharacterObject(this); // Tile reservation
         }
     }
 }
