@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class Monster: Actor
 {
+    public Actor Target { get => target; }
     public bool IsMoving { get; private set; }
     public Vector2Int MovingDirection { get; private set; }
 
@@ -48,8 +49,11 @@ public class Monster: Actor
         // States instantiation
         var idle = new Idle();
         var waiting = new Waiting();
+        var attacking = new Attacking(this, _damage);
         // Transitions and Any-Transitions
         _stateMachine.AddTransition(idle, waiting, ()=>IsInBattle);
+        _stateMachine.AddTransition(waiting, attacking, ()=>(IsInBattle && GameController.Instance.State == GameController.eGameState.MonsterTurn));
+        _stateMachine.AddTransition(attacking, waiting, ()=>IsInBattle && GameController.Instance.State != GameController.eGameState.MonsterTurn);
         // Set the initial state
         _stateMachine.SetState(idle);
     }

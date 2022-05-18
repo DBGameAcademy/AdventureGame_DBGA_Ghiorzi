@@ -132,7 +132,7 @@ public class Player : Actor
             else if(GameController.Instance.State == GameController.eGameState.PlayerTurn)
             {
                 float t = (Time.time - _attackStartTime) / _attackDuration;
-                Vector3 attackPos = new Vector3(_targets[0].transform.position.x, 0, _targets[0].transform.position.z);
+                Vector3 attackPos = new Vector3(_targets[0].transform.position.x, 0.0f, _targets[0].transform.position.z);
                 Vector3 dir = attackPos - transform.position;
                 AttackDirection = dir;
                 transform.position = DungeonController.Instance.GetTile(_currentPosition).TileObj.transform.position + dir * Mathf.PingPong(t, 0.5f);
