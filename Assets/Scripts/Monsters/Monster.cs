@@ -41,6 +41,7 @@ public class Monster: Actor
         DungeonController.Instance.GetTile(_currentPosition).UnsetCharacterObject();
         Player player = (Player)target;
         player.RemoveTarget(this);
+        MonsterController.Instance.RemoveMonster(this);
         base.OnKill();
     }
 

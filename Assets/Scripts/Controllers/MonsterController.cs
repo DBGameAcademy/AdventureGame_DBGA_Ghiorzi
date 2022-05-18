@@ -18,6 +18,11 @@ public class MonsterController : Singleton<MonsterController>
         return newMonster;
     }
 
+    public void RemoveMonster(Monster monster)
+    {
+        ActiveMonsters.Remove(monster);
+    }
+
     public void DestroyAllMonster()
     {
         foreach(Monster monster in ActiveMonsters)
