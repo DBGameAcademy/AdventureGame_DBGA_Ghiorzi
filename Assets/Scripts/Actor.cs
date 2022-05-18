@@ -31,7 +31,6 @@ public class Actor : CharacterObject
     protected virtual void OnKill()
     {
         Debug.Log(this.gameObject.name + " DEAD");
-        GameController.Instance.EndBattle();
         Destroy(gameObject);
     }
 

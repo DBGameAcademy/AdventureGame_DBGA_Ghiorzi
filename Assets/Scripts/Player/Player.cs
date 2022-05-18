@@ -151,6 +151,11 @@ public class Player : Actor
             }
             
         }
+
+        if(_targets.Count == 0)
+        {
+            GameController.Instance.EndBattle();
+        }
     }
 
     private void OnEnable()
@@ -226,6 +231,7 @@ public class Player : Actor
     protected override void OnKill()
     {
         // Handle Game Over Here
+        GameController.Instance.EndBattle();
         base.OnKill();
     }
 
