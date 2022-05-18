@@ -42,6 +42,10 @@ public class Player : Actor
     public void RemoveTarget(Actor target)
     {
         _targets.Remove(target);
+        if (_targets.Count == 0)
+        {
+            GameController.Instance.EndBattle();
+        }
     }
 
     public void SetPosition(Vector2Int position)
@@ -150,11 +154,6 @@ public class Player : Actor
                 }
             }
             
-        }
-
-        if(_targets.Count == 0)
-        {
-            GameController.Instance.EndBattle();
         }
     }
 
