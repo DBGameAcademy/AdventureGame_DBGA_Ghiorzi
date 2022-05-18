@@ -35,7 +35,6 @@ public class Attacking : MonoBehaviour, IState
             Vector3 attackPos = new Vector3(_monster.Target.transform.position.x, 0.0f, _monster.Target.transform.position.z);
             Vector3 dir = attackPos - _monster.transform.position;
             _monster.AttackDirection = dir;
-            Debug.Log(dir);
             float prevY = _monster.transform.position.y;
             _monster.transform.position = DungeonController.Instance.GetTile(_monster.CurrentPosition).TileObj.transform.position + dir * Mathf.PingPong(t, 0.5f);
             _monster.transform.position = new Vector3(_monster.transform.position.x, prevY, _monster.transform.position.z);

@@ -11,12 +11,28 @@ public class Actor : CharacterObject
 
     public void Damage(int damage)
     {
-        Debug.Log(this.gameObject.name + " damged with " + damage);
+        int totalDamage = damage;
+
+        if (damage >= currentHealth)
+        {
+            totalDamage = currentHealth;
+        }
+
+        currentHealth -= totalDamage;
+
+        if (currentHealth <= 0)
+        {
+            OnKill();
+        }
+
+        Debug.Log(this.gameObject.name + " damaged with " + damage+" current health "+currentHealth);
     }
 
     protected virtual void OnKill()
     {
-
+        Debug.Log(this.gameObject.name + " DEAD");
+        GameController.Instance.EndBattle();
+        Destroy(gameObject);
     }
 
     // ...

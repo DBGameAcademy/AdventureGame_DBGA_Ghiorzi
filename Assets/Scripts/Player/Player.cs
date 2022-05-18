@@ -223,6 +223,12 @@ public class Player : Actor
         IsAttacking = true;
     }
 
+    protected override void OnKill()
+    {
+        // Handle Game Over Here
+        base.OnKill();
+    }
+
     void OnLevelUp()
     {
 

@@ -38,7 +38,10 @@ public class Monster: Actor
 
     protected override void OnKill()
     {
-
+        DungeonController.Instance.GetTile(_currentPosition).UnsetCharacterObject();
+        Player player = (Player)target;
+        player.RemoveTarget(this);
+        base.OnKill();
     }
 
     private void Awake()
