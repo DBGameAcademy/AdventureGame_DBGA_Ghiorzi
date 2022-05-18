@@ -32,6 +32,16 @@ public class PlayerAnimation : MonoBehaviour
                 _spriteRenderer.flipX = false;
             }
         }
+        if (player.IsAttacking && player.IsInBattle && player.AttackDirection.x == -1)
+        {
+            // Left
+            _spriteRenderer.flipX = true;
+        }
+        else if (player.IsAttacking && player.IsInBattle && player.AttackDirection.x == 1)
+        {
+            // Right
+            _spriteRenderer.flipX = false;
+        }
         _animator.SetBool("IsMoving", player.IsMoving);
 
         if(this.transform.position.y > 0.28f)
