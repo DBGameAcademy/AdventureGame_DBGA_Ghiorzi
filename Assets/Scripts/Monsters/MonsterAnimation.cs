@@ -32,14 +32,10 @@ public class MonsterAnimation : MonoBehaviour
         }
         if (monster.IsInBattle && monster.AttackDirection.x <= -0.9f)
         {
-            Debug.Log("Flip left");
-            // Left
             _spriteRenderer.flipX = true;
         }
         else if (monster.IsInBattle && monster.AttackDirection.x >= 0.9f)
         {
-            Debug.Log("Flip right");
-            // Right
             _spriteRenderer.flipX = false;
         }
         _animator.SetBool("IsMoving", monster.IsMoving);

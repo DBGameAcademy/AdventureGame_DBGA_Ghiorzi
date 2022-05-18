@@ -218,7 +218,6 @@ public class Monster: Actor
                 if (DungeonController.Instance.GetTile(position).CharacterObject.GetComponent<Player>() != null)
                 {
                     player = DungeonController.Instance.GetTile(position).CharacterObject.GetComponent<Player>();
-                    Debug.Log("Last tile " + _lastTile.Position);
                     break;
                 }
             }
