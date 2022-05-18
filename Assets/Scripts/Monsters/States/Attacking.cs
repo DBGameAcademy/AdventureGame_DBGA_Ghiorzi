@@ -5,15 +5,13 @@ using UnityEngine;
 public class Attacking : MonoBehaviour, IState
 {
     private Monster _monster;
-    private int _damage;
 
     private bool _isAttacking = false;
     private float _attackStartTime = 0;
     private float _attackDuration = 0.5f;
-    public Attacking(Monster monster, int damage)
+    public Attacking(Monster monster)
     {
         _monster = monster;
-        _damage = damage;
     }
 
     public void OnEnter()
@@ -44,7 +42,7 @@ public class Attacking : MonoBehaviour, IState
             {
                 // Finish
                 // procees damages and stuff
-                _monster.Target.Damage(_damage);
+                _monster.Target.Damage(_monster.GetDamage());
                 _isAttacking = false;
                 GameController.Instance.EndTurn();
             }

@@ -49,7 +49,7 @@ public class Monster: Actor
         // States instantiation
         var idle = new Idle();
         var waiting = new Waiting();
-        var attacking = new Attacking(this, _damage);
+        var attacking = new Attacking(this);
         // Transitions and Any-Transitions
         _stateMachine.AddTransition(idle, waiting, ()=>IsInBattle);
         _stateMachine.AddTransition(waiting, attacking, ()=>(IsInBattle && GameController.Instance.State == GameController.eGameState.MonsterTurn));
@@ -176,6 +176,11 @@ public class Monster: Actor
             _targetPosition = position;
             tile.SetCharacterObject(this); // Tile reservation
         }
+    }
+
+    public int GetDamage()
+    {
+        return _damage;
     }
 
     public bool CheckForPlayer()
