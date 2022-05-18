@@ -5,8 +5,12 @@ using UnityEditor;
 
 public class HikariImporter : AssetPostprocessor
 {
+    public bool IsActive = false;
+
     void OnPreprocessAsset()
     {
+        if(!IsActive)
+            return;
         TextureImporter texImporter = assetImporter as TextureImporter;
 
         if (texImporter != null)
