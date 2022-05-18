@@ -22,4 +22,16 @@ public class CinematicController : Singleton<CinematicController>
         animator.SetTrigger("CloseCinematic");
         IsPlaying = false;
     }
+
+    public void StartBattleCinematic()
+    {
+        animator.ResetTrigger("CloseCinematic");
+        animator.SetTrigger("StartCinematic");
+    }
+
+    public void EndBattleCinematic()
+    {
+        animator.ResetTrigger("StartCinematic");
+        animator.SetTrigger("CloseCinematic");
+    }
 }

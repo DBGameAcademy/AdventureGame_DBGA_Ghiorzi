@@ -1,8 +1,11 @@
 using UnityEngine;
+using System.Collections.Generic;
+using System.Collections;
 
 public class Player : Actor
 { 
     public bool IsMoving { get; private set; }
+    public bool IsAttacking { get; private set; }
     public Vector2Int MovingDirection { get; private set; }
     public Vector2Int TargetPosition { get => _targetPosition; }
     
@@ -17,11 +20,27 @@ public class Player : Actor
     private float potionCooldown;
 
     private AdventureGame _controls;
+    private PlayerAnimation _playerAnimation;
 
     private Vector2Int _currentPosition;
     private Vector2Int _targetPosition;
     private Tile _lastTile;
-   
+
+    private float _attackStartTime;
+    private float _attackDuration = 0.5f;
+
+    private List<Actor> _targets = new List<Actor>();
+
+    public void AddTarget(Actor target)
+    {
+        _targets.Add(target);
+    }
+
+    public void RemoveTarget(Actor target)
+    {
+        _targets.Remove(target);
+    }
+
     public void SetPosition(Vector2Int position)
     {
         _currentPosition = position;
@@ -42,46 +61,86 @@ public class Player : Actor
     private void Awake()
     {
         IsMoving = false;
+        IsInBattle = false;
         _controls = new AdventureGame();
+        _playerAnimation = GetComponentInChildren<PlayerAnimation>();
         _controls.Player.Move.performed += context => BeginMove(context.ReadValue<Vector2>());
-        
+        _controls.Player.Attack.performed += context => Attack();
     }
 
     private void Update()
     {
         if (IsMoving)
         {
-            Vector3 targetPos = new Vector3(_targetPosition.x, 0.28f, _targetPosition.y);
-            if(Vector3.Distance(transform.position, targetPos) > float.Epsilon)
+            if (!IsInBattle)
             {
-                transform.position = Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * moveSpeed);
+                Vector3 targetPos = new Vector3(_targetPosition.x, 0.28f, _targetPosition.y);
+                if (Vector3.Distance(transform.position, targetPos) > float.Epsilon)
+                {
+                    transform.position = Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * moveSpeed);
+                }
+                else
+                {
+                    _currentPosition = _targetPosition;
+
+                    Tile tile = DungeonController.Instance.CurrentRoom.Tiles[_currentPosition.x, _currentPosition.y];
+                    if (tile != null && tile.IsWalkable)
+                    {
+                        if (_lastTile != null)
+                            _lastTile.UnsetCharacterObject();
+
+                        tile.EnterTile();
+                        tile.SetCharacterObject(this);
+                        _lastTile = tile;
+
+
+
+                        if (_controls.Player.Move.inProgress && IsMoving)
+                        {
+                            FindNewTargetPosition(MovingDirection);
+                            MonsterController.Instance.MoveMonsters();
+                            return;
+                        }
+                    }
+                    MonsterController.Instance.MoveMonsters();
+                    IsMoving = false;
+                }
+            }
+           
+        }
+
+        if (IsAttacking)
+        {
+            if (!IsInBattle)
+            {
+                float t = (Time.time - _attackStartTime) / _attackDuration;
+                Vector3 dir = new Vector3(MovingDirection.x,0.28f,MovingDirection.y);
+                transform.position = DungeonController.Instance.GetTile(_currentPosition).TileObj.transform.position + dir * Mathf.PingPong(t,0.5f);
+                if (t > 1f)
+                {
+                    // Finish
+                    // procees damages and stuff
+                    MonsterController.Instance.MoveMonsters();
+                    IsAttacking = false;
+                }
             }
             else
             {
-                _currentPosition = _targetPosition;
-
-                Tile tile = DungeonController.Instance.CurrentRoom.Tiles[_currentPosition.x, _currentPosition.y];
-                if(tile != null && tile.IsWalkable)
+                float t = (Time.time - _attackStartTime) / _attackDuration;
+                Vector3 attackPos = new Vector3(_targets[0].transform.position.x, 0, _targets[0].transform.position.y);
+                Vector3 dir = attackPos - transform.position;
+                transform.position = DungeonController.Instance.GetTile(_currentPosition).TileObj.transform.position + dir * Mathf.PingPong(t, 0.5f);
+                if (t > 1f)
                 {
-                    if(_lastTile!=null)
-                        _lastTile.UnsetCharacterObject();
-
-                    tile.EnterTile();
-                    tile.SetCharacterObject(this);
-                    _lastTile = tile;
-
-                    
-
-                    if (_controls.Player.Move.inProgress && IsMoving)
-                    {
-                        FindNewTargetPosition(MovingDirection);
-                        MonsterController.Instance.MoveMonsters();
-                        return;
-                    }
+                    // Finish
+                    // procees damages and stuff
+                    _targets[0].Damage(2);
+                    MonsterController.Instance.MoveMonsters();
+                    IsAttacking = false;
+                    GameController.Instance.EndTurn();
                 }
-                MonsterController.Instance.MoveMonsters();
-                IsMoving = false;
             }
+            
         }
     }
 
@@ -138,6 +197,19 @@ public class Player : Actor
             IsMoving = true;
             _targetPosition = position;
         }
+    }
+
+    private void Attack()
+    {
+        if (IsMoving || IsAttacking)
+            return;
+
+        if (CinematicController.Instance.IsPlaying)
+            return;
+
+        _attackStartTime = Time.time;
+        _playerAnimation.AttackAnimation();
+        IsAttacking = true;
     }
 
     void OnLevelUp()

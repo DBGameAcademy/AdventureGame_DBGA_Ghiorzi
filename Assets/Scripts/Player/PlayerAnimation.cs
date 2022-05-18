@@ -47,4 +47,9 @@ public class PlayerAnimation : MonoBehaviour
             _didFallPlay = false;
         }
     }
+
+    public void AttackAnimation()
+    {
+        _animator.SetTrigger("Attack");
+    }
 }

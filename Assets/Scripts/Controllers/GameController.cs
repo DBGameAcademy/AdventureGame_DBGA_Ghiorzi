@@ -11,6 +11,7 @@ public class GameController : Singleton<GameController>
     }
 
     public Player Player { get; private set; }
+    public eGameState State { get; private set; }
 
     [SerializeField]
     private GameObject playerPrefab;
@@ -37,6 +38,26 @@ public class GameController : Singleton<GameController>
         // Camera Set
         virtualCamera.Follow = Player.transform;
         virtualCamera.LookAt = Player.transform;
-        
+    }
+
+    public void StartBattle()
+    {
+        Player.IsInBattle = true;
+        CinematicController.Instance.StartBattleCinematic();
+        State = eGameState.PlayerTurn;
+    }
+
+    public void EndTurn()
+    {
+        if (State == eGameState.PlayerTurn)
+            State = eGameState.MonsterTurn;
+        else
+            State = eGameState.PlayerTurn;
+    }
+
+    public void EndBattle()
+    {
+        Player.IsInBattle = false;
+        CinematicController.Instance.EndBattleCinematic();
     }
 }

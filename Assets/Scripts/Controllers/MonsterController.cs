@@ -32,7 +32,11 @@ public class MonsterController : Singleton<MonsterController>
     {
         foreach(Monster monster in ActiveMonsters)
         {
-            monster.Move();
+            if (!monster.CheckForPlayer())
+            {
+                monster.Move();
+                monster.CheckForPlayer();
+            }
         }
     }
 }

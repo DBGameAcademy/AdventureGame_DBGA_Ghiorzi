@@ -18,6 +18,8 @@ public class Monster: Actor
     private Vector2Int _targetPosition;
     private Tile _lastTile;
 
+    private Actor target;
+
     public void SetupMonster(MonsterData monsterData)
     {
         currentHealth = monsterData.Health;
@@ -40,25 +42,28 @@ public class Monster: Actor
     {
         _moveSpeed = 3;
         IsMoving = false;
+        IsInBattle = false;
         _stateMachine = new StateMachine();
 
         // States instantiation
         var idle = new Idle();
-
+        var waiting = new Waiting();
         // Transitions and Any-Transitions
-
+        _stateMachine.AddTransition(idle, waiting, ()=>IsInBattle);
         // Set the initial state
         _stateMachine.SetState(idle);
     }
 
     private void Update()
     {
+        CheckForPlayer();
         _stateMachine.Tick();
-        
+
         if (IsMoving)
         {
             Vector3 targetPos = new Vector3(_targetPosition.x, 0.19f, _targetPosition.y);
-            if (Vector3.Distance(transform.position, targetPos) > float.Epsilon)
+            float dist = Vector3.Distance(transform.position, targetPos);
+            if (dist > float.Epsilon)
             {
                 transform.position = Vector3.MoveTowards(transform.position, targetPos, Time.deltaTime * _moveSpeed);
             }
@@ -71,7 +76,7 @@ public class Monster: Actor
                 _lastTile = tile;
                 IsMoving = false;
             }
-        }   
+        }
     }
 
     public void Move()
@@ -167,5 +172,54 @@ public class Monster: Actor
             _targetPosition = position;
             tile.SetCharacterObject(this); // Tile reservation
         }
+    }
+
+    public bool CheckForPlayer()
+    {
+        if (DungeonController.Instance.CurrentRoom == null)
+            return false;
+        if (IsInBattle)
+            return false;
+
+        Vector2Int monsterPosition = new Vector2Int((int)transform.position.x, (int)transform.position.z);
+        Player player = null;
+        List<Vector2Int> directions = new List<Vector2Int>();
+        directions.Add(Vector2Int.up);
+        directions.Add(Vector2Int.down);
+        directions.Add(Vector2Int.left);
+        directions.Add(Vector2Int.right);
+
+        foreach(Vector2Int direction in directions)
+        {
+            Vector2Int position = monsterPosition + direction;
+            if(position.x < 0 || position.y < 0
+            || position.x >= DungeonController.Instance.CurrentRoom.Size.x
+            || position.y >= DungeonController.Instance.CurrentRoom.Size.y)
+            {
+                continue;
+            }
+            if(DungeonController.Instance.GetTile(position) != null 
+               && DungeonController.Instance.GetTile(position).CharacterObject != null)
+            {
+                if (DungeonController.Instance.GetTile(position).CharacterObject.GetComponent<Player>() != null)
+                {
+                    player = DungeonController.Instance.GetTile(position).CharacterObject.GetComponent<Player>();
+                    Debug.Log("Last tile " + _lastTile.Position);
+                    break;
+                }
+            }
+        }
+
+        if (player != null)
+        {
+            Debug.Log("TargetAdded");
+            player.AddTarget(this);
+            target = player;
+            IsInBattle = true;
+            if(!player.IsInBattle)
+                GameController.Instance.StartBattle();
+            return true;
+        }
+        return false;
     }
 }
