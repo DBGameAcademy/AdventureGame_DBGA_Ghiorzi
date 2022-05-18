@@ -1,7 +1,31 @@
 fileFormatVersion: 2
 guid: 2c0a720219865b84e95902bfc57bfc65
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -6223834063214805996
+    second: SlimeGreen_MelleAtk_strip8_0
+  - first:
+      213: -8975098591564401167
+    second: SlimeGreen_MelleAtk_strip8_1
+  - first:
+      213: 2100366147299027342
+    second: SlimeGreen_MelleAtk_strip8_2
+  - first:
+      213: -8439903185530542388
+    second: SlimeGreen_MelleAtk_strip8_3
+  - first:
+      213: -7846408802106742226
+    second: SlimeGreen_MelleAtk_strip8_4
+  - first:
+      213: -7406753670653343018
+    second: SlimeGreen_MelleAtk_strip8_5
+  - first:
+      213: -2165863574916291122
+    second: SlimeGreen_MelleAtk_strip8_6
+  - first:
+      213: 750281516883209851
+    second: SlimeGreen_MelleAtk_strip8_7
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -32,7 +56,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -41,11 +65,11 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 0
-  spritePivot: {x: 0.5, y: 0.5}
+  alignment: 9
+  spritePivot: {x: 0.279079, y: 0.3718442}
   spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
@@ -101,7 +125,175 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: SlimeGreen_MelleAtk_strip8_0
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 16
+        width: 16
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41cfa1115ef70a9a0800000000000000
+      internalID: -6223834063214805996
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SlimeGreen_MelleAtk_strip8_1
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 16
+        width: 18
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f5f1b1126b027380800000000000000
+      internalID: -8975098591564401167
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SlimeGreen_MelleAtk_strip8_2
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 16
+        width: 16
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e89a30cf1eff52d10800000000000000
+      internalID: 2100366147299027342
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SlimeGreen_MelleAtk_strip8_3
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 18
+        width: 18
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc6a3cfe4c07fda80800000000000000
+      internalID: -8439903185530542388
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SlimeGreen_MelleAtk_strip8_4
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 20
+        width: 16
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e2aedeb34c4fb1390800000000000000
+      internalID: -7846408802106742226
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SlimeGreen_MelleAtk_strip8_5
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 17
+        width: 16
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6da03e977cce53990800000000000000
+      internalID: -7406753670653343018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SlimeGreen_MelleAtk_strip8_6
+      rect:
+        serializedVersion: 2
+        x: 299
+        y: 16
+        width: 26
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec52829cd8e41f1e0800000000000000
+      internalID: -2165863574916291122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SlimeGreen_MelleAtk_strip8_7
+      rect:
+        serializedVersion: 2
+        x: 351
+        y: 16
+        width: 18
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7e6d5f7019896a00800000000000000
+      internalID: 750281516883209851
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []

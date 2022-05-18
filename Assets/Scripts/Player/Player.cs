@@ -143,7 +143,7 @@ public class Player : Actor
                 {
                     // Finish
                     // procees damages and stuff
-                    _targets[0].Damage(2);
+                    _targets[0].Damage(4);
                     MonsterController.Instance.MoveMonsters();
                     IsAttacking = false;
                     GameController.Instance.EndTurn();

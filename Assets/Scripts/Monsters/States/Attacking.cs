@@ -20,6 +20,7 @@ public class Attacking : MonoBehaviour, IState
         _isAttacking = true;
         _attackStartTime = Time.time;
         _attackDuration = 0.5f;
+        _monster.gameObject.GetComponentInChildren<MonsterAnimation>().Attack();
     }
 
     public void OnExit()

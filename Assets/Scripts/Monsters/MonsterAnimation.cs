@@ -46,4 +46,9 @@ public class MonsterAnimation : MonoBehaviour
 
     }
 
+    public void Attack()
+    {
+        _animator.SetTrigger("Attack");
+    }
+
 }
