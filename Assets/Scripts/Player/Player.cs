@@ -106,6 +106,10 @@ public class Player : Actor
                     IsMoving = false;
                 }
             }
+            else
+            {
+                IsMoving = false;
+            }
            
         }
 
@@ -124,10 +128,10 @@ public class Player : Actor
                     IsAttacking = false;
                 }
             }
-            else
+            else if(GameController.Instance.State == GameController.eGameState.PlayerTurn)
             {
                 float t = (Time.time - _attackStartTime) / _attackDuration;
-                Vector3 attackPos = new Vector3(_targets[0].transform.position.x, 0, _targets[0].transform.position.y);
+                Vector3 attackPos = new Vector3(_targets[0].transform.position.x, 0, _targets[0].transform.position.z);
                 Vector3 dir = attackPos - transform.position;
                 transform.position = DungeonController.Instance.GetTile(_currentPosition).TileObj.transform.position + dir * Mathf.PingPong(t, 0.5f);
                 if (t > 1f)
@@ -205,6 +209,8 @@ public class Player : Actor
             return;
 
         if (CinematicController.Instance.IsPlaying)
+            return;
+        if (GameController.Instance.State != GameController.eGameState.PlayerTurn && IsInBattle)
             return;
 
         _attackStartTime = Time.time;
