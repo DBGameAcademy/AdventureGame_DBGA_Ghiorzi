@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class Monster: Actor
 {
+    public Vector2Int CurrentPosition { get => _currentPosition; }
+    public Vector3 AttackDirection { get; set; }
     public Actor Target { get => target; }
     public bool IsMoving { get; private set; }
     public Vector2Int MovingDirection { get; private set; }

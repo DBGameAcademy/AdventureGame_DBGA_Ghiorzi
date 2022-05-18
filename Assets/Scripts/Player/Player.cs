@@ -12,6 +12,8 @@ public class Player : Actor
     
     [SerializeField]
     private float moveSpeed;
+    [SerializeField]
+    private int initialMaxHealth = 20;
 
     private int experience;
     private Quest[] quests;
@@ -46,7 +48,6 @@ public class Player : Actor
     {
         _currentPosition = position;
         transform.position = new Vector3(_currentPosition.x, transform.position.y, _currentPosition.y);
-
     }
 
     public void SetHeight(float height)
@@ -61,6 +62,8 @@ public class Player : Actor
 
     private void Awake()
     {
+        currentHealth = initialMaxHealth;
+        maxHealth = initialMaxHealth;
         IsMoving = false;
         IsInBattle = false;
         _controls = new AdventureGame();

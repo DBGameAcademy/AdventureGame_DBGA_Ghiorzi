@@ -32,11 +32,14 @@ public class Attacking : MonoBehaviour, IState
         if (_isAttacking)
         {
             float t = (Time.time - _attackStartTime) / _attackDuration;
-            Vector3 attackPos = new Vector3(_monster.Target.transform.position.x, 0.28f, _monster.Target.transform.position.z);
+            Vector3 attackPos = new Vector3(_monster.Target.transform.position.x, 0.0f, _monster.Target.transform.position.z);
             Vector3 dir = attackPos - _monster.transform.position;
-            Vector2Int currentPos = new Vector2Int((int)_monster.transform.position.x, (int)_monster.transform.position.z);
+            Debug.Log("My pos"+_monster.transform.position+" Attack Pos "+attackPos+" Direction " + dir);
+            _monster.AttackDirection = dir;
+         
             float prevY = _monster.transform.position.y;
-            _monster.transform.position = DungeonController.Instance.GetTile(currentPos).TileObj.transform.position + dir * Mathf.PingPong(t, 0.5f);
+           
+            _monster.transform.position = DungeonController.Instance.GetTile(_monster.CurrentPosition).TileObj.transform.position + dir * Mathf.PingPong(t, 0.5f);
             _monster.transform.position = new Vector3(_monster.transform.position.x, prevY, _monster.transform.position.z);
             if (t > 1f)
             {

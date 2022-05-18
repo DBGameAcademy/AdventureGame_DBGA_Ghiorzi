@@ -30,6 +30,16 @@ public class MonsterAnimation : MonoBehaviour
                 _spriteRenderer.flipX = false;
             }
         }
+        if (monster.IsInBattle && monster.AttackDirection.x == -1)
+        {
+            // Left
+            _spriteRenderer.flipX = false;
+        }
+        else if (monster.IsInBattle && monster.AttackDirection.x == 1)
+        {
+            // Right
+            _spriteRenderer.flipX = true;
+        }
         _animator.SetBool("IsMoving", monster.IsMoving);
 
     }
