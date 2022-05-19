@@ -14,7 +14,7 @@ public class CinematicController : Singleton<CinematicController>
     [SerializeField]
     private float zoomInValue = 50.0f;
     [SerializeField]
-    private float zoomSpeed = 3.0f;
+    private float zoomSpeed = 20.0f;
 
     private float _defaultZoom;
     private bool _isZoomIn = false;
@@ -70,16 +70,17 @@ public class CinematicController : Singleton<CinematicController>
         {
             virtualCamera.m_Lens.FieldOfView -= Time.deltaTime * zoomSpeed;
         }
-        else
+        else if(_isZoomIn)
         {
             _isZoomIn = false;
             virtualCamera.m_Lens.FieldOfView = zoomInValue;
         }
+
         if (_isZoomReset && virtualCamera.m_Lens.FieldOfView < _defaultZoom)
         {
             virtualCamera.m_Lens.FieldOfView += Time.deltaTime * zoomSpeed;
         }
-        else
+        else if(!_isZoomIn && _isZoomReset)
         {
             _isZoomReset = false;
             virtualCamera.m_Lens.FieldOfView = _defaultZoom;

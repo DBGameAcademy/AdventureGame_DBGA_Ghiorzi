@@ -1407,6 +1407,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 920712901}
+  virtualCamera: {fileID: 360405825}
+  zoomInValue: 50
+  zoomSpeed: 25
 --- !u!4 &1039598599
 Transform:
   m_ObjectHideFlags: 0
