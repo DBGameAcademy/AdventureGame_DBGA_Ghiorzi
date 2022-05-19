@@ -71,6 +71,15 @@ public partial class @AdventureGame : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Transform"",
+                    ""type"": ""Button"",
+                    ""id"": ""fe60f270-24e6-4a8f-b38c-c1fcba0fa80c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -313,6 +322,17 @@ public partial class @AdventureGame : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""SwitchTarget"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bb818df1-9825-429b-84f2-904cfce11dc7"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Transform"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -905,6 +925,7 @@ public partial class @AdventureGame : IInputActionCollection2, IDisposable
         m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
         m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
         m_Player_SwitchTarget = m_Player.FindAction("SwitchTarget", throwIfNotFound: true);
+        m_Player_Transform = m_Player.FindAction("Transform", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -981,6 +1002,7 @@ public partial class @AdventureGame : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Fire;
     private readonly InputAction m_Player_Attack;
     private readonly InputAction m_Player_SwitchTarget;
+    private readonly InputAction m_Player_Transform;
     public struct PlayerActions
     {
         private @AdventureGame m_Wrapper;
@@ -990,6 +1012,7 @@ public partial class @AdventureGame : IInputActionCollection2, IDisposable
         public InputAction @Fire => m_Wrapper.m_Player_Fire;
         public InputAction @Attack => m_Wrapper.m_Player_Attack;
         public InputAction @SwitchTarget => m_Wrapper.m_Player_SwitchTarget;
+        public InputAction @Transform => m_Wrapper.m_Player_Transform;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1014,6 +1037,9 @@ public partial class @AdventureGame : IInputActionCollection2, IDisposable
                 @SwitchTarget.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSwitchTarget;
                 @SwitchTarget.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSwitchTarget;
                 @SwitchTarget.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSwitchTarget;
+                @Transform.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTransform;
+                @Transform.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTransform;
+                @Transform.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnTransform;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -1033,6 +1059,9 @@ public partial class @AdventureGame : IInputActionCollection2, IDisposable
                 @SwitchTarget.started += instance.OnSwitchTarget;
                 @SwitchTarget.performed += instance.OnSwitchTarget;
                 @SwitchTarget.canceled += instance.OnSwitchTarget;
+                @Transform.started += instance.OnTransform;
+                @Transform.performed += instance.OnTransform;
+                @Transform.canceled += instance.OnTransform;
             }
         }
     }
@@ -1194,6 +1223,7 @@ public partial class @AdventureGame : IInputActionCollection2, IDisposable
         void OnFire(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
         void OnSwitchTarget(InputAction.CallbackContext context);
+        void OnTransform(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

@@ -62,4 +62,9 @@ public class PlayerAnimation : MonoBehaviour
     {
         _animator.SetTrigger("Attack");
     }
+
+    public void PlayerTransfrom()
+    {
+        _animator.SetTrigger("Transform");
+    }
 }

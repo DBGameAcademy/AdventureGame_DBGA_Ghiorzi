@@ -20,7 +20,7 @@ public class HikariImporter : AssetPostprocessor
             texImporter.ReadTextureSettings(texSettings);
             texSettings.spriteAlignment = (int)SpriteAlignment.Custom;
             texImporter.SetTextureSettings(texSettings);
-            texImporter.spritePivot = new Vector2(0.279079f,0.3718442f); //0.5f 0.175f
+            texImporter.spritePivot = new Vector2(0.5f, 0.175f); //0.5f 0.175f
 
             Debug.Log("Asset Done : " + assetPath);
         }

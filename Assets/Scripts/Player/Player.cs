@@ -8,6 +8,9 @@ public class Player : Actor
     public int DarkValue { get; private set; }
     public bool IsMoving { get; private set; }
     public bool IsAttacking { get; private set; }
+    public bool IsTransforming { get; private set; }
+    public bool IsDark { get; private set; }
+
     public Vector2Int MovingDirection { get; private set; }
     public Vector3 AttackDirection { get; private set; }
     public Vector2Int TargetPosition { get => _targetPosition; }
@@ -97,6 +100,7 @@ public class Player : Actor
         _controls.Player.Move.performed += context => BeginMove(context.ReadValue<Vector2>());
         _controls.Player.Attack.performed += context => Attack();
         _controls.Player.SwitchTarget.performed += context => SwitchTarget();
+        _controls.Player.Transform.performed += context => TransformToDark();
     }
 
     private void Update()
@@ -170,8 +174,14 @@ public class Player : Actor
                 {
                     // Finish
                     // procees damages and stuff
-                    _targets[_currentTargetIndex].Damage(4);
-                    AddDarkness(2);
+                    if(!IsDark)
+                        _targets[_currentTargetIndex].Damage(4);
+                    else
+                        _targets[_currentTargetIndex].Damage(10);
+                    if (!IsDark)
+                        AddDarkness(2);
+                    else
+                        RemoveDarkness(5);
                     MonsterController.Instance.MoveMonsters();
                     IsAttacking = false;
                     GameController.Instance.EndTurn();
@@ -212,7 +222,7 @@ public class Player : Actor
 
     private void BeginMove(Vector2 direction)
     {
-        if (CinematicController.Instance.IsPlaying)
+        if (CinematicController.Instance.IsPlaying || IsTransforming)
             return;
 
         Vector2Int intDirection = new Vector2Int((int)direction.x, (int)direction.y);
@@ -238,7 +248,7 @@ public class Player : Actor
 
     private void Attack()
     {
-        if (IsMoving || IsAttacking)
+        if (IsMoving || IsAttacking || IsTransforming)
             return;
 
         if (CinematicController.Instance.IsPlaying)
@@ -279,9 +289,48 @@ public class Player : Actor
 
     private void AddDarkness(int amount)
     {
-        if (amount > maxDarkValue || (DarkValue+amount)>maxDarkValue)
-            DarkValue = maxDarkValue;
         DarkValue += amount;
+        if(DarkValue>maxDarkValue)
+            DarkValue = maxDarkValue;
+    }
+
+    private void RemoveDarkness(int amount)
+    {
+        DarkValue -= amount;
+        if (DarkValue <= 0)
+            DarkValue = 0;
+        if (DarkValue == 0)
+            TransformToLight();
+    }
+
+    private void TransformToDark()
+    {
+        if (DarkValue != maxDarkValue)
+            return;
+        if (!IsInBattle)
+            return;
+        IsTransforming = true;
+        _playerAnimation.PlayerTransfrom();
+    }
+
+    private void TransformToLight()
+    {
+        if (!IsDark)
+            return;
+        IsTransforming = true;
+        _playerAnimation.PlayerTransfrom();
+    }
+
+    public void DarkTransformationEnd()
+    {
+        IsDark = true;
+        IsTransforming = false;
+    }
+
+    public void LigthTransformationEnd()
+    {
+        IsDark = false;
+        IsTransforming = false;
     }
 
     void OnLevelUp()

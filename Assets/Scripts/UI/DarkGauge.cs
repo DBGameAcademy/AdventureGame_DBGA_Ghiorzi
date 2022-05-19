@@ -11,10 +11,6 @@ public class DarkGauge : MonoBehaviour
 
     private Slider _slider;
 
-    private float _valueToChange;
-    private float _speedChange = 2f;
-    private bool _isChanging;
-
     public void SetUp(int maxValue, int currentValue)
     {
         if (currentValue > maxValue)
@@ -26,9 +22,7 @@ public class DarkGauge : MonoBehaviour
 
     public void SetValue(int value)
     {
-        //_slider.value = value;
-        _valueToChange = value;
-        _isChanging = true;
+        _slider.value = value;
     }
 
     private void Awake()
@@ -38,17 +32,6 @@ public class DarkGauge : MonoBehaviour
 
     private void Update()
     {
-        if (_isChanging)
-        {
-            if (_slider.value < _valueToChange)
-            {
-                _slider.value += Time.deltaTime * _speedChange;
-            }
-            else
-            {
-                _isChanging = false;
-            }
-        }
 
         if (_slider.value == 0)
             flame.SetActive(false);

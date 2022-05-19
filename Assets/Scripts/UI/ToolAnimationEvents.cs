@@ -4,9 +4,15 @@ using UnityEngine.Events;
 public class ToolAnimationEvents : MonoBehaviour
 {
     public UnityEvent use;
+    public UnityEvent altUse;
     public void Use()
     {
-        use.Invoke();
+        use?.Invoke();
+    }
+
+    public void AltUse()
+    {
+        altUse?.Invoke();
     }
 }
 
