@@ -66,5 +66,6 @@ public class PlayerAnimation : MonoBehaviour
     public void PlayerTransfrom()
     {
         _animator.SetTrigger("Transform");
+        CinematicController.Instance.ZoomIn();
     }
 }

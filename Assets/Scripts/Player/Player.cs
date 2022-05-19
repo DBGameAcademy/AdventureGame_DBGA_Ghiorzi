@@ -179,7 +179,7 @@ public class Player : Actor
                     else
                         _targets[_currentTargetIndex].Damage(10);
                     if (!IsDark)
-                        AddDarkness(2);
+                        AddDarkness(200);
                     else
                         RemoveDarkness(5);
                     MonsterController.Instance.MoveMonsters();
@@ -305,6 +305,8 @@ public class Player : Actor
 
     private void TransformToDark()
     {
+        if (IsDark || IsTransforming)
+            return;
         if (DarkValue != maxDarkValue)
             return;
         if (!IsInBattle)
@@ -315,7 +317,7 @@ public class Player : Actor
 
     private void TransformToLight()
     {
-        if (!IsDark)
+        if ((!IsDark) || IsTransforming)
             return;
         IsTransforming = true;
         _playerAnimation.PlayerTransfrom();
@@ -323,14 +325,18 @@ public class Player : Actor
 
     public void DarkTransformationEnd()
     {
+        Debug.Log("Dark transformation end");
         IsDark = true;
+        Debug.Log(IsDark);
         IsTransforming = false;
+        CinematicController.Instance.ResetZoom();
     }
 
     public void LigthTransformationEnd()
     {
         IsDark = false;
         IsTransforming = false;
+        CinematicController.Instance.ResetZoom();
     }
 
     void OnLevelUp()
