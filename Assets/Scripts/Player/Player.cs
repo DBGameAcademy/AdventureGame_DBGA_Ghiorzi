@@ -4,6 +4,8 @@ using System.Collections;
 
 public class Player : Actor
 { 
+    public int MaxDarkValue { get => maxDarkValue; }
+    public int DarkValue { get; private set; }
     public bool IsMoving { get; private set; }
     public bool IsAttacking { get; private set; }
     public Vector2Int MovingDirection { get; private set; }
@@ -14,6 +16,8 @@ public class Player : Actor
     private float moveSpeed;
     [SerializeField]
     private int initialMaxHealth = 20;
+    [SerializeField]
+    private int maxDarkValue = 20;
 
     private int experience;
     private Quest[] quests;
@@ -83,6 +87,7 @@ public class Player : Actor
 
     private void Awake()
     {
+        DarkValue = 0;
         currentHealth = initialMaxHealth;
         maxHealth = initialMaxHealth;
         IsMoving = false;
@@ -166,6 +171,7 @@ public class Player : Actor
                     // Finish
                     // procees damages and stuff
                     _targets[_currentTargetIndex].Damage(4);
+                    AddDarkness(2);
                     MonsterController.Instance.MoveMonsters();
                     IsAttacking = false;
                     GameController.Instance.EndTurn();
@@ -269,6 +275,13 @@ public class Player : Actor
         }
         GameController.Instance.EndBattle();
         base.OnKill();
+    }
+
+    private void AddDarkness(int amount)
+    {
+        if (amount > maxDarkValue || (DarkValue+amount)>maxDarkValue)
+            DarkValue = maxDarkValue;
+        DarkValue += amount;
     }
 
     void OnLevelUp()
