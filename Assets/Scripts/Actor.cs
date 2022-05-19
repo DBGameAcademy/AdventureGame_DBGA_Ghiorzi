@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Actor : CharacterObject
 {    
+    public int MaxHealth { get=>maxHealth;}
+    public int CurrentHealth { get=>currentHealth;}
+
     public bool IsInBattle { get; set; }
 
     protected int maxHealth;

@@ -177,6 +177,7 @@ public class Player : Actor
     private void OnEnable()
     {
         _controls.Enable();
+        UIController.Instance.SetUpPlayer(this);
     }
 
     private void OnDestroy()

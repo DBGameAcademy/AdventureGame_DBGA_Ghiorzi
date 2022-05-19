@@ -27,11 +27,13 @@ public class CinematicController : Singleton<CinematicController>
     {
         animator.ResetTrigger("CloseCinematic");
         animator.SetTrigger("StartCinematic");
+        UIController.Instance.ShowBattleUI();
     }
 
     public void EndBattleCinematic()
     {
         animator.ResetTrigger("StartCinematic");
         animator.SetTrigger("CloseCinematic");
+        UIController.Instance.HideBattleUI();
     }
 }
