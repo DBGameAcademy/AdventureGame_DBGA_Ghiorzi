@@ -49,7 +49,6 @@ public class Monster: Actor
     private void Awake()
     {
         TargetIndicator = GetComponentInChildren<TargetIndicator>();
-        _currentPosition = new Vector2Int((int)transform.position.x, (int)transform.position.y);
 
         _moveSpeed = 3;
         IsMoving = false;
@@ -61,11 +60,16 @@ public class Monster: Actor
         var waiting = new Waiting();
         var attacking = new Attacking(this);
         // Transitions and Any-Transitions
-        _stateMachine.AddTransition(idle, waiting, ()=>IsInBattle);
-        _stateMachine.AddTransition(waiting, attacking, ()=>(IsInBattle && GameController.Instance.State == GameController.eGameState.MonsterTurn));
-        _stateMachine.AddTransition(attacking, waiting, ()=>IsInBattle && GameController.Instance.State != GameController.eGameState.MonsterTurn);
+        _stateMachine.AddTransition(idle, waiting, () => IsInBattle);
+        _stateMachine.AddTransition(waiting, attacking, () => (IsInBattle && GameController.Instance.State == GameController.eGameState.MonsterTurn));
+        _stateMachine.AddTransition(attacking, waiting, () => IsInBattle && GameController.Instance.State != GameController.eGameState.MonsterTurn);
         // Set the initial state
         _stateMachine.SetState(idle);
+    }
+
+    private void Start()
+    {
+        _currentPosition = new Vector2Int((int)transform.position.x, (int)transform.position.y);
     }
 
     private void Update()
