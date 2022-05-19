@@ -34,9 +34,21 @@ public class Player : Actor
 
     private List<Actor> _targets = new List<Actor>();
 
+    private int _currentTargetIndex = 0;
+
     public void AddTarget(Actor target)
     {
+        bool isFirst = false;
+        if(_targets.Count == 0)
+            isFirst = true;
+
         _targets.Add(target);
+
+        if (isFirst)
+        {
+            Monster monst = (Monster)_targets[0];
+            monst.TargetIndicator.Active();
+        }
     }
 
     public void RemoveTarget(Actor target)
@@ -45,7 +57,12 @@ public class Player : Actor
         if (_targets.Count == 0)
         {
             GameController.Instance.EndBattle();
+            return;
         }
+
+        _currentTargetIndex = 0;
+        Monster monst = (Monster)_targets[_currentTargetIndex];
+        monst.TargetIndicator.Active();
     }
 
     public void SetPosition(Vector2Int position)
@@ -74,6 +91,7 @@ public class Player : Actor
         _playerAnimation = GetComponentInChildren<PlayerAnimation>();
         _controls.Player.Move.performed += context => BeginMove(context.ReadValue<Vector2>());
         _controls.Player.Attack.performed += context => Attack();
+        _controls.Player.SwitchTarget.performed += context => SwitchTarget();
     }
 
     private void Update()
@@ -139,7 +157,7 @@ public class Player : Actor
             else if(GameController.Instance.State == GameController.eGameState.PlayerTurn)
             {
                 float t = (Time.time - _attackStartTime) / _attackDuration;
-                Vector3 attackPos = new Vector3(_targets[0].transform.position.x, 0.0f, _targets[0].transform.position.z);
+                Vector3 attackPos = new Vector3(_targets[_currentTargetIndex].transform.position.x, 0.0f, _targets[_currentTargetIndex].transform.position.z);
                 Vector3 dir = attackPos - transform.position;
                 AttackDirection = dir;
                 transform.position = DungeonController.Instance.GetTile(_currentPosition).TileObj.transform.position + dir * Mathf.PingPong(t, 0.5f);
@@ -147,13 +165,12 @@ public class Player : Actor
                 {
                     // Finish
                     // procees damages and stuff
-                    _targets[0].Damage(4);
+                    _targets[_currentTargetIndex].Damage(4);
                     MonsterController.Instance.MoveMonsters();
                     IsAttacking = false;
                     GameController.Instance.EndTurn();
                 }
             }
-            
         }
     }
 
@@ -225,6 +242,20 @@ public class Player : Actor
         _attackStartTime = Time.time;
         _playerAnimation.AttackAnimation();
         IsAttacking = true;
+    }
+
+    private void SwitchTarget()
+    {
+        if (_targets.Count <= 1)
+            return;
+
+        Monster monst = (Monster)_targets[_currentTargetIndex];
+        monst.TargetIndicator.Deactive();
+        
+        _currentTargetIndex = (_currentTargetIndex+1)%_targets.Count;
+
+        monst = (Monster)_targets[_currentTargetIndex];
+        monst.TargetIndicator.Active();
     }
 
     protected override void OnKill()

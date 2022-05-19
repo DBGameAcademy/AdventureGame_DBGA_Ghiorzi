@@ -4,9 +4,10 @@ using System.Collections.Generic;
 
 public class Monster: Actor
 {
+    public TargetIndicator TargetIndicator { get; private set; }
     public Vector2Int CurrentPosition { get => _currentPosition; }
     public Vector3 AttackDirection { get; set; }
-    public Actor Target { get => target; }
+    public Actor Target { get => _target; }
     public bool IsMoving { get; private set; }
     public Vector2Int MovingDirection { get; private set; }
 
@@ -21,7 +22,7 @@ public class Monster: Actor
     private Vector2Int _targetPosition;
     private Tile _lastTile;
 
-    private Actor target;
+    private Actor _target;
 
     public void SetupMonster(MonsterData monsterData)
     {
@@ -39,7 +40,7 @@ public class Monster: Actor
     protected override void OnKill()
     {
         DungeonController.Instance.GetTile(_currentPosition).UnsetCharacterObject();
-        Player player = (Player)target;
+        Player player = (Player)_target;
         player.RemoveTarget(this);
         MonsterController.Instance.RemoveMonster(this);
         base.OnKill();
@@ -47,6 +48,9 @@ public class Monster: Actor
 
     private void Awake()
     {
+        TargetIndicator = GetComponentInChildren<TargetIndicator>();
+        _currentPosition = new Vector2Int((int)transform.position.x, (int)transform.position.y);
+
         _moveSpeed = 3;
         IsMoving = false;
         IsInBattle = false;
@@ -228,7 +232,7 @@ public class Monster: Actor
         {
             Debug.Log("TargetAdded");
             player.AddTarget(this);
-            target = player;
+            _target = player;
             IsInBattle = true;
             if(!player.IsInBattle)
                 GameController.Instance.StartBattle();
