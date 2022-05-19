@@ -261,6 +261,11 @@ public class Player : Actor
     protected override void OnKill()
     {
         // Handle Game Over Here
+        foreach(Actor target in _targets)
+        {
+            Monster monst = (Monster)target;
+            monst.TargetIndicator.Deactive();
+        }
         GameController.Instance.EndBattle();
         base.OnKill();
     }
