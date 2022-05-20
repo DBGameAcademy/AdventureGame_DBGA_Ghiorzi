@@ -36,6 +36,8 @@ public class DungeonController : Singleton<DungeonController>
     [Header("Monsters settings")]
     [SerializeField]
     private int mapMobDensity;
+    [SerializeField]
+    private int dungeonMobDensity;
 
     private Dungeon _currentDungeon;
     private int _floorIndex = 0;
@@ -646,6 +648,21 @@ public class DungeonController : Singleton<DungeonController>
                 CurrentRoom.Tiles[x,y].TileObj = Instantiate(dungeonTileSet.GetTilePrefab(CurrentRoom.Tiles[x, y]),new Vector3(x,-0.5f,y), rotation);
             }
         }
+        // Spawn Monsters again
+        int spawnAttempts = 0;
+        do
+        {
+            if (TryGetRandomTile(CurrentFloor, out Tile tile, out Room tileRoom))
+            {
+                // Spawn only Slimes in the map for now
+                Monster monster = MonsterController.Instance.AddMonster(eMonsterID.Skeleton);
+                tile.SetCharacterObject(monster);
+                monster.SetPosition(tile.Position);
+            }
+            spawnAttempts++;
+        }
+        while (spawnAttempts < dungeonMobDensity);
+        Debug.Log("Spawn attempts " + spawnAttempts);
     }
     
     public void ClearCurrentRoom()
@@ -661,6 +678,7 @@ public class DungeonController : Singleton<DungeonController>
                 }
             }
         }
+        MonsterController.Instance.DestroyAllMonster();
     }
 
     public void MoveFloorUp()
@@ -803,6 +821,9 @@ public class DungeonController : Singleton<DungeonController>
         {
             return false;
         }
+
+        if (room.Tiles[pos.x, pos.y].CharacterObject != null)
+            return false;
 
         return true;
     }

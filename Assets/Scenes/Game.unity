@@ -1398,6 +1398,7 @@ MonoBehaviour:
   neighbours: 5
   numberOfDungeons: 3
   mapMobDensity: 20
+  dungeonMobDensity: 2
 --- !u!4 &1005129239
 Transform:
   m_ObjectHideFlags: 0
