@@ -364,7 +364,7 @@ public class DungeonController : Singleton<DungeonController>
             if(TryGetRandomTile(_currentDungeon.Floors[0],out Tile tile, out Room tileRoom))
             {
                 // Spawn only Slimes in the map for now
-                Monster monster = MonsterController.Instance.AddMonster(eMonsterID.Skeleton);
+                Monster monster = MonsterController.Instance.AddMonster(eMonsterID.Slime);
                 tile.SetCharacterObject(monster);
                 monster.SetPosition(tile.Position);
             }
