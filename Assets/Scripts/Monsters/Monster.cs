@@ -79,7 +79,7 @@ public class Monster: Actor
 
         if (IsMoving)
         {
-            Vector3 targetPos = new Vector3(_targetPosition.x, 0.19f, _targetPosition.y);
+            Vector3 targetPos = new Vector3(_targetPosition.x, this.transform.position.y, _targetPosition.y);
             float dist = Vector3.Distance(transform.position, targetPos);
             if (dist > float.Epsilon)
             {

@@ -5,6 +5,7 @@ using UnityEngine;
 public enum eMonsterID
 {
     Slime,
+    Skeleton,
 }
 
 [CreateAssetMenu(fileName = "New Monster", menuName = "Create Monster")]

@@ -9,9 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a34f0c587eddbb4eb87070920d2e21a, type: 3}
-  m_Name: MapMonsterCollection
+  m_Script: {fileID: 11500000, guid: c295ba9f36ee8374eaf7b21d06b1dc8c, type: 3}
+  m_Name: Skeleton
   m_EditorClassIdentifier: 
-  MonstersData:
-  - {fileID: 11400000, guid: 83cbff30fa4efd44c90d02a91c30b44e, type: 2}
-  - {fileID: 11400000, guid: a3bf7400f66482d4ea1fa50492e2a849, type: 2}
+  ID: 1
+  Damage: 4
+  Health: 15
+  Prefab: {fileID: 5855312438155143674, guid: 741b650cd4b76f540927263396cca4a2, type: 3}
