@@ -177,9 +177,9 @@ public class Player : Actor
                     if(!IsDark)
                         _targets[_currentTargetIndex].Damage(4);
                     else
-                        _targets[_currentTargetIndex].Damage(10);
+                        _targets[_currentTargetIndex].Damage(6);
                     if (!IsDark)
-                        AddDarkness(100);
+                        AddDarkness(5);
                     else
                         RemoveDarkness(10);
                     MonsterController.Instance.MoveMonsters();

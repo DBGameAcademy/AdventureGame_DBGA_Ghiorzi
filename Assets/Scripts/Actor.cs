@@ -12,7 +12,7 @@ public class Actor : CharacterObject
     protected int maxHealth;
     protected int currentHealth;
 
-    public void Damage(int damage)
+    public virtual void Damage(int damage)
     {
         int totalDamage = damage;
 
