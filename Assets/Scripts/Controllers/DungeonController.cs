@@ -513,7 +513,8 @@ public class DungeonController : Singleton<DungeonController>
                     if (i == 0)
                     {
                         _roomPosition = room.RoomPosition;
-                        GameController.Instance.Player.SetPosition(_roomPosition);
+                        GameController.Instance.Player.SetPosition(tilePos);
+                        GameController.Instance.Player.SetHeight(6.0f);
                     }
                     placedFloorUp = true;
                     _currentDungeon.Floors[i].FloorUpTransition = new FloorTransition(room, tilePos);
