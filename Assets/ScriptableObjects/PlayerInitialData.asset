@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxHealth: 20
   MaxDark: 20
-  BasicLightDamage: 4
-  BasicDarkDamage: 8
+  BasicLightDamages: 040000000600000008000000
+  BasicDarkDamages: 080000000a0000000c000000
   DarkAddAmount: 5
   DarkRemoveAmount: 10

@@ -7,8 +7,8 @@ public class PlayerData : ScriptableObject
 {
     public int MaxHealth;
     public int MaxDark;
-    public int BasicLightDamage;
-    public int BasicDarkDamage;
+    public int[] BasicLightDamages = new int[3];
+    public int[] BasicDarkDamages = new int[3];
     public int DarkAddAmount;
     public int DarkRemoveAmount;
 }

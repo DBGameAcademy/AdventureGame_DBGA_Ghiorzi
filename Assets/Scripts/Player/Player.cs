@@ -43,12 +43,13 @@ public class Player : Actor
 
     private PlayerFall _playerFall;
 
-    private int _initialMaxHealth = 20;
     private int _maxDarkValue = 20;
     private int _lightDamage = 2;
     private int _darkDamage = 2;
     private int _darkAddAmount = 2;
     private int _darkRemoveAmount = 2;
+    private int _damageIndex = 0;
+
 
     public void AddTarget(Actor target)
     {
@@ -100,8 +101,8 @@ public class Player : Actor
         DarkValue = 0;
         currentHealth = playerData.MaxHealth;
         maxHealth = playerData.MaxHealth;
-        _darkDamage = playerData.BasicDarkDamage;
-        _lightDamage = playerData.BasicLightDamage;
+        _darkDamage = playerData.BasicDarkDamages[_damageIndex];
+        _lightDamage = playerData.BasicLightDamages[_damageIndex];
         _darkAddAmount = playerData.DarkAddAmount;
         _darkRemoveAmount = playerData.DarkRemoveAmount;
         _maxDarkValue = playerData.MaxDark;
@@ -187,10 +188,18 @@ public class Player : Actor
                 {
                     // Finish
                     // procees damages and stuff
-                    if(!IsDark)
+                    if (!IsDark) 
+                    {
+                        _lightDamage = playerData.BasicLightDamages[_damageIndex];
                         _targets[_currentTargetIndex].Damage(_lightDamage);
+                        _damageIndex = (_damageIndex + 1) % playerData.BasicLightDamages.Length;
+                    }
                     else
+                    {
+                        _darkDamage = playerData.BasicLightDamages[_damageIndex];
                         _targets[_currentTargetIndex].Damage(_darkDamage);
+                        _damageIndex = (_damageIndex + 1) % playerData.BasicLightDamages.Length;
+                    }
                     if (!IsDark)
                         AddDarkness(_darkAddAmount);
                     else
