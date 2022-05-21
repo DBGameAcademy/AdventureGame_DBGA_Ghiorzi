@@ -696,6 +696,8 @@ public class DungeonController : Singleton<DungeonController>
         _floorIndex--;
         _roomPosition = CurrentFloor.FloorDownTransition.TargetRoom.RoomPosition;
         MakeCurrentRoom();
+        UIController.Instance.ShowDungeonInfo(_floorIndex);
+        CinematicController.Instance.PlayCinematicForSeconds(2.0f);
         GameController.Instance.Player.SetPosition(CurrentFloor.FloorDownTransition.TilePosition);
     }
 

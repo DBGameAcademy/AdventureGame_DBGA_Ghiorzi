@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using System;
 
 public class CinematicController : Singleton<CinematicController>
 {
@@ -49,6 +50,13 @@ public class CinematicController : Singleton<CinematicController>
         UIController.Instance.HideBattleUI();
     }
 
+    public void PlayCinematicForSeconds(float secs)
+    {
+        if (IsPlaying)
+            return;
+        StartCoroutine(COCinematicForSeconds(secs));
+    }
+
     public void ZoomIn()
     {
         _isZoomIn = true;
@@ -86,5 +94,12 @@ public class CinematicController : Singleton<CinematicController>
             _isZoomReset = false;
             virtualCamera.m_Lens.FieldOfView = _defaultZoom;
         }
+    }
+
+    private IEnumerator COCinematicForSeconds(float delay)
+    {
+        StartCinematic();
+        yield return new WaitForSeconds(delay);
+        EndCinematic();
     }
 }
