@@ -14,6 +14,8 @@ public class PlayerAnimation : MonoBehaviour
     private bool _didFallPlay = false;
     private PlayerFall _playerFall;
 
+    private int _attackIndex = 0; // 3 attacks combo
+
     private void Awake()
     {
         _animator = GetComponent<Animator>();
@@ -62,7 +64,9 @@ public class PlayerAnimation : MonoBehaviour
 
     public void AttackAnimation()
     {
-        _animator.SetTrigger("Attack");
+        Debug.Log("Setting trigger = " + "Attack" + (_attackIndex + 1));
+        _animator.SetTrigger("Attack"+(_attackIndex+1));
+        _attackIndex = (_attackIndex + 1) % 3; // Circular attack 0->1->2->0
     }
 
     public void PlayerTransfrom()
