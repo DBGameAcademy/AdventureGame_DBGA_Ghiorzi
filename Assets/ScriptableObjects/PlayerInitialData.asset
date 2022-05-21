@@ -9,10 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c295ba9f36ee8374eaf7b21d06b1dc8c, type: 3}
-  m_Name: Skeleton
+  m_Script: {fileID: 11500000, guid: d817ffddf5afbee449833df69741505f, type: 3}
+  m_Name: PlayerInitialData
   m_EditorClassIdentifier: 
-  ID: 1
-  Damage: 4
-  Health: 12
-  Prefab: {fileID: 5855312438155143674, guid: 741b650cd4b76f540927263396cca4a2, type: 3}
+  MaxHealth: 20
+  MaxDark: 20
+  BasicLightDamage: 4
+  BasicDarkDamage: 8
+  DarkAddAmount: 5
+  DarkRemoveAmount: 10

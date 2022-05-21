@@ -47,8 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 3
-  initialMaxHealth: 20
-  maxDarkValue: 20
+  playerData: {fileID: 11400000, guid: be6e32b3c29cf83429ecebad6244b8af, type: 2}
 --- !u!114 &4583306069963187637
 MonoBehaviour:
   m_ObjectHideFlags: 0

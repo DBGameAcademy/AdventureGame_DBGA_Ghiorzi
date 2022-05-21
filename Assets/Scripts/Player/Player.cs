@@ -4,7 +4,7 @@ using System.Collections;
 
 public class Player : Actor
 { 
-    public int MaxDarkValue { get => maxDarkValue; }
+    public int MaxDarkValue { get => _maxDarkValue; }
     public int DarkValue { get; private set; }
     public bool IsMoving { get; private set; }
     public bool IsAttacking { get; private set; }
@@ -18,9 +18,7 @@ public class Player : Actor
     [SerializeField]
     private float moveSpeed;
     [SerializeField]
-    private int initialMaxHealth = 20;
-    [SerializeField]
-    private int maxDarkValue = 20;
+    private PlayerData playerData;
 
     private int experience;
     private Quest[] quests;
@@ -42,6 +40,14 @@ public class Player : Actor
     private List<Actor> _targets = new List<Actor>();
 
     private int _currentTargetIndex = 0;
+
+
+    private int _initialMaxHealth = 20;
+    private int _maxDarkValue = 20;
+    private int _lightDamage = 2;
+    private int _darkDamage = 2;
+    private int _darkAddAmount = 2;
+    private int _darkRemoveAmount = 2;
 
     public void AddTarget(Actor target)
     {
@@ -91,8 +97,13 @@ public class Player : Actor
     private void Awake()
     {
         DarkValue = 0;
-        currentHealth = initialMaxHealth;
-        maxHealth = initialMaxHealth;
+        currentHealth = playerData.MaxHealth;
+        maxHealth = playerData.MaxHealth;
+        _darkDamage = playerData.BasicDarkDamage;
+        _lightDamage = playerData.BasicLightDamage;
+        _darkAddAmount = playerData.DarkAddAmount;
+        _darkRemoveAmount = playerData.DarkRemoveAmount;
+        _maxDarkValue = playerData.MaxDark;
         IsMoving = false;
         IsInBattle = false;
         _controls = new AdventureGame();
@@ -175,13 +186,13 @@ public class Player : Actor
                     // Finish
                     // procees damages and stuff
                     if(!IsDark)
-                        _targets[_currentTargetIndex].Damage(4);
+                        _targets[_currentTargetIndex].Damage(_lightDamage);
                     else
-                        _targets[_currentTargetIndex].Damage(6);
+                        _targets[_currentTargetIndex].Damage(_darkDamage);
                     if (!IsDark)
-                        AddDarkness(5);
+                        AddDarkness(_darkAddAmount);
                     else
-                        RemoveDarkness(10);
+                        RemoveDarkness(_darkRemoveAmount);
                     MonsterController.Instance.MoveMonsters();
                     IsAttacking = false;
                     GameController.Instance.EndTurn();
@@ -290,8 +301,8 @@ public class Player : Actor
     private void AddDarkness(int amount)
     {
         DarkValue += amount;
-        if(DarkValue>maxDarkValue)
-            DarkValue = maxDarkValue;
+        if(DarkValue>_maxDarkValue)
+            DarkValue = _maxDarkValue;
     }
 
     private void RemoveDarkness(int amount)
@@ -307,7 +318,7 @@ public class Player : Actor
     {
         if (IsDark || IsTransforming)
             return;
-        if (DarkValue != maxDarkValue)
+        if (DarkValue != _maxDarkValue)
             return;
         if (!IsInBattle)
             return;
