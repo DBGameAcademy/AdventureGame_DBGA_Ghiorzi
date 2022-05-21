@@ -655,7 +655,6 @@ public class DungeonController : Singleton<DungeonController>
         {
             if (TryGetRandomTile(CurrentFloor, out Tile tile, out Room tileRoom))
             {
-                // Spawn only Slimes in the map for now
                 Monster monster = MonsterController.Instance.AddMonster(eMonsterID.Skeleton);
                 tile.SetCharacterObject(monster);
                 monster.SetPosition(tile.Position);
@@ -705,6 +704,7 @@ public class DungeonController : Singleton<DungeonController>
         _roomPosition = CurrentFloor.FloorUpTransition.TargetRoom.RoomPosition;
         MakeCurrentRoom();
         GameController.Instance.Player.SetPosition(CurrentFloor.FloorUpTransition.TilePosition);
+        GameController.Instance.Player.SetHeight(6.0f);
     }
     
     public void MoveRoom(Vector2Int direction)
