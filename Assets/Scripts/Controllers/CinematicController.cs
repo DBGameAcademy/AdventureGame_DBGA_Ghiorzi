@@ -32,6 +32,7 @@ public class CinematicController : Singleton<CinematicController>
         animator.ResetTrigger("StartCinematic");
         animator.SetTrigger("CloseCinematic");
         IsPlaying = false;
+        UIController.Instance.HideDungeonInfo();
     }
 
     public void StartBattleCinematic()

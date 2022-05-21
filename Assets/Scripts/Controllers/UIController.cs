@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class UIController : Singleton<UIController>
 {
@@ -8,6 +9,11 @@ public class UIController : Singleton<UIController>
     private HealthBar healthBar;
     [SerializeField]
     private DarkGauge darkGauge;
+    [SerializeField]
+    private TextMeshProUGUI dungeonText;
+    [SerializeField]
+    private TextMeshProUGUI floorText;
+    
 
     private Player _player;
 
@@ -21,6 +27,20 @@ public class UIController : Singleton<UIController>
     {
         healthBar.gameObject.SetActive(false);
         darkGauge.gameObject.SetActive(false);
+    }
+
+    public void ShowDungeonInfo(int floorIndex)
+    {
+        floorText.gameObject.SetActive(true);
+        dungeonText.gameObject.SetActive(true);
+        floorIndex++;
+        floorText.text = "Floor -" + floorIndex;
+    }
+
+    public void HideDungeonInfo()
+    {
+        floorText.gameObject.SetActive(false);
+        dungeonText.gameObject.SetActive(false);
     }
 
     public void SetUpPlayer(Player player)

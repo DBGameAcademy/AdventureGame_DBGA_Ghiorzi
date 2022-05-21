@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class DungeonController : Singleton<DungeonController>
 {
+    
     public Floor CurrentFloor { get { return _currentDungeon.Floors[_floorIndex]; } }
     public Room CurrentRoom { get { return _currentDungeon.Floors[_floorIndex].Rooms[_roomPosition.x,_roomPosition.y]; } }
 
@@ -379,6 +380,7 @@ public class DungeonController : Singleton<DungeonController>
 
     public void CreateNewDungeon(int noOfFloor, Vector2Int roomsPerFloor, Vector2Int roomSize)
     {
+        UIController.Instance.ShowDungeonInfo(_floorIndex);
         MonsterController.Instance.DestroyAllMonster();
         SavePlayerPosition();
         ClearCurrentRoom();
@@ -703,8 +705,10 @@ public class DungeonController : Singleton<DungeonController>
         _floorIndex++;
         _roomPosition = CurrentFloor.FloorUpTransition.TargetRoom.RoomPosition;
         MakeCurrentRoom();
+        UIController.Instance.ShowDungeonInfo(_floorIndex);
         GameController.Instance.Player.SetPosition(CurrentFloor.FloorUpTransition.TilePosition);
         GameController.Instance.Player.SetHeight(5.0f);
+
     }
     
     public void MoveRoom(Vector2Int direction)
