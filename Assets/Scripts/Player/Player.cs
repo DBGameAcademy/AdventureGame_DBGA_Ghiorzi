@@ -41,6 +41,7 @@ public class Player : Actor
 
     private int _currentTargetIndex = 0;
 
+    private PlayerFall _playerFall;
 
     private int _initialMaxHealth = 20;
     private int _maxDarkValue = 20;
@@ -107,6 +108,7 @@ public class Player : Actor
         IsMoving = false;
         IsInBattle = false;
         _controls = new AdventureGame();
+        _playerFall = GetComponent<PlayerFall>();
         _playerAnimation = GetComponentInChildren<PlayerAnimation>();
         _controls.Player.Move.performed += context => BeginMove(context.ReadValue<Vector2>());
         _controls.Player.Attack.performed += context => Attack();
@@ -118,7 +120,7 @@ public class Player : Actor
     {
         if (IsMoving)
         {
-            if (!IsInBattle)
+            if (!IsInBattle && !_playerFall.IsFalling)
             {
                 Vector3 targetPos = new Vector3(_targetPosition.x, 0.28f, _targetPosition.y);
                 if (Vector3.Distance(transform.position, targetPos) > float.Epsilon)
@@ -227,6 +229,9 @@ public class Player : Actor
             return;
         }
 
+        if (_playerFall.IsFalling)
+            return;
+
         IsMoving = true;
         _targetPosition = position;
     }
@@ -234,6 +239,9 @@ public class Player : Actor
     private void BeginMove(Vector2 direction)
     {
         if (CinematicController.Instance.IsPlaying || IsTransforming)
+            return;
+
+        if (_playerFall.IsFalling)
             return;
 
         Vector2Int intDirection = new Vector2Int((int)direction.x, (int)direction.y);

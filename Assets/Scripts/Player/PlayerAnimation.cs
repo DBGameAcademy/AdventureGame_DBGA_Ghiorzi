@@ -12,10 +12,12 @@ public class PlayerAnimation : MonoBehaviour
     private SpriteRenderer _spriteRenderer;
 
     private bool _didFallPlay = false;
+    private PlayerFall _playerFall;
 
     private void Awake()
     {
         _animator = GetComponent<Animator>();
+        _playerFall = GetComponentInParent<PlayerFall>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
@@ -32,19 +34,19 @@ public class PlayerAnimation : MonoBehaviour
                 _spriteRenderer.flipX = false;
             }
         }
-        if (player.IsAttacking && player.IsInBattle && player.AttackDirection.x == -1)
+        if (player.IsAttacking && player.IsInBattle && player.AttackDirection.x <= -0.9f)
         {
             // Left
             _spriteRenderer.flipX = true;
         }
-        else if (player.IsAttacking && player.IsInBattle && player.AttackDirection.x == 1)
+        else if (player.IsAttacking && player.IsInBattle && player.AttackDirection.x >= 0.9f)
         {
             // Right
             _spriteRenderer.flipX = false;
         }
         _animator.SetBool("IsMoving", player.IsMoving);
 
-        if(this.transform.position.y > 0.28f)
+        if(_playerFall.IsFalling)
         {
             CinematicController.Instance.StartCinematic();
             _animator.SetBool("IsGrounded",false);
