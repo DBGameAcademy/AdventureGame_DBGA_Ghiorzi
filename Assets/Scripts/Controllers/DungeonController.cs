@@ -374,7 +374,52 @@ public class DungeonController : Singleton<DungeonController>
             spawnAttempts++;
         }
         while (spawnAttempts < mapMobDensity);
-        
+
+        // Spawn INN
+        Tile randTile = null;
+        bool isInnPlaced = false;
+        do
+        {
+            if(TryGetRandomTile(CurrentFloor,out randTile,out Room r1))
+            {
+                if(TileHasNeighbour(randTile.Position,Vector2Int.right)
+                    && TileHasNeighbour(randTile.Position, Vector2Int.left)
+                    && TileHasNeighbour(randTile.Position, Vector2Int.up)
+                    && TileHasNeighbour(randTile.Position,Vector2Int.down)
+                    && TileHasNeighbour(randTile.Position, new Vector2Int(1,1))
+                    && TileHasNeighbour(randTile.Position, new Vector2Int(-1,-1))
+                    && TileHasNeighbour(randTile.Position, new Vector2Int(1,-1))
+                    && TileHasNeighbour(randTile.Position, new Vector2Int(-1, 1)))
+                {
+                    // Create object
+                    // Destroy prev if any
+                    if (CurrentRoom.Tiles[randTile.Position.x, randTile.Position.y].TileObj != null)
+                        Destroy(CurrentRoom.Tiles[randTile.Position.x, randTile.Position.y].TileObj);
+                    // Create Tile object
+                    GameObject tileObj = new GameObject("INN (" + randTile.Position.x + ";" + randTile.Position.y + ")");
+                    tileObj.transform.SetParent(room.Tiles[randTile.Position.x, randTile.Position.y].transform);
+                    // Add tile to room's tiles
+                    room.Tiles[randTile.Position.x, randTile.Position.y] = tileObj.AddComponent<INNTile>();
+                    // Initialize tile
+                    room.Tiles[randTile.Position.x, randTile.Position.y].Position = new Vector2Int(randTile.Position.x, randTile.Position.y);
+                    // Create map object
+                    CurrentRoom.Tiles[randTile.Position.x, randTile.Position.y].TileObj = Instantiate(mapTileSet.GetTilePrefab(CurrentRoom.Tiles[randTile.Position.x, randTile.Position.y]),
+                                                                               new Vector3(randTile.Position.x,-0.5f, randTile.Position.y),
+                                                                               Quaternion.identity);
+                    isInnPlaced = true;
+                }
+                else
+                {
+                    isInnPlaced = false;
+                }
+            }
+            else
+            {
+                isInnPlaced = false;
+            }
+        }
+        while (!isInnPlaced);
+
         SaveMap();
     }
 
