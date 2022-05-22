@@ -69,7 +69,7 @@ public class Monster: Actor
 
     private void Start()
     {
-        _currentPosition = new Vector2Int((int)transform.position.x, (int)transform.position.y);
+        _currentPosition = new Vector2Int((int)transform.position.x, (int)transform.position.z);
     }
 
     private void Update()
