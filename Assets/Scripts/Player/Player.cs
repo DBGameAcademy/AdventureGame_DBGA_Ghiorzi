@@ -196,9 +196,9 @@ public class Player : Actor
                     }
                     else
                     {
-                        _darkDamage = playerData.BasicLightDamages[_damageIndex];
+                        _darkDamage = playerData.BasicDarkDamages[_damageIndex];
                         _targets[_currentTargetIndex].Damage(_darkDamage);
-                        _damageIndex = (_damageIndex + 1) % playerData.BasicLightDamages.Length;
+                        _damageIndex = (_damageIndex + 1) % playerData.BasicDarkDamages.Length;
                     }
                     if (!IsDark)
                         AddDarkness(_darkAddAmount);
