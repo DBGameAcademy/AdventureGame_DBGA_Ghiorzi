@@ -50,6 +50,10 @@ public class Player : Actor
     private int _darkRemoveAmount = 2;
     private int _damageIndex = 0;
 
+    public void RestoreHealth()
+    {
+        currentHealth = maxHealth;
+    }
 
     public void AddTarget(Actor target)
     {

@@ -8,6 +8,7 @@ public class INNTile : Tile
     {
         // Player sprite invisible
         // Restore full health
+        GameController.Instance.Player.RestoreHealth();
         // Start Cinematic
         // End Cinematic -> Player sprite visible + player pos front INN
     }
