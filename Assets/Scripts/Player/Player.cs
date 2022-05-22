@@ -249,7 +249,7 @@ public class Player : Actor
         _targetPosition = position;
     }
 
-    private void BeginMove(Vector2 direction)
+    public void BeginMove(Vector2 direction)
     {
         if (CinematicController.Instance.IsPlaying || IsTransforming)
             return;

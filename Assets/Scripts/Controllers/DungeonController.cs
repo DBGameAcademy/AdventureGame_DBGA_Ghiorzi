@@ -406,6 +406,8 @@ public class DungeonController : Singleton<DungeonController>
                     CurrentRoom.Tiles[randTile.Position.x, randTile.Position.y].TileObj = Instantiate(mapTileSet.GetTilePrefab(CurrentRoom.Tiles[randTile.Position.x, randTile.Position.y]),
                                                                                new Vector3(randTile.Position.x,-0.5f, randTile.Position.y),
                                                                                Quaternion.identity);
+                    INNTile inn = (INNTile)GetTile(randTile.Position);
+                    inn.EmoteAnimator = GetTile(randTile.Position).TileObj.GetComponentInChildren<Animator>();
                     isInnPlaced = true;
                 }
                 else
@@ -921,6 +923,12 @@ public class DungeonController : Singleton<DungeonController>
                     CurrentRoom.Tiles[x, y].TileObj = Instantiate(mapTileSet.GetTilePrefab(CurrentRoom.Tiles[x, y]), new Vector3(x, -0.5f, y), Quaternion.identity);
                     TeleportTile tp = (TeleportTile)CurrentRoom.Tiles[x, y];
                     tp.Particle = CurrentRoom.Tiles[x, y].TileObj.GetComponent<TeleportTile>().Particle;
+                }
+                else if(CurrentRoom.Tiles[x,y].GetType() == typeof(INNTile))
+                {
+                    CurrentRoom.Tiles[x, y].TileObj = Instantiate(mapTileSet.GetTilePrefab(CurrentRoom.Tiles[x, y]), new Vector3(x, -0.5f, y), Quaternion.identity);
+                    INNTile inn = (INNTile)CurrentRoom.Tiles[x, y];
+                    inn.EmoteAnimator = CurrentRoom.Tiles[x, y].TileObj.GetComponentInChildren<Animator>();
                 }
                 else
                     CurrentRoom.Tiles[x, y].TileObj = Instantiate(mapTileSet.GetTilePrefab(CurrentRoom.Tiles[x, y]), new Vector3(x, -0.5f, y), Quaternion.identity);

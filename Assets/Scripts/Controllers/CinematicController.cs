@@ -34,6 +34,7 @@ public class CinematicController : Singleton<CinematicController>
         animator.SetTrigger("CloseCinematic");
         IsPlaying = false;
         UIController.Instance.HideDungeonInfo();
+        UIController.Instance.HideBattleUI();
     }
 
     public void StartBattleCinematic()
@@ -55,6 +56,13 @@ public class CinematicController : Singleton<CinematicController>
         if (IsPlaying)
             return;
         StartCoroutine(COCinematicForSeconds(secs));
+    }
+
+    public void PlayCinematicForSeconds(float secs, Action OnCinematicEnd)
+    {
+        if (IsPlaying)
+            return;
+        StartCoroutine(COCinematicForSeconds(secs, OnCinematicEnd));
     }
 
     public void ZoomIn()
@@ -101,5 +109,13 @@ public class CinematicController : Singleton<CinematicController>
         StartCinematic();
         yield return new WaitForSeconds(delay);
         EndCinematic();
+    }
+
+    private IEnumerator COCinematicForSeconds(float delay, Action OnCinematicEnd)
+    {
+        StartCinematic();
+        yield return new WaitForSeconds(delay);
+        EndCinematic();
+        OnCinematicEnd?.Invoke();
     }
 }
