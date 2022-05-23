@@ -9,11 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c295ba9f36ee8374eaf7b21d06b1dc8c, type: 3}
-  m_Name: Slime
+  m_Script: {fileID: 11500000, guid: 247e682d69c899e4b96e5070bb49e4a6, type: 3}
+  m_Name: SlimeMoveSet
   m_EditorClassIdentifier: 
-  ID: 0
-  Damage: 1
-  Health: 10
-  Prefab: {fileID: 6052531788548302779, guid: da7cebed591595145b3768ae592712a1, type: 3}
-  MoveSet: {fileID: 11400000, guid: 173cb2e14876b4a48b03cb271d3d8506, type: 2}
+  MoveNames:
+  - Basic Attack

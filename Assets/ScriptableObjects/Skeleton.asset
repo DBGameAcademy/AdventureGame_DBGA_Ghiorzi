@@ -16,3 +16,4 @@ MonoBehaviour:
   Damage: 4
   Health: 12
   Prefab: {fileID: 5855312438155143674, guid: 741b650cd4b76f540927263396cca4a2, type: 3}
+  MoveSet: {fileID: 11400000, guid: 7a524e56485268d4c9a43425c680a1c0, type: 2}

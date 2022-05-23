@@ -2,39 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Attacking : MonoBehaviour, IState
+public class BasicAttack : Move
 {
-    private Monster _monster;
-/*
+    public override string Name => "Basic Attack";
+
     private bool _isAttacking = false;
     private float _attackStartTime = 0;
-    private float _attackDuration = 0.5f;*/
-    public Attacking(Monster monster)
+    private float _attackDuration = 0.5f;
+
+    public override void Process()
     {
-        _monster = monster;
-    }
-
-    public void OnEnter()
-    {/*
-        // Play animation
-        _isAttacking = true;
         _attackStartTime = Time.time;
-        _attackDuration = 0.5f;
-        _monster.gameObject.GetComponentInChildren<MonsterAnimation>().Attack();*/
-
-        Move chosenMove = _monster.MoveSet.GetRandomMove();
-        Move addedMove = (Move)_monster.gameObject.AddComponent(chosenMove.GetType());
-        addedMove.SetMonster(_monster);
-        addedMove.Process();
+        _isAttacking = true;
+        _monster.gameObject.GetComponentInChildren<MonsterAnimation>().Attack();
     }
 
-    public void OnExit()
-    { 
-
-    }
-
-    public void Tick()
-    {/*
+    private void Update()
+    {
         if (_isAttacking)
         {
             float t = (Time.time - _attackStartTime) / _attackDuration;
@@ -51,7 +35,8 @@ public class Attacking : MonoBehaviour, IState
                 _monster.Target.Damage(_monster.GetDamage());
                 _isAttacking = false;
                 GameController.Instance.EndTurn();
+                Destroy(this);
             }
-        }*/
+        }
     }
 }

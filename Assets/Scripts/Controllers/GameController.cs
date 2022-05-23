@@ -27,7 +27,6 @@ public class GameController : Singleton<GameController>
     {
         CreatePlayer();
         DungeonController.Instance.CreateNewMap();
-        //DungeonController.Instance.CreateNewDungeon(5, new Vector2Int(3,3), new Vector2Int(6,6));
     }
 
     public void CreatePlayer()
