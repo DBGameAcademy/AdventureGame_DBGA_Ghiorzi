@@ -42,9 +42,9 @@ public class MonsterAnimation : MonoBehaviour
 
     }
 
-    public void Attack(string name)
+    public void Attack()
     {
-        _animator.SetTrigger(name);
+        _animator.SetTrigger("Attack");
     }
 
     public void Hurt()

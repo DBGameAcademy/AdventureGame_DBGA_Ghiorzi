@@ -5,27 +5,22 @@ using UnityEngine;
 public class Attacking : MonoBehaviour, IState
 {
     private Monster _monster;
-/*
+
     private bool _isAttacking = false;
     private float _attackStartTime = 0;
-    private float _attackDuration = 0.5f;*/
+    private float _attackDuration = 0.5f;
     public Attacking(Monster monster)
     {
         _monster = monster;
     }
 
     public void OnEnter()
-    {/*
+    {
         // Play animation
         _isAttacking = true;
         _attackStartTime = Time.time;
         _attackDuration = 0.5f;
-        _monster.gameObject.GetComponentInChildren<MonsterAnimation>().Attack();*/
-
-        Move chosenMove = _monster.MoveSet.GetRandomMove();
-        Move addedMove = (Move)_monster.gameObject.AddComponent(chosenMove.GetType());
-        addedMove.SetMonster(_monster);
-        addedMove.Process();
+        _monster.gameObject.GetComponentInChildren<MonsterAnimation>().Attack();
     }
 
     public void OnExit()
@@ -34,7 +29,7 @@ public class Attacking : MonoBehaviour, IState
     }
 
     public void Tick()
-    {/*
+    {
         if (_isAttacking)
         {
             float t = (Time.time - _attackStartTime) / _attackDuration;
@@ -52,6 +47,6 @@ public class Attacking : MonoBehaviour, IState
                 _isAttacking = false;
                 GameController.Instance.EndTurn();
             }
-        }*/
+        }
     }
 }

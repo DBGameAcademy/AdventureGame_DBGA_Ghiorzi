@@ -3,8 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class Monster: Actor
-{
-    public MoveSet MoveSet { get => _moveSet; }
+{ 
     public TargetIndicator TargetIndicator { get; private set; }
     public Vector2Int CurrentPosition { get => _currentPosition; }
     public Vector3 AttackDirection { get; set; }
@@ -24,14 +23,12 @@ public class Monster: Actor
     private Tile _lastTile;
 
     private Actor _target;
-    private MoveSet _moveSet;
 
     public void SetupMonster(MonsterData monsterData)
     {
         currentHealth = monsterData.Health;
         maxHealth = monsterData.Health;
         _damage = monsterData.Damage;
-        _moveSet = monsterData.MoveSet;
     }
 
     // Maybe will inherite from Actor - let's see when coding movements

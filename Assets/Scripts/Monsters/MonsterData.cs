@@ -15,5 +15,4 @@ public class MonsterData : ScriptableObject
     public int Damage;
     public int Health;
     public GameObject Prefab;
-    public MoveSet MoveSet;
 }
