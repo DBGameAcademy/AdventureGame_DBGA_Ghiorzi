@@ -382,14 +382,14 @@ public class DungeonController : Singleton<DungeonController>
         {
             if(TryGetRandomTile(CurrentFloor,out randTile,out Room r1))
             {
-                if(TileHasNeighbour(randTile.Position,Vector2Int.right)
-                    && TileHasNeighbour(randTile.Position, Vector2Int.left)
-                    && TileHasNeighbour(randTile.Position, Vector2Int.up)
-                    && TileHasNeighbour(randTile.Position,Vector2Int.down)
-                    && TileHasNeighbour(randTile.Position, new Vector2Int(1,1))
-                    && TileHasNeighbour(randTile.Position, new Vector2Int(-1,-1))
-                    && TileHasNeighbour(randTile.Position, new Vector2Int(1,-1))
-                    && TileHasNeighbour(randTile.Position, new Vector2Int(-1, 1)))
+                if(TileHasEmptyNeighbour(randTile.Position,Vector2Int.right)
+                    && TileHasEmptyNeighbour(randTile.Position, Vector2Int.left)
+                    && TileHasEmptyNeighbour(randTile.Position, Vector2Int.up)
+                    && TileHasEmptyNeighbour(randTile.Position,Vector2Int.down)
+                    && TileHasEmptyNeighbour(randTile.Position, new Vector2Int(1,1))
+                    && TileHasEmptyNeighbour(randTile.Position, new Vector2Int(-1,-1))
+                    && TileHasEmptyNeighbour(randTile.Position, new Vector2Int(1,-1))
+                    && TileHasEmptyNeighbour(randTile.Position, new Vector2Int(-1, 1)))
                 {
                     // Create object
                     // Destroy prev if any
@@ -823,6 +823,23 @@ public class DungeonController : Singleton<DungeonController>
             return false;
         }
         if(CurrentRoom.Tiles[testPos.x,testPos.y] == null)
+        {
+            return false;
+        }
+        return true;
+    }
+
+    private bool TileHasEmptyNeighbour(Vector2Int pos, Vector2Int direction)
+    {
+        Vector2Int testPos = pos + direction;
+        if (testPos.x < 0
+           || testPos.y < 0
+           || testPos.x >= CurrentRoom.Tiles.GetLength(0)
+           || testPos.y >= CurrentRoom.Tiles.GetLength(1))
+        {
+            return false;
+        }
+        if (CurrentRoom.Tiles[testPos.x, testPos.y] == null || CurrentRoom.Tiles[testPos.x,testPos.y].GetType() != typeof(EmptyTile))
         {
             return false;
         }
