@@ -14,7 +14,7 @@ public class BasicAttack : Move
     {
         _attackStartTime = Time.time;
         _isAttacking = true;
-        _monster.gameObject.GetComponentInChildren<MonsterAnimation>().Attack();
+        _monster.gameObject.GetComponentInChildren<MonsterAnimation>().Attack(Name);
     }
 
     private void Update()
