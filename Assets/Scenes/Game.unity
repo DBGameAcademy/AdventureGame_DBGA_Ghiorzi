@@ -2287,9 +2287,29 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 839299207}
     m_Modifications:
+    - target: {fileID: 6382390318075018793, guid: b66737136234c494181477bcf499fdf6, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6382390318075018793, guid: b66737136234c494181477bcf499fdf6, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6382390318075018793, guid: b66737136234c494181477bcf499fdf6, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 693.654
+      objectReference: {fileID: 0}
+    - target: {fileID: 6382390318075018793, guid: b66737136234c494181477bcf499fdf6, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -141.956
+      objectReference: {fileID: 0}
     - target: {fileID: 6382390318168491002, guid: b66737136234c494181477bcf499fdf6, type: 3}
       propertyPath: m_Name
       value: ShopPanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 6382390318168491002, guid: b66737136234c494181477bcf499fdf6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6382390318168491005, guid: b66737136234c494181477bcf499fdf6, type: 3}
       propertyPath: m_Pivot.x
