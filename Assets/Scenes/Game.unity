@@ -662,6 +662,7 @@ MonoBehaviour:
   darkGauge: {fileID: 2006149500}
   dungeonText: {fileID: 1219530302}
   floorText: {fileID: 1913626351}
+  damageTagCanvas: {fileID: 8129970497888612236, guid: 42e604994a421b741a18569a99ed850a, type: 3}
 --- !u!4 &700183323
 Transform:
   m_ObjectHideFlags: 0

@@ -13,7 +13,8 @@ public class UIController : Singleton<UIController>
     private TextMeshProUGUI dungeonText;
     [SerializeField]
     private TextMeshProUGUI floorText;
-    
+    [SerializeField]
+    private GameObject damageTagCanvas;
 
     private Player _player;
 
@@ -52,6 +53,13 @@ public class UIController : Singleton<UIController>
         healthBar.gameObject.SetActive(false);
         darkGauge.SetUp(_player.MaxDarkValue, _player.DarkValue);
         darkGauge.gameObject.SetActive(false);
+    }
+
+    public void ShowDamageTag(Vector3 position, int damage)
+    {
+        GameObject obj = Instantiate(damageTagCanvas, position, Quaternion.identity);
+        DamageTag tag = obj.GetComponentInChildren<DamageTag>();
+        tag.SetDamage(damage);
     }
 
     protected override void Awake()

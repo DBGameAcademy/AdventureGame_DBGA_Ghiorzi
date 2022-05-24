@@ -21,19 +21,17 @@ public class Actor : CharacterObject
             totalDamage = currentHealth;
         }
 
+        UIController.Instance.ShowDamageTag(transform.position, totalDamage);
         currentHealth -= totalDamage;
 
         if (currentHealth <= 0)
         {
             OnKill();
         }
-
-        Debug.Log(this.gameObject.name + " damaged with " + damage+" current health "+currentHealth);
     }
 
     protected virtual void OnKill()
     {
-        Debug.Log(this.gameObject.name + " DEAD");
         Destroy(gameObject);
     }
 
