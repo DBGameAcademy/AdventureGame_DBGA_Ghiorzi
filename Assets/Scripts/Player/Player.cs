@@ -177,6 +177,16 @@ public class Player : Actor
                 {
                     // Finish
                     // procees damages and stuff
+                    if (!IsDark)
+                    {
+                        _lightDamage = playerData.BasicLightDamages[_damageIndex];
+                        _damageIndex = (_damageIndex + 1) % playerData.BasicLightDamages.Length;
+                    }
+                    else
+                    {
+                        _darkDamage = playerData.BasicDarkDamages[_damageIndex];
+                        _damageIndex = (_damageIndex + 1) % playerData.BasicDarkDamages.Length;
+                    }
                     MonsterController.Instance.MoveMonsters();
                     IsAttacking = false;
                 }
