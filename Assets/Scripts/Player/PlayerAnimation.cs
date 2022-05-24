@@ -64,7 +64,6 @@ public class PlayerAnimation : MonoBehaviour
 
     public void AttackAnimation()
     {
-        Debug.Log("Setting trigger = " + "Attack" + (_attackIndex + 1));
         _animator.SetTrigger("Attack"+(_attackIndex+1));
         _attackIndex = (_attackIndex + 1) % 3; // Circular attack 0->1->2->0
     }

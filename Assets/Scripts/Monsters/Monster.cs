@@ -234,7 +234,6 @@ public class Monster: Actor
 
         if (player != null)
         {
-            Debug.Log("TargetAdded");
             player.AddTarget(this);
             _target = player;
             IsInBattle = true;
