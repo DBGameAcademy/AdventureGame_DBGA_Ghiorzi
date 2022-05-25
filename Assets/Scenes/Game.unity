@@ -1593,6 +1593,7 @@ MonoBehaviour:
   dungeonText: {fileID: 1219530302}
   floorText: {fileID: 1913626351}
   damageTagCanvas: {fileID: 8129970497888612236, guid: 42e604994a421b741a18569a99ed850a, type: 3}
+  shopPanel: {fileID: 1086837414}
 --- !u!4 &700183323
 Transform:
   m_ObjectHideFlags: 0
@@ -2399,6 +2400,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1086837414 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6382390318168491002, guid: b66737136234c494181477bcf499fdf6, type: 3}
+  m_PrefabInstance: {fileID: 6382390316789771873}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1158379811 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1730244682011690153, guid: b66737136234c494181477bcf499fdf6, type: 3}
@@ -3656,6 +3662,18 @@ PrefabInstance:
     - target: {fileID: 6382390318168491005, guid: b66737136234c494181477bcf499fdf6, type: 3}
       propertyPath: m_SizeDelta.y
       value: 1666.8015
+      objectReference: {fileID: 0}
+    - target: {fileID: 6382390318168491005, guid: b66737136234c494181477bcf499fdf6, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6382390318168491005, guid: b66737136234c494181477bcf499fdf6, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6382390318168491005, guid: b66737136234c494181477bcf499fdf6, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6382390318168491005, guid: b66737136234c494181477bcf499fdf6, type: 3}
       propertyPath: m_LocalPosition.x

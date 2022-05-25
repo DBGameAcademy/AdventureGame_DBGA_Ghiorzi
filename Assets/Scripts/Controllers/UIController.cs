@@ -15,8 +15,22 @@ public class UIController : Singleton<UIController>
     private TextMeshProUGUI floorText;
     [SerializeField]
     private GameObject damageTagCanvas;
+    [SerializeField]
+    private GameObject shopPanel;
 
     private Player _player;
+
+    public void ShowShop()
+    {
+        shopPanel.SetActive(true);
+        shopPanel.GetComponent<ShopPanel>().Open();
+    }
+
+    public void CloseShop()
+    {
+        shopPanel.SetActive(false);
+        shopPanel.GetComponent<ShopPanel>().Close();
+    }
 
     public void ShowBattleUI()
     {

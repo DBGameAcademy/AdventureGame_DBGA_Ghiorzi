@@ -453,7 +453,8 @@ public class DungeonController : Singleton<DungeonController>
                     CurrentRoom.Tiles[randTile.Position.x, randTile.Position.y].TileObj = Instantiate(mapTileSet.GetTilePrefab(CurrentRoom.Tiles[randTile.Position.x, randTile.Position.y]),
                                                                                new Vector3(randTile.Position.x, -0.5f, randTile.Position.y),
                                                                                Quaternion.identity);
-                    // Animation init here ...
+                    MarketTile market = (MarketTile)GetTile(randTile.Position);
+                    market.EmoteAnimator = GetTile(randTile.Position).TileObj.GetComponentInChildren<Animator>();
                     isMarketPlaced = true;
                 }
                 else
@@ -1038,6 +1039,12 @@ public class DungeonController : Singleton<DungeonController>
                     CurrentRoom.Tiles[x, y].TileObj = Instantiate(mapTileSet.GetTilePrefab(CurrentRoom.Tiles[x, y]), new Vector3(x, -0.5f, y), Quaternion.identity);
                     INNTile inn = (INNTile)CurrentRoom.Tiles[x, y];
                     inn.EmoteAnimator = CurrentRoom.Tiles[x, y].TileObj.GetComponentInChildren<Animator>();
+                }
+                else if (CurrentRoom.Tiles[x, y].GetType() == typeof(MarketTile))
+                {
+                    CurrentRoom.Tiles[x, y].TileObj = Instantiate(mapTileSet.GetTilePrefab(CurrentRoom.Tiles[x, y]), new Vector3(x, -0.5f, y), Quaternion.identity);
+                    MarketTile market = (MarketTile)CurrentRoom.Tiles[x, y];
+                    market.EmoteAnimator = CurrentRoom.Tiles[x, y].TileObj.GetComponentInChildren<Animator>();
                 }
                 else
                     CurrentRoom.Tiles[x, y].TileObj = Instantiate(mapTileSet.GetTilePrefab(CurrentRoom.Tiles[x, y]), new Vector3(x, -0.5f, y), Quaternion.identity);

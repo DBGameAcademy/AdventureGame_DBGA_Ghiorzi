@@ -9,6 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6382390318168491005}
+  - component: {fileID: 5583143133443608846}
+  - component: {fileID: 7259750642007438576}
   m_Layer: 5
   m_Name: ShopPanel
   m_TagString: Untagged
@@ -39,6 +41,37 @@ RectTransform:
   m_AnchoredPosition: {x: 792.3039, y: 0}
   m_SizeDelta: {x: 2936.5234, y: 1666.8015}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &5583143133443608846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6382390318168491002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc0e832a1081d7943a6c5341adbf41fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!95 &7259750642007438576
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6382390318168491002}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e6ce7ebc51ea9c441a47b7d4976b34eb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &124464461125339810
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -148,6 +181,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6382390318168491005}
     m_Modifications:
+    - target: {fileID: 5795253238374781515, guid: f15828702d3a6ed45afd3944eaace037, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.000061035156
+      objectReference: {fileID: 0}
     - target: {fileID: 5795253238544243844, guid: f15828702d3a6ed45afd3944eaace037, type: 3}
       propertyPath: m_Name
       value: ItemsPanel
