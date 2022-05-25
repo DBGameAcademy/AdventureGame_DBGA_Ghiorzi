@@ -11,10 +11,22 @@ public class MarketTile : Tile
 
     public override void EnterTile()
     {
+        emoteAnimator.ResetTrigger("CloseEmote");
+        GameController.Instance.Player.Controls.UI.Exit.performed += context => ExitTile();
         // Show Market UI
         GameController.Instance.Player.StopMoving();
         CinematicController.Instance.StartCinematic();
         UIController.Instance.ShowShop();
         emoteAnimator.SetTrigger("PlayEmote");
+    }
+
+    private void ExitTile()
+    {
+        Debug.Log("Exit Called");
+        CinematicController.Instance.EndCinematic();
+        UIController.Instance.CloseShop();
+        emoteAnimator.SetTrigger("CloseEmote");
+        GameController.Instance.Player.BeginMove(Vector2Int.down);
+        GameController.Instance.Player.Controls.UI.Exit.performed -= context => ExitTile();
     }
 }

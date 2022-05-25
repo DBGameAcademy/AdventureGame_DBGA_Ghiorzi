@@ -10,6 +10,7 @@ public class Player : Actor
     public bool IsAttacking { get; private set; }
     public bool IsTransforming { get; private set; }
     public bool IsDark { get; private set; }
+    public AdventureGame Controls { get => _controls; }
 
     public Vector2Int MovingDirection { get; private set; }
     public Vector3 AttackDirection { get; private set; }
