@@ -296,6 +296,8 @@ GameObject:
   - component: {fileID: 1157331603793698925}
   - component: {fileID: 1157331603793698926}
   - component: {fileID: 3959366464507882636}
+  - component: {fileID: 7321603612504686032}
+  - component: {fileID: 5645505577388436864}
   m_Layer: 5
   m_Name: ItemEntry
   m_TagString: Untagged
@@ -408,6 +410,31 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &7321603612504686032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1157331603793698912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 615f93400e3cef7438c82e2e31d202ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5645505577388436864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1157331603793698912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
 --- !u!1 &1157331604816881197
 GameObject:
   m_ObjectHideFlags: 0
