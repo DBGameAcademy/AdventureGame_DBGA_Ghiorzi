@@ -13,8 +13,11 @@ public class QuantityPanel : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI quantityText;
 
-    private int _basePrice;
-    private int _quantity = 1;
+    private int _basePrice = 0;
+    private int _quantity = 0;
+
+    private bool _isOpen = false;
+    private Animator _animator;
 
     public void SetPanel(int basePrice)
     {
@@ -26,8 +29,17 @@ public class QuantityPanel : MonoBehaviour
         UpdateUI();
     }
 
+    public void ResetPanel()
+    {
+        _basePrice = 0;
+        _quantity = 0;
+        UpdateUI();
+    }
+
     public void AddQauntity()
     {
+        if(_basePrice <=0)
+            return;
         if (_quantity >= 99)
         {
             _quantity = 99;
@@ -40,7 +52,9 @@ public class QuantityPanel : MonoBehaviour
 
     public void RemoveQauntity()
     {
-        if(_quantity <= 1)
+        if (_basePrice <= 0)
+            return;
+        if (_quantity <= 1)
         {
             _quantity = 1;
             return;
@@ -48,6 +62,27 @@ public class QuantityPanel : MonoBehaviour
         _quantity--;
 
         UpdateUI();
+    }
+
+    public void Open()
+    {
+        if (_isOpen)
+            return;
+        _isOpen = true;
+        _animator.SetBool("IsOpen", _isOpen);
+    }
+
+    public void Close()
+    {
+        if (!_isOpen)
+            return;
+        _isOpen = false;
+        _animator.SetBool("IsOpen", _isOpen);
+    }
+
+    private void Awake()
+    {
+        _animator = GetComponent<Animator>();
     }
 
     private void UpdateUI()

@@ -181,6 +181,7 @@ GameObject:
   - component: {fileID: 5030330745408223213}
   - component: {fileID: 5030330745408223210}
   - component: {fileID: 386902036141964385}
+  - component: {fileID: 967320416729673261}
   m_Layer: 5
   m_Name: QuantityPanel
   m_TagString: Untagged
@@ -262,6 +263,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   priceText: {fileID: 5030330745526111844}
   quantityText: {fileID: 5030330746125653771}
+--- !u!95 &967320416729673261
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5030330745408223208}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 97220500c1d28c447bc8c6a909acab34, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5030330745454902642
 GameObject:
   m_ObjectHideFlags: 0
