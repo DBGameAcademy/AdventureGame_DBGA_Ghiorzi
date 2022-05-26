@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEditor;
 
 [CreateAssetMenu(fileName ="New Item Collection", menuName = "Items/Create Item Collection")]
 public class ItemCollection : ScriptableObject
