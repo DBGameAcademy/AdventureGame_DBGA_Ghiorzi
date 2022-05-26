@@ -24,7 +24,7 @@ public class MarketTile : Tile
     {
         Debug.Log("Exit Called");
         CinematicController.Instance.EndCinematic();
-        UIController.Instance.CloseShop();
+        UIController.Instance.HideShop();
         emoteAnimator.SetTrigger("CloseEmote");
         GameController.Instance.Player.BeginMove(Vector2Int.down);
         GameController.Instance.Player.Controls.UI.Exit.performed -= context => ExitTile();

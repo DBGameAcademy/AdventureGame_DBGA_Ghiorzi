@@ -17,8 +17,18 @@ public class UIController : Singleton<UIController>
     private GameObject damageTagCanvas;
     [SerializeField]
     private GameObject shopPanel;
+    [SerializeField]
+    private Inventory inventory;
 
     private Player _player;
+
+    public void ShowInventory()
+    {
+        if (GameController.Instance.Player.IsInBattle || CinematicController.Instance.IsPlaying)
+            return;
+        inventory.gameObject.SetActive(!inventory.IsOpen);
+        inventory.IsOpen = !inventory.IsOpen;
+    }
 
     public void ShowShop()
     {
@@ -26,7 +36,7 @@ public class UIController : Singleton<UIController>
         shopPanel.GetComponent<ShopPanel>().Open();
     }
 
-    public void CloseShop()
+    public void HideShop()
     {
         shopPanel.SetActive(false);
         shopPanel.GetComponent<ShopPanel>().Close();
@@ -79,8 +89,14 @@ public class UIController : Singleton<UIController>
     protected override void Awake()
     {
         base.Awake();
+        inventory.gameObject.SetActive(false);
+        
     }
 
+    private void Start()
+    {
+        GameController.Instance.Player.Controls.UI.Inventory.performed += context => ShowInventory();
+    }
 
     private void Update()
     {
