@@ -19,8 +19,10 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         
         if(tempItem != null)
             draggedItem.Item = tempItem;
-        else
+        else            
             draggedItem.Item = null;
+
+            
 
         if(slotType == Item.eItemType.Armour)
         {
@@ -47,6 +49,14 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         {
             Draggable.ItemImage.enabled = false;
             //Draggable.ItemImage.gameObject.SetActive(false);
+            if (slotType == Item.eItemType.Armour)
+            {
+                GameController.Instance.Player.EquipedArmour = null;
+            }
+            else if (slotType == Item.eItemType.Weapon)
+            {
+                GameController.Instance.Player.HeldWeapon = null;
+            }
         }
     }
 

@@ -61,9 +61,9 @@ public class Player : Actor
     {
         if (amount <= 0)
             return;
-        if (amount > maxHealth)
-            amount = maxHealth - currentHealth;
         currentHealth += amount;
+        if(currentHealth > maxHealth)
+            currentHealth = maxHealth;
     }
 
     public void AddTarget(Actor target)
