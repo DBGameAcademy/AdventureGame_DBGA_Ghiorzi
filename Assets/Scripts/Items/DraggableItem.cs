@@ -15,16 +15,19 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        Debug.Log("Begin Drag");
         transform.SetParent(_canvas.transform);
         transform.SetAsLastSibling();
     }
     public void OnDrag(PointerEventData eventData)
     {
+        Debug.Log("Drag");
         _rectTransform.anchoredPosition += eventData.delta / _canvas.scaleFactor;
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        Debug.Log("End Drag");
         List<RaycastResult> results = new List<RaycastResult>();
         EventSystem.current.RaycastAll(eventData, results);
         ItemSlot slot = null;
@@ -38,13 +41,25 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
 
         if(slot != null)
         {
+            if(slot.SlotType == Item.eItemType.None || Item.Type == slot.SlotType)
+            {
+                slot.OnDrop(this);
 
+                transform.SetParent(ParentSlot.transform);
+                _rectTransform.anchoredPosition = Vector2.zero;
+                return;
+            }
         }
+
+        // Out of inventory
+        transform.SetParent(ParentSlot.transform);
+        _rectTransform.anchoredPosition = Vector2.zero;
     }
 
     private void Awake()
     {
         ItemImage = GetComponent<Image>();
+        ItemImage.enabled = false;
         _canvas = GetComponentInParent<Canvas>();
         _rectTransform = GetComponent<RectTransform>();
         ParentSlot = GetComponentInParent<ItemSlot>();  

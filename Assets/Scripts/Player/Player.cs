@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Collections;
 
 public class Player : Actor
-{ 
+{
+    public WeaponItem HeldWeapon { get; set; }
+    public ArmourItem EquipedArmour { get; set; }
+    
     public int MaxDarkValue { get => _maxDarkValue; }
     public int DarkValue { get; private set; }
     public bool IsMoving { get; private set; }
@@ -23,8 +26,6 @@ public class Player : Actor
 
     private int experience;
     private Quest[] quests;
-    private WeaponItem heldWeapon;
-    private ArmourItem equipedArmour;
     private Item[] consumables;
     private float potionCooldown;
 
@@ -108,6 +109,19 @@ public class Player : Actor
     public void StopMoving()
     {
         IsMoving = false;
+    }
+
+    public override void Damage(int damage)
+    {
+        if (EquipedArmour != null)
+        {
+            damage -= EquipedArmour.DamageReduction;
+            if(damage < 0)
+            {
+                damage = 0;
+            }
+        }
+        base.Damage(damage);
     }
 
     private void Awake()
@@ -215,12 +229,20 @@ public class Player : Actor
                     if (!IsDark) 
                     {
                         _lightDamage = playerData.BasicLightDamages[_damageIndex];
+                        if(HeldWeapon != null)
+                        {
+                            _lightDamage += HeldWeapon.DamageAmount;
+                        }
                         _targets[_currentTargetIndex].Damage(_lightDamage);
                         _damageIndex = (_damageIndex + 1) % playerData.BasicLightDamages.Length;
                     }
                     else
                     {
                         _darkDamage = playerData.BasicDarkDamages[_damageIndex];
+                        if (HeldWeapon != null)
+                        {
+                            _darkDamage += HeldWeapon.DamageAmount;
+                        }
                         _targets[_currentTargetIndex].Damage(_darkDamage);
                         _damageIndex = (_damageIndex + 1) % playerData.BasicDarkDamages.Length;
                     }

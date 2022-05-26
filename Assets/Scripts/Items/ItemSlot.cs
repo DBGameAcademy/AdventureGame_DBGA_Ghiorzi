@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ItemSlot : MonoBehaviour
 {
+    public DraggableItem Draggable { get => draggable; set=>draggable = value; }
+    public Item.eItemType SlotType { get=>slotType; }
     [SerializeField]
     private Item.eItemType slotType;
     [SerializeField]
@@ -11,13 +13,22 @@ public class ItemSlot : MonoBehaviour
 
     public void OnDrop(DraggableItem draggedItem)
     {
-        Item tempItem = draggable.Item;
-        draggable.Item = draggedItem.Item;
+        Item tempItem = Draggable.Item;
+        Draggable.Item = draggedItem.Item;
         
         if(tempItem != null)
             draggedItem.Item = tempItem;
         else
             draggedItem.Item = null;
+
+        if(slotType == Item.eItemType.Armour)
+        {
+            GameController.Instance.Player.EquipedArmour = Draggable.Item as ArmourItem;
+        }
+        if (slotType == Item.eItemType.Weapon)
+        {
+            GameController.Instance.Player.HeldWeapon = Draggable.Item as WeaponItem;
+        }
 
         UpdateItemDisplay();
         draggedItem.ParentSlot.UpdateItemDisplay();
@@ -25,14 +36,16 @@ public class ItemSlot : MonoBehaviour
 
     public void UpdateItemDisplay()
     {
-        if(draggable.Item != null)
+        if(Draggable.Item != null)
         {
-            draggable.ItemImage.gameObject.SetActive(true);
-            draggable.ItemImage.sprite = draggable.Item.Image;
+            //Draggable.ItemImage.gameObject.SetActive(true);
+            Draggable.ItemImage.enabled = true;
+            Draggable.ItemImage.sprite = Draggable.Item.Image;
         }
         else
         {
-            draggable.ItemImage.gameObject.SetActive(false);
+            Draggable.ItemImage.enabled = false;
+            //Draggable.ItemImage.gameObject.SetActive(false);
         }
     }
 }

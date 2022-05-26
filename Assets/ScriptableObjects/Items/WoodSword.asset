@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab0a44cf43ebb2d46ae53a29456dba4f, type: 3}
   m_Name: WoodSword
   m_EditorClassIdentifier: 
+  ID: sw_01
   Name: Wood Sword
   Image: {fileID: -8458810395866972905, guid: ba9814fb3bcb20c438a339598a898a9b, type: 3}
   Type: 2

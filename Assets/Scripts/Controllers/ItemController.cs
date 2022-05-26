@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ItemController : Singleton<ItemController> 
 {
+    public ItemCollection Items { get => items; }
     [SerializeField]
     private ItemCollection items;
 }

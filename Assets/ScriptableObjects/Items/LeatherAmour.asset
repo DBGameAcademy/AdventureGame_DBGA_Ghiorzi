@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acbdb398f63493b42ac711f2294f9b59, type: 3}
   m_Name: LeatherAmour
   m_EditorClassIdentifier: 
+  ID: arm_01
   Name: Leather Armour
   Image: {fileID: 7143958302985762968, guid: ba9814fb3bcb20c438a339598a898a9b, type: 3}
   Type: 1

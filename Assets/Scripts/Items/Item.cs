@@ -2,6 +2,7 @@ using UnityEngine;
 
 public abstract class Item : ScriptableObject
 {
+    public string ID;
     public string Name;
     public Sprite Image;
 

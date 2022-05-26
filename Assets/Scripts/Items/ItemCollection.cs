@@ -8,7 +8,7 @@ public class ItemCollection : ScriptableObject
 {
     public List<Item> Items = new List<Item>();
 
-    public Item GetItem(Type itemType)
+    public Item GetItemFromType(Type itemType)
     {
         foreach(Item item in Items)
         {
@@ -18,6 +18,19 @@ public class ItemCollection : ScriptableObject
             }
         }
         Debug.LogError("No Items for type " + itemType);
+        return null;
+    }
+
+    public Item GetItemFromID(string id)
+    {
+        foreach (Item item in Items)
+        {
+            if (item.ID.Equals(id))
+            {
+                return item;
+            }
+        }
+        Debug.LogError("No Items for ID " + id);
         return null;
     }
 }

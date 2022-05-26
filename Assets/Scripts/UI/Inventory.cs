@@ -9,7 +9,28 @@ public class Inventory : MonoBehaviour
     [SerializeField]
     private GameObject inventoryContainer;
 
-    private List<ItemSlot> _slots = new List<ItemSlot> ();
+    private List<ItemSlot> _slots = new List<ItemSlot>();
+
+    public void AddItemToInventory(Item item)
+    {
+        foreach(ItemSlot slot in _slots)
+        {
+            if(slot.Draggable.Item == null)
+            {
+                slot.Draggable.Item = item;
+                break;
+            }
+        }
+        UpdateDisplay();
+    }
+
+    public void UpdateDisplay()
+    {
+        foreach(ItemSlot slot in _slots)
+        {
+            slot.UpdateItemDisplay();
+        }
+    }
 
     private void Start()
     {
@@ -20,9 +41,9 @@ public class Inventory : MonoBehaviour
                 _slots.Add(t.GetComponent<ItemSlot>());
             }
         }
-    }
 
-    private void Update()
-    { 
+        AddItemToInventory(ItemController.Instance.Items.GetItemFromID("arm_01"));
+        AddItemToInventory(ItemController.Instance.Items.GetItemFromID("sw_01"));
+        AddItemToInventory(ItemController.Instance.Items.GetItemFromID("hpp_01"));
     }
 }
