@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class ItemSlot : MonoBehaviour
+public class ItemSlot : MonoBehaviour, IPointerClickHandler
 {
     public DraggableItem Draggable { get => draggable; set=>draggable = value; }
     public Item.eItemType SlotType { get=>slotType; }
@@ -46,6 +47,21 @@ public class ItemSlot : MonoBehaviour
         {
             Draggable.ItemImage.enabled = false;
             //Draggable.ItemImage.gameObject.SetActive(false);
+        }
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            if (draggable.Item == null || draggable.Item.Type != Item.eItemType.Consumable)
+                return;
+
+            ConsumableItem consumableItem = draggable.Item as ConsumableItem;
+            consumableItem.Use();
+
+            draggable.Item = null;
+            UpdateItemDisplay();
         }
     }
 }

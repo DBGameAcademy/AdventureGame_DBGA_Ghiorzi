@@ -8,6 +8,7 @@ public class HealthPotionItem : ConsumableItem
     public int RestoreHealthAmount;
     public override void Use()
     {
+        Debug.Log("Healed");
         GameController.Instance.Player.RestoreHealth(RestoreHealthAmount);
         if (GameController.Instance.Player.IsInBattle)
         {
