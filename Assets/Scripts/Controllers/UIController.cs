@@ -24,10 +24,18 @@ public class UIController : Singleton<UIController>
 
     public void ShowInventory()
     {
-        if (GameController.Instance.Player.IsInBattle || CinematicController.Instance.IsPlaying)
+        if (CinematicController.Instance.IsPlaying)
             return;
         inventory.gameObject.SetActive(!inventory.IsOpen);
         inventory.IsOpen = !inventory.IsOpen;
+    }
+
+    public void HideInventory()
+    {
+        if (!inventory.IsOpen)
+            return;
+        inventory.gameObject.SetActive(false);
+        inventory.IsOpen = false;
     }
 
     public void ShowShop()

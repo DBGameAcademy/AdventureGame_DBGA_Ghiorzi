@@ -22,7 +22,8 @@ public class CinematicController : Singleton<CinematicController>
     private bool _isZoomReset = false;
 
     public void StartCinematic()
-    {
+    { 
+        UIController.Instance.HideInventory();
         animator.ResetTrigger("CloseCinematic");
         animator.SetTrigger("StartCinematic"); 
         IsPlaying = true;
@@ -39,6 +40,7 @@ public class CinematicController : Singleton<CinematicController>
 
     public void StartBattleCinematic()
     {
+        UIController.Instance.HideInventory();
         animator.ResetTrigger("CloseCinematic");
         animator.SetTrigger("StartCinematic");
         UIController.Instance.ShowBattleUI();
@@ -46,6 +48,7 @@ public class CinematicController : Singleton<CinematicController>
 
     public void EndBattleCinematic()
     {
+        UIController.Instance.HideInventory();
         animator.ResetTrigger("StartCinematic");
         animator.SetTrigger("CloseCinematic");
         UIController.Instance.HideBattleUI();
