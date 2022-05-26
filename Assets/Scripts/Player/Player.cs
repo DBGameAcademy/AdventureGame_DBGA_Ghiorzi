@@ -23,8 +23,8 @@ public class Player : Actor
 
     private int experience;
     private Quest[] quests;
-    private Weapon heldWeapon;
-    private Armour equipedArmour;
+    private WeaponItem heldWeapon;
+    private ArmourItem equipedArmour;
     private Item[] consumables;
     private float potionCooldown;
 
@@ -54,6 +54,15 @@ public class Player : Actor
     public void RestoreHealth()
     {
         currentHealth = maxHealth;
+    }
+
+    public void RestoreHealth(int amount)
+    {
+        if (amount <= 0)
+            return;
+        if (amount > maxHealth)
+            amount = maxHealth - currentHealth;
+        currentHealth += amount;
     }
 
     public void AddTarget(Actor target)
