@@ -20,6 +20,7 @@ public class UIController : Singleton<UIController>
     [SerializeField]
     private Inventory inventory;
 
+
     private Player _player;
 
     public void ShowInventory()
