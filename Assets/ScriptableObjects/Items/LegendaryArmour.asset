@@ -14,6 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: arm_99
   Name: Legendary Armour
+  Description: '+999 DEF
+
+
+    An invincible armour'
   Image: {fileID: -5789981893102897468, guid: ba9814fb3bcb20c438a339598a898a9b, type: 3}
   Type: 1
   DamageReduction: 999

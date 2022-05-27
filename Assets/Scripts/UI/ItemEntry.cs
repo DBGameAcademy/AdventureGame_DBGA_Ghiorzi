@@ -19,7 +19,7 @@ public class ItemEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     private Item _currentItem;
     public void OnPointerEnter(PointerEventData eventData)
     {
-        _shop.DescriptionPanel.SetPanel("ITEM DESCRIPTION GOES HERE");
+        _shop.DescriptionPanel.SetPanel(_currentItem.Description);
         _shop.DescriptionPanel.Open();
     }
 
@@ -43,7 +43,7 @@ public class ItemEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     public void OnUpdateSelected(BaseEventData eventData)
     {
         _shop.DescriptionPanel.Deselect();
-        _shop.DescriptionPanel.SetPanel("DESCRIPTION GOES HERE");
+        _shop.DescriptionPanel.SetPanel(_currentItem.Description);
         _shop.DescriptionPanel.Select();
     }
 

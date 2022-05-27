@@ -14,6 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: hpp_02
   Name: Mega Health Potion
+  Description: '+10 HP
+
+
+    A big potion'
   Image: {fileID: 5308208995468379696, guid: ba9814fb3bcb20c438a339598a898a9b, type: 3}
   Type: 3
   RestoreHealthAmount: 10
