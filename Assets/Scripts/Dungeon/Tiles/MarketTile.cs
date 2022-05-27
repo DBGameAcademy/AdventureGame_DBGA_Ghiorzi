@@ -11,6 +11,7 @@ public class MarketTile : Tile
 
     public override void EnterTile()
     {
+        GameController.Instance.Player.IsInBuilding = true;
         emoteAnimator.ResetTrigger("CloseEmote");
         GameController.Instance.Player.Controls.UI.Exit.performed += context => ExitTile();
         // Show Market UI
@@ -22,6 +23,7 @@ public class MarketTile : Tile
 
     private void ExitTile()
     {
+        GameController.Instance.Player.IsInBuilding = false;
         Debug.Log("Exit Called");
         CinematicController.Instance.EndCinematic();
         UIController.Instance.HideShop();

@@ -11,6 +11,7 @@ public class INNTile : Tile
 
     public override void EnterTile()
     {
+        GameController.Instance.Player.IsInBuilding = true;
         GameController.Instance.Player.StopMoving();
         UIController.Instance.ShowBattleUI();
         StartCoroutine(CORestoreHealth());
@@ -18,6 +19,7 @@ public class INNTile : Tile
         {
             emoteAnimator.SetTrigger("CloseEmote");
             GameController.Instance.Player.BeginMove(Vector2Int.down);
+            GameController.Instance.Player.IsInBuilding = false;
         });
         // Start Cinematic
         // End Cinematic -> Player sprite visible + player pos front INN

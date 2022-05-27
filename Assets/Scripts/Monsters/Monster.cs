@@ -232,7 +232,7 @@ public class Monster: Actor
             }
         }
 
-        if (player != null)
+        if (player != null && (!player.IsInBuilding))
         {
             player.AddTarget(this);
             _target = player;
