@@ -49,7 +49,7 @@ public class UIController : Singleton<UIController>
     public void HideShop()
     {
         shopPanel.GetComponent<ShopPanel>().Close();
-        shopPanel.SetActive(false);
+        //shopPanel.SetActive(false);
     }
 
     public void ShowBattleUI()

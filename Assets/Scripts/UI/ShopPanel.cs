@@ -34,6 +34,9 @@ public class ShopPanel : MonoBehaviour
         if (!_isOpen)
             return;
         _isOpen = false;
+        quantityPanel.Close();
+        descriptionPanel.Deselect();
+        confirmPanel.Close();
         _animator.SetBool("IsOpen", _isOpen);
     }
 
