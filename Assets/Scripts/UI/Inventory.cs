@@ -10,6 +10,7 @@ public class Inventory : MonoBehaviour
     private GameObject inventoryContainer;
 
     private List<ItemSlot> _slots = new List<ItemSlot>();
+    private Dictionary<string, int> countDictionary = new Dictionary<string, int>();
 
     public void AddItemToInventory(Item item)
     {
@@ -18,10 +19,37 @@ public class Inventory : MonoBehaviour
             if(slot.Draggable.Item == null)
             {
                 slot.Draggable.Item = item;
+                if(countDictionary.TryGetValue(item.ID, out int count))
+                {
+                    count++;
+                    countDictionary[item.ID] = count;
+                }
+                else
+                {
+                    count = 1;
+                    countDictionary.Add(item.ID, count);
+                }
                 break;
             }
         }
         UpdateDisplay();
+    }
+
+    public void RemoveItemFromInventory(Item item)
+    {
+        if (item == null)
+            return;
+        if (!countDictionary.ContainsKey(item.ID))
+            return;
+        if(countDictionary[item.ID] <= 1)
+        {
+            countDictionary.Remove(item.ID);
+        }
+        else
+        {
+            countDictionary[item.ID]--;
+        }
+        item = null;
     }
 
     public void UpdateDisplay()
@@ -30,6 +58,13 @@ public class Inventory : MonoBehaviour
         {
             slot.UpdateItemDisplay();
         }
+    }
+
+    public int GetItemCount(string id)
+    {
+        if(!countDictionary.ContainsKey(id))
+            return 0;
+        return countDictionary[id];
     }
 
     private void Start()

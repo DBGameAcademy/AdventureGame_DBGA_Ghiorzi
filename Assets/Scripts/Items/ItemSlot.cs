@@ -12,6 +12,8 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     [SerializeField]
     private DraggableItem draggable;
 
+    private Inventory _inventory;
+
     public void OnDrop(DraggableItem draggedItem)
     {
         Item tempItem = Draggable.Item;
@@ -70,8 +72,14 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
             ConsumableItem consumableItem = draggable.Item as ConsumableItem;
             consumableItem.Use();
 
+            _inventory.RemoveItemFromInventory(draggable.Item);
             draggable.Item = null;
             UpdateItemDisplay();
         }
+    }
+
+    private void Awake()
+    {
+        _inventory = GetComponentInParent<Inventory>();
     }
 }

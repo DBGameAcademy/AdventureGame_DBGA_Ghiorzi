@@ -52,8 +52,6 @@ public class ItemEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         _currentItem = item;
         itemImage.sprite = item.Image;
         textName.text = item.Name;
-        itemCount = 0; // TO-DO: GET ITEM COUNT FROM INVENTORY BY ITEM ID IN DICTIONARY
-        textCount.text = "BAG x" + itemCount.ToString("000");
     }
 
     private void Awake()
@@ -61,5 +59,16 @@ public class ItemEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         _shop = GetComponentInParent<ShopPanel>();
     }
 
-  
+    private void Update()
+    {
+        UpdateCountForItem();
+    }
+
+    private void UpdateCountForItem()
+    {
+        if (_currentItem == null)
+            return;
+        itemCount = UIController.Instance.Inventory.GetItemCount(_currentItem.ID);
+        textCount.text = "BAG x" + itemCount.ToString("000");
+    }
 }

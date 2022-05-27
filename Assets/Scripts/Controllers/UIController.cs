@@ -5,6 +5,8 @@ using TMPro;
 
 public class UIController : Singleton<UIController>
 {
+    public Inventory Inventory { get => inventory; }
+
     [SerializeField]
     private HealthBar healthBar;
     [SerializeField]
@@ -19,7 +21,6 @@ public class UIController : Singleton<UIController>
     private GameObject shopPanel;
     [SerializeField]
     private Inventory inventory;
-
 
     private Player _player;
 
