@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6382390318168491005}
   - component: {fileID: 5583143133443608846}
   - component: {fileID: 7259750642007438576}
+  - component: {fileID: 1784151792796723289}
   m_Layer: 5
   m_Name: ShopPanel
   m_TagString: Untagged
@@ -77,6 +78,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1784151792796723289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6382390318168491002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1762fc3d588993f4fb1b5a8f7b845d37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  arrowUp: {fileID: 6382390317414188474}
+  arrowDown: {fileID: 6382390318557027680}
 --- !u!1001 &124464461125339810
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -430,6 +445,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b34abce434f61d34fafe95dd4deca439, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &6382390317414188474 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5030330745454902642, guid: ff8076a9871a7904fb62eb91772fc5e3, type: 3}
+  m_PrefabInstance: {fileID: 2116020044311640264}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6382390318557027680 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5030330744584988072, guid: ff8076a9871a7904fb62eb91772fc5e3, type: 3}
+  m_PrefabInstance: {fileID: 2116020044311640264}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3147705778813080406
 PrefabInstance:
   m_ObjectHideFlags: 0

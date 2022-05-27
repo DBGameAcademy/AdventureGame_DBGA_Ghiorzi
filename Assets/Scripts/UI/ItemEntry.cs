@@ -33,13 +33,16 @@ public class ItemEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         _shop.DescriptionPanel.Select();
         _shop.QuantityPanel.Open();
         _shop.ConfirmPanel.Open();
+        
     }
+    
     public void OnDeselect(BaseEventData eventData)
     {
         _shop.DescriptionPanel.Deselect();
         _shop.QuantityPanel.Close();
-        _shop.ConfirmPanel.Close();
+        _shop.ConfirmPanel.Close();  
     }
+
     public void OnUpdateSelected(BaseEventData eventData)
     {
         _shop.DescriptionPanel.Deselect();
@@ -62,6 +65,17 @@ public class ItemEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     private void Update()
     {
         UpdateCountForItem();
+        if (EventSystem.current == null)
+            return;
+        if (EventSystem.current.currentSelectedGameObject == null)
+            return;
+        if((!EventSystem.current.currentSelectedGameObject.GetComponent<ItemEntry>()) 
+            && (!EventSystem.current.currentSelectedGameObject.gameObject.name.Contains("Arrow")))
+        {
+            _shop.DescriptionPanel.Deselect();
+            _shop.QuantityPanel.Close();
+            _shop.ConfirmPanel.Close();
+        }
     }
 
     private void UpdateCountForItem()
