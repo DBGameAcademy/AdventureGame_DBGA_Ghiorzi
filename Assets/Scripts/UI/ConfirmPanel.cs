@@ -32,6 +32,7 @@ public class ConfirmPanel : MonoBehaviour
 
         if(quantityPanel.Quantity > UIController.Instance.Inventory.FreeSpace)
         {
+            // Display Error message or something
             Debug.Log("QUANTITY > FREE SPACE");
             return;
         }
