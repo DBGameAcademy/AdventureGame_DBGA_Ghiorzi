@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
+    public int FreeSpace { get; private set; }
     public bool IsOpen { get; set; }
 
     [SerializeField]
@@ -33,6 +34,7 @@ public class Inventory : MonoBehaviour
             }
         }
         UpdateDisplay();
+        CheckFreeSpace();
     }
 
     public void RemoveItemFromInventory(Item item)
@@ -50,10 +52,22 @@ public class Inventory : MonoBehaviour
             countDictionary[item.ID]--;
         }
         item = null;
+        CheckFreeSpace();
+    }
+
+    public void CheckFreeSpace()
+    {
+        int freeCount = 0;
+        foreach (ItemSlot slot in _slots)
+        {
+            if (slot.IsEmpty)
+                freeCount++;
+        }
+        FreeSpace = freeCount;
     }
 
     public void UpdateDisplay()
-    {
+    { 
         foreach(ItemSlot slot in _slots)
         {
             slot.UpdateItemDisplay();

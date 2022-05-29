@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 
 public class ItemSlot : MonoBehaviour, IPointerClickHandler
 {
+    public bool IsEmpty { get; private set; }
     public DraggableItem Draggable { get => draggable; set=>draggable = value; }
     public Item.eItemType SlotType { get=>slotType; }
     [SerializeField]
@@ -43,12 +44,14 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
     {
         if(Draggable.Item != null)
         {
+            IsEmpty = false;
             //Draggable.ItemImage.gameObject.SetActive(true);
             Draggable.ItemImage.enabled = true;
             Draggable.ItemImage.sprite = Draggable.Item.Image;
         }
         else
         {
+            IsEmpty = true;
             Draggable.ItemImage.enabled = false;
             //Draggable.ItemImage.gameObject.SetActive(false);
             if (slotType == Item.eItemType.Armour)
@@ -75,6 +78,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
             _inventory.RemoveItemFromInventory(draggable.Item);
             draggable.Item = null;
             UpdateItemDisplay();
+            _inventory.CheckFreeSpace();
         }
     }
 

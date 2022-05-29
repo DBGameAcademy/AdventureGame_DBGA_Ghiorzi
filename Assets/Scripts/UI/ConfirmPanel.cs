@@ -30,7 +30,11 @@ public class ConfirmPanel : MonoBehaviour
     {
         // TO-DO MONEY CHECK LOGIC HERE -> FALSE: ERROR MESSAGE OR WHATEVER AND THEN RETURN
 
-        // TO-DO FREE SPACE CHECK -> FALSE: ERROR MESSAGE OR WHATEVER AND THEN RETURN
+        if(quantityPanel.Quantity > UIController.Instance.Inventory.FreeSpace)
+        {
+            Debug.Log("QUANTITY > FREE SPACE");
+            return;
+        }
 
         // Add items to inventory
         for (int i = 0; i<quantityPanel.Quantity; i++)
