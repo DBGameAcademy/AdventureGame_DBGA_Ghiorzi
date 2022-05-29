@@ -38,6 +38,7 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
 
         UpdateItemDisplay();
         draggedItem.ParentSlot.UpdateItemDisplay();
+        _inventory.CheckFreeSpace();
     }
 
     public void UpdateItemDisplay()
