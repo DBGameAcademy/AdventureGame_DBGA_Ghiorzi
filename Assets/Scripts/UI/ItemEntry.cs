@@ -17,6 +17,10 @@ public class ItemEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     private ShopPanel _shop;
     private int itemCount = 0;
     private Item _currentItem;
+    private int _basePrice;
+
+    private bool _isQuantitySet = false;
+
     public void OnPointerEnter(PointerEventData eventData)
     {
         _shop.DescriptionPanel.SetPanel(_currentItem.Description);
@@ -32,8 +36,12 @@ public class ItemEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     {
         _shop.DescriptionPanel.Select();
         _shop.QuantityPanel.Open();
+        if (!_isQuantitySet)
+        {
+            _shop.QuantityPanel.SetPanel(_basePrice);
+            _isQuantitySet = true;
+        }
         _shop.ConfirmPanel.Open();
-        
     }
     
     public void OnDeselect(BaseEventData eventData)
@@ -50,11 +58,12 @@ public class ItemEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         _shop.DescriptionPanel.Select();
     }
 
-    public void SetEntry(Item item)
+    public void SetEntry(Item item, int basePrice)
     {
         _currentItem = item;
         itemImage.sprite = item.Image;
         textName.text = item.Name;
+        _basePrice = basePrice;
     }
 
     private void Awake()
@@ -65,17 +74,6 @@ public class ItemEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     private void Update()
     {
         UpdateCountForItem();
-        if (EventSystem.current == null)
-            return;
-        if (EventSystem.current.currentSelectedGameObject == null)
-            return;
-        if((!EventSystem.current.currentSelectedGameObject.GetComponent<ItemEntry>()) 
-            && (!EventSystem.current.currentSelectedGameObject.gameObject.name.Contains("Arrow")))
-        {
-            _shop.DescriptionPanel.Deselect();
-            _shop.QuantityPanel.Close();
-            _shop.ConfirmPanel.Close();
-        }
     }
 
     private void UpdateCountForItem()
@@ -84,5 +82,15 @@ public class ItemEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
             return;
         itemCount = UIController.Instance.Inventory.GetItemCount(_currentItem.ID);
         textCount.text = "BAG x" + itemCount.ToString("000");
+
+        if (EventSystem.current.currentSelectedGameObject != null 
+            && EventSystem.current.currentSelectedGameObject.GetComponent<ItemEntry>()
+            && (!EventSystem.current.currentSelectedGameObject.Equals(this.gameObject)))
+        {
+            if (_isQuantitySet)
+            {
+                _isQuantitySet = false;
+            }
+        }
     }
 }

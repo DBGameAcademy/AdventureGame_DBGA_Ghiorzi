@@ -26,7 +26,7 @@ public class PreventingDeselection : MonoBehaviour
             sel = evt.currentSelectedGameObject;
         else if (evt.currentSelectedGameObject != null &&  sel != null && evt.currentSelectedGameObject.Equals(arrowUp))
             evt.SetSelectedGameObject(sel);
-
+        
         if (evt.currentSelectedGameObject != null && (!evt.currentSelectedGameObject.Equals(arrowDown)) && evt.currentSelectedGameObject != sel2)
             sel2 = evt.currentSelectedGameObject;
         else if (evt.currentSelectedGameObject != null && sel2 != null && evt.currentSelectedGameObject.Equals(arrowDown))

@@ -40,12 +40,12 @@ public class ShopPanel : MonoBehaviour
         _animator.SetBool("IsOpen", _isOpen);
     }
 
-    public void AddItemEntry(string id)
+    public void AddItemEntry(string id,int basePrice)
     {
         GameObject itemEntryObj = Instantiate(itemEntryPrefab, itemList.transform);
         ItemEntry itemEntry = itemEntryObj.GetComponent<ItemEntry>();
         Item item = ItemController.Instance.Items.GetItemFromID(id);
-        itemEntry.SetEntry(item);
+        itemEntry.SetEntry(item,basePrice);
     }
 
     private void Awake()
@@ -56,7 +56,7 @@ public class ShopPanel : MonoBehaviour
 
     private void Start()
     {
-        AddItemEntry("hpp_01");
-        AddItemEntry("hpp_02");
+        AddItemEntry("hpp_01",10);
+        AddItemEntry("hpp_02",22);
     }
 }
