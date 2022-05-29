@@ -99,7 +99,7 @@ public class UIController : Singleton<UIController>
     protected override void Awake()
     {
         base.Awake();
-        inventory.gameObject.SetActive(false);
+        //inventory.gameObject.SetActive(false);
         
     }
 
