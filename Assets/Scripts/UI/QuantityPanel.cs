@@ -7,6 +7,8 @@ using TMPro;
 public class QuantityPanel : MonoBehaviour
 {
     public int CurrentPrice { get; private set; }
+    public int Quantity { get => _quantity; }
+    public Item Item { get=>_item; }
 
     [SerializeField]
     private TextMeshProUGUI priceText;
@@ -15,14 +17,16 @@ public class QuantityPanel : MonoBehaviour
 
     private int _basePrice = 0;
     private int _quantity = 0;
+    private Item _item = null;
 
     private bool _isOpen = false;
     private Animator _animator;
 
-    public void SetPanel(int basePrice)
+    public void SetPanel(int basePrice, Item item)
     {
         if (basePrice < 0)
             return;
+        _item = item;
         _basePrice = basePrice;
         _quantity = 1;
 
@@ -31,6 +35,7 @@ public class QuantityPanel : MonoBehaviour
 
     public void ResetPanel()
     {
+        _item = null;
         _basePrice = 0;
         _quantity = 0;
         UpdateUI();

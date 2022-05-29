@@ -6,7 +6,9 @@ using TMPro;
 using UnityEngine.EventSystems;
 
 public class ItemEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, ISelectHandler, IDeselectHandler, IUpdateSelectedHandler
-{
+{ 
+    public Item CurrentItem { get; private set; }
+    
     [SerializeField]
     private TextMeshProUGUI textName;
     [SerializeField]
@@ -16,14 +18,13 @@ public class ItemEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     private ShopPanel _shop;
     private int itemCount = 0;
-    private Item _currentItem;
+    
     private int _basePrice;
-
     private bool _isQuantitySet = false;
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        _shop.DescriptionPanel.SetPanel(_currentItem.Description);
+        _shop.DescriptionPanel.SetPanel(CurrentItem.Description);
         _shop.DescriptionPanel.Open();
     }
 
@@ -38,7 +39,7 @@ public class ItemEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         _shop.QuantityPanel.Open();
         if (!_isQuantitySet)
         {
-            _shop.QuantityPanel.SetPanel(_basePrice);
+            _shop.QuantityPanel.SetPanel(_basePrice,CurrentItem);
             _isQuantitySet = true;
         }
         _shop.ConfirmPanel.Open();
@@ -54,13 +55,13 @@ public class ItemEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     public void OnUpdateSelected(BaseEventData eventData)
     {
         _shop.DescriptionPanel.Deselect();
-        _shop.DescriptionPanel.SetPanel(_currentItem.Description);
+        _shop.DescriptionPanel.SetPanel(CurrentItem.Description);
         _shop.DescriptionPanel.Select();
     }
 
     public void SetEntry(Item item, int basePrice)
     {
-        _currentItem = item;
+        CurrentItem = item;
         itemImage.sprite = item.Image;
         textName.text = item.Name;
         _basePrice = basePrice;
@@ -78,9 +79,9 @@ public class ItemEntry : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     private void UpdateCountForItem()
     {
-        if (_currentItem == null)
+        if (CurrentItem == null)
             return;
-        itemCount = UIController.Instance.Inventory.GetItemCount(_currentItem.ID);
+        itemCount = UIController.Instance.Inventory.GetItemCount(CurrentItem.ID);
         textCount.text = "BAG x" + itemCount.ToString("000");
 
         if (EventSystem.current.currentSelectedGameObject != null 
