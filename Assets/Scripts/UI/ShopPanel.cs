@@ -2,12 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public struct ShopEntry { 
+    public string ID;
+    public int BasePrice;
+}
+
 public class ShopPanel : MonoBehaviour
-{
+{   
+  
     public QuantityPanel QuantityPanel { get => quantityPanel; }
     public ConfirmPanel ConfirmPanel { get => confirmPanel; }
     public DescriptionPanel DescriptionPanel { get => descriptionPanel; }
-
+    [Header("UI References")]
     [SerializeField]
     private GameObject itemEntryPrefab;
     [SerializeField]
@@ -18,6 +25,9 @@ public class ShopPanel : MonoBehaviour
     private ConfirmPanel confirmPanel;
     [SerializeField]
     private DescriptionPanel descriptionPanel;
+    [Header("Shop Entries")]
+    [SerializeField]
+    private List<ShopEntry> shopEntries = new List<ShopEntry>();
 
     private bool _isOpen = false;
     private Animator _animator;
@@ -56,7 +66,7 @@ public class ShopPanel : MonoBehaviour
 
     private void Start()
     {
-        AddItemEntry("hpp_01",10);
-        AddItemEntry("hpp_02",22);
+        foreach(ShopEntry entry in shopEntries)
+            AddItemEntry(entry.ID,entry.BasePrice);
     }
 }

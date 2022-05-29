@@ -5369,6 +5369,46 @@ PrefabInstance:
       propertyPath: OnMouseOverEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 5583143133443608846, guid: b66737136234c494181477bcf499fdf6, type: 3}
+      propertyPath: ShopEntries.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5583143133443608846, guid: b66737136234c494181477bcf499fdf6, type: 3}
+      propertyPath: shopEntries.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5583143133443608846, guid: b66737136234c494181477bcf499fdf6, type: 3}
+      propertyPath: shopEntries.Array.data[0].ID
+      value: hpp_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 5583143133443608846, guid: b66737136234c494181477bcf499fdf6, type: 3}
+      propertyPath: shopEntries.Array.data[1].ID
+      value: hpp_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 5583143133443608846, guid: b66737136234c494181477bcf499fdf6, type: 3}
+      propertyPath: shopEntries.Array.data[2].ID
+      value: sw_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 5583143133443608846, guid: b66737136234c494181477bcf499fdf6, type: 3}
+      propertyPath: shopEntries.Array.data[3].ID
+      value: arm_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 5583143133443608846, guid: b66737136234c494181477bcf499fdf6, type: 3}
+      propertyPath: shopEntries.Array.data[0].BasePrice
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5583143133443608846, guid: b66737136234c494181477bcf499fdf6, type: 3}
+      propertyPath: shopEntries.Array.data[1].BasePrice
+      value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 5583143133443608846, guid: b66737136234c494181477bcf499fdf6, type: 3}
+      propertyPath: shopEntries.Array.data[2].BasePrice
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 5583143133443608846, guid: b66737136234c494181477bcf499fdf6, type: 3}
+      propertyPath: shopEntries.Array.data[3].BasePrice
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 6382390317143238991, guid: b66737136234c494181477bcf499fdf6, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -5467,7 +5507,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6382390317827660105, guid: b66737136234c494181477bcf499fdf6, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 5050217.5
+      value: 5216936
       objectReference: {fileID: 0}
     - target: {fileID: 6382390318075018790, guid: b66737136234c494181477bcf499fdf6, type: 3}
       propertyPath: m_Name

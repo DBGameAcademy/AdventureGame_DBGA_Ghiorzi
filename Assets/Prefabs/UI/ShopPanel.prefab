@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6382390318168491005}
-  - component: {fileID: 5583143133443608846}
-  - component: {fileID: 7259750642007438576}
   - component: {fileID: 1784151792796723289}
+  - component: {fileID: 7259750642007438576}
+  - component: {fileID: 5583143133443608846}
   m_Layer: 5
   m_Name: ShopPanel
   m_TagString: Untagged
@@ -42,7 +42,7 @@ RectTransform:
   m_AnchoredPosition: {x: 792.3039, y: 0}
   m_SizeDelta: {x: 2936.5234, y: 1666.8015}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &5583143133443608846
+--- !u!114 &1784151792796723289
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -51,14 +51,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 6382390318168491002}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc0e832a1081d7943a6c5341adbf41fe, type: 3}
+  m_Script: {fileID: 11500000, guid: 1762fc3d588993f4fb1b5a8f7b845d37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemEntryPrefab: {fileID: 1157331603793698912, guid: 3d86bf8d79f341a469f4e0540d661978, type: 3}
-  itemList: {fileID: 6382390317827660102}
-  quantityPanel: {fileID: 1730244682011690153}
-  confirmPanel: {fileID: 5699814928021795020}
-  descriptionPanel: {fileID: 3820730580811711608}
+  arrowUp: {fileID: 6382390317414188474}
+  arrowDown: {fileID: 6382390318557027680}
 --- !u!95 &7259750642007438576
 Animator:
   serializedVersion: 3
@@ -78,7 +75,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1784151792796723289
+--- !u!114 &5583143133443608846
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -87,11 +84,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 6382390318168491002}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1762fc3d588993f4fb1b5a8f7b845d37, type: 3}
+  m_Script: {fileID: 11500000, guid: cc0e832a1081d7943a6c5341adbf41fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  arrowUp: {fileID: 6382390317414188474}
-  arrowDown: {fileID: 6382390318557027680}
+  itemEntryPrefab: {fileID: 1157331603793698912, guid: 3d86bf8d79f341a469f4e0540d661978, type: 3}
+  itemList: {fileID: 6382390317827660102}
+  quantityPanel: {fileID: 1730244682011690153}
+  confirmPanel: {fileID: 5699814928021795020}
+  descriptionPanel: {fileID: 3820730580811711608}
 --- !u!1001 &124464461125339810
 PrefabInstance:
   m_ObjectHideFlags: 0
