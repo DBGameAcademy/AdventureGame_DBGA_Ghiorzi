@@ -28,6 +28,7 @@ public class UIController : Singleton<UIController>
     {
         if (CinematicController.Instance.IsPlaying)
             return;
+        inventory.gameObject.transform.localScale = new Vector3(1, 1, 1);
         inventory.gameObject.SetActive(!inventory.IsOpen);
         inventory.IsOpen = !inventory.IsOpen;
     }
@@ -49,7 +50,6 @@ public class UIController : Singleton<UIController>
     public void HideShop()
     {
         shopPanel.GetComponent<ShopPanel>().Close();
-        //shopPanel.SetActive(false);
     }
 
     public void ShowBattleUI()
@@ -99,7 +99,7 @@ public class UIController : Singleton<UIController>
     protected override void Awake()
     {
         base.Awake();
-        //inventory.gameObject.SetActive(false);
+        inventory.gameObject.transform.localScale = new Vector3(0, 0, 0);
         
     }
 
