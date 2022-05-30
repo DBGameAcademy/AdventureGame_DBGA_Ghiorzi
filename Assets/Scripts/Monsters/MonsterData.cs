@@ -14,5 +14,6 @@ public class MonsterData : ScriptableObject
     public eMonsterID ID;
     public int Damage;
     public int Health;
+    public int MoneyDrop;
     public GameObject Prefab;
 }

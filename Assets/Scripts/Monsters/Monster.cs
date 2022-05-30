@@ -15,6 +15,7 @@ public class Monster: Actor
 
     private Reward _killReward;
     private int _damage;
+    private int _dropMoney;
 
     private StateMachine _stateMachine;
 
@@ -29,6 +30,7 @@ public class Monster: Actor
         currentHealth = monsterData.Health;
         maxHealth = monsterData.Health;
         _damage = monsterData.Damage;
+        _dropMoney = monsterData.MoneyDrop;
     }
 
     // Maybe will inherite from Actor - let's see when coding movements
@@ -42,6 +44,7 @@ public class Monster: Actor
         DungeonController.Instance.GetTile(_currentPosition).UnsetCharacterObject();
         Player player = (Player)_target;
         player.RemoveTarget(this);
+        player.AddMoney(_dropMoney);
         MonsterController.Instance.RemoveMonster(this);
         base.OnKill();
     }

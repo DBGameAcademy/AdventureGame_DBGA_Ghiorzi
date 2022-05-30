@@ -28,7 +28,12 @@ public class ConfirmPanel : MonoBehaviour
 
     public void Confirm()
     {
-        // TO-DO MONEY CHECK LOGIC HERE -> FALSE: ERROR MESSAGE OR WHATEVER AND THEN RETURN
+        if(GameController.Instance.Player.Money < quantityPanel.CurrentPrice)
+        {
+            // TO-DO: Display Error message or something
+            Debug.Log("NOT ENOUGH MONEY");
+            return;
+        }
 
         if(quantityPanel.Quantity > UIController.Instance.Inventory.FreeSpace)
         {
@@ -36,6 +41,9 @@ public class ConfirmPanel : MonoBehaviour
             Debug.Log("QUANTITY > FREE SPACE");
             return;
         }
+
+        // Remove Money
+        GameController.Instance.Player.RemoveMoney(quantityPanel.CurrentPrice);
 
         // Add items to inventory
         for (int i = 0; i<quantityPanel.Quantity; i++)

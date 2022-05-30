@@ -7,6 +7,7 @@ public class Player : Actor
     public WeaponItem HeldWeapon { get; set; }
     public ArmourItem EquipedArmour { get; set; }
     
+    public int Money { get; private set; }
     public int MaxDarkValue { get => _maxDarkValue; }
     public int DarkValue { get; private set; }
     public bool IsMoving { get; private set; }
@@ -52,6 +53,27 @@ public class Player : Actor
     private int _darkAddAmount = 2;
     private int _darkRemoveAmount = 2;
     private int _damageIndex = 0;
+
+    public void AddMoney(int amount)
+    {
+        if (amount <= 0)
+            return;
+        Money += amount;
+        if (Money > 9999)
+            Money = 9999;
+    }
+
+    public void RemoveMoney(int amount)
+    {
+        if (amount <= 0)
+            return;
+        if(amount >= Money)
+        {
+            Money = 0;
+            return;
+        }
+        Money -= amount;
+    }
 
     public void RestoreHealth()
     {

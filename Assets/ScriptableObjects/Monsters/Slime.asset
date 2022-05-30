@@ -15,5 +15,5 @@ MonoBehaviour:
   ID: 0
   Damage: 1
   Health: 10
+  MoneyDrop: 3
   Prefab: {fileID: 6052531788548302779, guid: da7cebed591595145b3768ae592712a1, type: 3}
-  MoveSet: {fileID: 11400000, guid: 173cb2e14876b4a48b03cb271d3d8506, type: 2}
