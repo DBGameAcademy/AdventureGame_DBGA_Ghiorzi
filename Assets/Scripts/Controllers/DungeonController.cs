@@ -515,6 +515,51 @@ public class DungeonController : Singleton<DungeonController>
         }
         while (!isCastlePlaced);
 
+        // Spawn Mill
+        randTile = null;
+        bool isMillPlaced = false;
+        do
+        {
+            if (TryGetRandomTile(CurrentFloor, out randTile, out Room r1))
+            {
+                if (TileHasEmptyNeighbour(randTile.Position, Vector2Int.right)
+                    && TileHasEmptyNeighbour(randTile.Position, Vector2Int.left)
+                    && TileHasEmptyNeighbour(randTile.Position, Vector2Int.up)
+                    && TileHasEmptyNeighbour(randTile.Position, Vector2Int.down)
+                    && TileHasEmptyNeighbour(randTile.Position, new Vector2Int(1, 1))
+                    && TileHasEmptyNeighbour(randTile.Position, new Vector2Int(-1, -1))
+                    && TileHasEmptyNeighbour(randTile.Position, new Vector2Int(1, -1))
+                    && TileHasEmptyNeighbour(randTile.Position, new Vector2Int(-1, 1)))
+                {
+                    // Create object
+                    // Destroy prev if any
+                    if (CurrentRoom.Tiles[randTile.Position.x, randTile.Position.y].TileObj != null)
+                        Destroy(CurrentRoom.Tiles[randTile.Position.x, randTile.Position.y].TileObj);
+                    // Create Tile object
+                    GameObject tileObj = new GameObject("Mill (" + randTile.Position.x + ";" + randTile.Position.y + ")");
+                    tileObj.transform.SetParent(room.Tiles[randTile.Position.x, randTile.Position.y].transform);
+                    // Add tile to room's tiles
+                    room.Tiles[randTile.Position.x, randTile.Position.y] = tileObj.AddComponent<MillTile>();
+                    // Initialize tile
+                    room.Tiles[randTile.Position.x, randTile.Position.y].Position = new Vector2Int(randTile.Position.x, randTile.Position.y);
+                    // Create map object
+                    CurrentRoom.Tiles[randTile.Position.x, randTile.Position.y].TileObj = Instantiate(mapTileSet.GetTilePrefab(CurrentRoom.Tiles[randTile.Position.x, randTile.Position.y]),
+                                                                               new Vector3(randTile.Position.x, -0.5f, randTile.Position.y),
+                                                                               Quaternion.identity);
+                    // Animation init here ...
+                    isMillPlaced = true;
+                }
+                else
+                {
+                    isMillPlaced = false;
+                }
+            }
+            else
+            {
+                isMillPlaced = false;
+            }
+        }
+        while (!isMillPlaced);
         SaveMap();
     }
 
