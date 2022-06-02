@@ -38,7 +38,7 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
 
         if (slot != null)
         {
-            if (slot.SlotType == Item.eItemType.None || Item.Type == slot.SlotType)
+            if (slot.SlotType == Item.eItemType.None || Item.Type == slot.SlotType || slot.SlotType == Item.eItemType.Trash)
             {
                 slot.OnDrop(this);
 

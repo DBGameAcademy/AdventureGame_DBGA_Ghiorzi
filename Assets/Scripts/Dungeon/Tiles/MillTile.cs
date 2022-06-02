@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class MillTile : Tile
 {
+    private void Awake()
+    {
+        // Just for now
+        IsWalkable = false;
+    }
+
     public override void EnterTile()
     {
         // TO-DO: Open UI destory items

@@ -25,8 +25,6 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         else            
             draggedItem.Item = null;
 
-            
-
         if(slotType == Item.eItemType.Armour)
         {
             GameController.Instance.Player.EquipedArmour = Draggable.Item as ArmourItem;
@@ -35,7 +33,10 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
         {
             GameController.Instance.Player.HeldWeapon = Draggable.Item as WeaponItem;
         }
-
+        if (SlotType == Item.eItemType.Trash) 
+        {
+            _inventory.RemoveItemFromInventory(Draggable.Item);
+        }
         UpdateItemDisplay();
         draggedItem.ParentSlot.UpdateItemDisplay();
         _inventory.CheckFreeSpace();
@@ -49,6 +50,13 @@ public class ItemSlot : MonoBehaviour, IPointerClickHandler
             //Draggable.ItemImage.gameObject.SetActive(true);
             Draggable.ItemImage.enabled = true;
             Draggable.ItemImage.sprite = Draggable.Item.Image;
+            if (SlotType == Item.eItemType.Trash)
+            {
+                IsEmpty = true;
+                Draggable.ItemImage.sprite = null;
+                Draggable.ItemImage.enabled = false;
+                Draggable.Item = null;
+            }
         }
         else
         {

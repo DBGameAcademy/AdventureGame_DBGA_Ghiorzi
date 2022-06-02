@@ -13,7 +13,8 @@ public abstract class Item : ScriptableObject
         None,
         Armour,
         Weapon,
-        Consumable
+        Consumable,
+        Trash
     }
     public eItemType Type;
 }
