@@ -21,8 +21,20 @@ public class UIController : Singleton<UIController>
     private GameObject shopPanel;
     [SerializeField]
     private Inventory inventory;
+    [SerializeField]
+    private LoadingPanel loadingPanel;
 
     private Player _player;
+
+    public void ShowLoading()
+    {
+        loadingPanel.Open();
+    }
+
+    public void HideLoading()
+    {
+        loadingPanel.Close();
+    }
 
     public void ShowInventory()
     {
