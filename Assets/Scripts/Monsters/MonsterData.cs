@@ -6,6 +6,7 @@ public enum eMonsterID
 {
     Slime,
     Skeleton,
+    Will,
 }
 
 [CreateAssetMenu(fileName = "New Monster", menuName = "Create Monster")]

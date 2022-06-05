@@ -842,7 +842,12 @@ public class DungeonController : Singleton<DungeonController>
         {
             if (TryGetRandomTile(CurrentFloor, out Tile tile, out Room tileRoom))
             {
-                Monster monster = MonsterController.Instance.AddMonster(eMonsterID.Skeleton);
+                int rand = Random.Range(0, 2);
+                Monster monster = null;
+                if (rand == 0)
+                    monster = MonsterController.Instance.AddMonster(eMonsterID.Skeleton);
+                else
+                    monster = MonsterController.Instance.AddMonster(eMonsterID.Will);
                 tile.SetCharacterObject(monster);
                 monster.SetPosition(tile.Position);
             }
