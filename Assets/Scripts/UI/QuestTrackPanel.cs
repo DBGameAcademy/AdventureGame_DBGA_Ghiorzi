@@ -6,12 +6,37 @@ using TMPro;
 
 public class QuestTrackPanel : MonoBehaviour
 {
+    public bool IsOpen { get; private set; }
+
     [SerializeField]
     private TextMeshProUGUI questText;
+
+    private Animator _animator;
+
+    private void Awake()
+    {
+        _animator = GetComponent<Animator>();
+    }
 
     private void Start()
     {
         UpdateQuestText();
+    }
+
+    public void Open()
+    {
+        if (IsOpen)
+            return;
+        _animator.SetBool("IsOpen", true);
+        IsOpen = true;
+    }
+
+    public void Close()
+    {
+        if (!IsOpen)
+            return;
+        _animator.SetBool("IsOpen", false);
+        IsOpen = false;
     }
 
     public void UpdateQuestText()

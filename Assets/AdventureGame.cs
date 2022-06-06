@@ -449,6 +449,15 @@ public partial class @AdventureGame : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""QuestTrack"",
+                    ""type"": ""Button"",
+                    ""id"": ""88f31f79-be06-44e4-80fb-d2df058a3286"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -891,6 +900,17 @@ public partial class @AdventureGame : IInputActionCollection2, IDisposable
                     ""action"": ""Inventory"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b3a87152-cf9f-43d1-9556-76c3919387c6"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""QuestTrack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -980,6 +1000,7 @@ public partial class @AdventureGame : IInputActionCollection2, IDisposable
         m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
         m_UI_Exit = m_UI.FindAction("Exit", throwIfNotFound: true);
         m_UI_Inventory = m_UI.FindAction("Inventory", throwIfNotFound: true);
+        m_UI_QuestTrack = m_UI.FindAction("QuestTrack", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1124,6 +1145,7 @@ public partial class @AdventureGame : IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_TrackedDeviceOrientation;
     private readonly InputAction m_UI_Exit;
     private readonly InputAction m_UI_Inventory;
+    private readonly InputAction m_UI_QuestTrack;
     public struct UIActions
     {
         private @AdventureGame m_Wrapper;
@@ -1140,6 +1162,7 @@ public partial class @AdventureGame : IInputActionCollection2, IDisposable
         public InputAction @TrackedDeviceOrientation => m_Wrapper.m_UI_TrackedDeviceOrientation;
         public InputAction @Exit => m_Wrapper.m_UI_Exit;
         public InputAction @Inventory => m_Wrapper.m_UI_Inventory;
+        public InputAction @QuestTrack => m_Wrapper.m_UI_QuestTrack;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1185,6 +1208,9 @@ public partial class @AdventureGame : IInputActionCollection2, IDisposable
                 @Inventory.started -= m_Wrapper.m_UIActionsCallbackInterface.OnInventory;
                 @Inventory.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnInventory;
                 @Inventory.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnInventory;
+                @QuestTrack.started -= m_Wrapper.m_UIActionsCallbackInterface.OnQuestTrack;
+                @QuestTrack.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnQuestTrack;
+                @QuestTrack.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnQuestTrack;
             }
             m_Wrapper.m_UIActionsCallbackInterface = instance;
             if (instance != null)
@@ -1225,6 +1251,9 @@ public partial class @AdventureGame : IInputActionCollection2, IDisposable
                 @Inventory.started += instance.OnInventory;
                 @Inventory.performed += instance.OnInventory;
                 @Inventory.canceled += instance.OnInventory;
+                @QuestTrack.started += instance.OnQuestTrack;
+                @QuestTrack.performed += instance.OnQuestTrack;
+                @QuestTrack.canceled += instance.OnQuestTrack;
             }
         }
     }
@@ -1297,5 +1326,6 @@ public partial class @AdventureGame : IInputActionCollection2, IDisposable
         void OnTrackedDeviceOrientation(InputAction.CallbackContext context);
         void OnExit(InputAction.CallbackContext context);
         void OnInventory(InputAction.CallbackContext context);
+        void OnQuestTrack(InputAction.CallbackContext context);
     }
 }

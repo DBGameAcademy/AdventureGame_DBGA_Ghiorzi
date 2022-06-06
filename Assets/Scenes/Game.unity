@@ -6575,6 +6575,7 @@ GameObject:
   - component: {fileID: 1857222455}
   - component: {fileID: 1857222454}
   - component: {fileID: 1857222456}
+  - component: {fileID: 1857222457}
   m_Layer: 5
   m_Name: QuestTrackPanel
   m_TagString: Untagged
@@ -6599,7 +6600,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 669.7068, y: -312.8519}
+  m_AnchoredPosition: {x: 1253.4, y: -311}
   m_SizeDelta: {x: -1339.4153, y: -828.5627}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1857222454
@@ -6653,6 +6654,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   questText: {fileID: 1883000215}
+--- !u!95 &1857222457
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1857222452}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f964a2d02d6c3d54da2ab1c780be5269, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &1860827935
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8223,7 +8243,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6382390317827660105, guid: b66737136234c494181477bcf499fdf6, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 3168714.5
+      value: 3340566.8
       objectReference: {fileID: 0}
     - target: {fileID: 6382390318075018790, guid: b66737136234c494181477bcf499fdf6, type: 3}
       propertyPath: m_Name

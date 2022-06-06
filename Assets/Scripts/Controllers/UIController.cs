@@ -37,10 +37,14 @@ public class UIController : Singleton<UIController>
 
     public void OpenQuest()
     {
+        if(questTrack.IsOpen)
+            questTrack.Close();
         questGiver.Open();
     }
     public void CloseQuest()
     {
+        if (!questTrack.IsOpen && QuestManager.Instance.CurrentQuest != null)
+            questTrack.Open();
         questGiver.Close();
     }
 
@@ -136,6 +140,23 @@ public class UIController : Singleton<UIController>
     private void Start()
     {
         GameController.Instance.Player.Controls.UI.Inventory.performed += context => ShowInventory();
+        GameController.Instance.Player.Controls.UI.QuestTrack.performed += context => HideShowQuestTrack();
+    }
+
+    private void HideShowQuestTrack()
+    {
+        if (questGiver.IsOpen)
+        { 
+            return;
+        }
+        if (questTrack.IsOpen)
+        {
+            questTrack.Close();
+        }
+        else
+        {
+            questTrack.Open();
+        }
     }
 
     private void Update()
