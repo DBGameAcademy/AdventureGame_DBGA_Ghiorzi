@@ -10,7 +10,6 @@ public struct ShopEntry {
 
 public class ShopPanel : MonoBehaviour
 {   
-  
     public QuantityPanel QuantityPanel { get => quantityPanel; }
     public ConfirmPanel ConfirmPanel { get => confirmPanel; }
     public DescriptionPanel DescriptionPanel { get => descriptionPanel; }
