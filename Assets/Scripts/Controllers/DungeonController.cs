@@ -500,7 +500,8 @@ public class DungeonController : Singleton<DungeonController>
                     CurrentRoom.Tiles[randTile.Position.x, randTile.Position.y].TileObj = Instantiate(mapTileSet.GetTilePrefab(CurrentRoom.Tiles[randTile.Position.x, randTile.Position.y]),
                                                                                new Vector3(randTile.Position.x, -0.5f, randTile.Position.y),
                                                                                Quaternion.identity);
-                    // Animation init here ...
+                    CastleTile castle = (CastleTile)GetTile(randTile.Position);
+                    castle.EmoteAnimator = GetTile(randTile.Position).TileObj.GetComponentInChildren<Animator>();
                     isCastlePlaced = true;
                 }
                 else
@@ -1095,6 +1096,12 @@ public class DungeonController : Singleton<DungeonController>
                     CurrentRoom.Tiles[x, y].TileObj = Instantiate(mapTileSet.GetTilePrefab(CurrentRoom.Tiles[x, y]), new Vector3(x, -0.5f, y), Quaternion.identity);
                     MarketTile market = (MarketTile)CurrentRoom.Tiles[x, y];
                     market.EmoteAnimator = CurrentRoom.Tiles[x, y].TileObj.GetComponentInChildren<Animator>();
+                }
+                else if (CurrentRoom.Tiles[x, y].GetType() == typeof(CastleTile))
+                {
+                    CurrentRoom.Tiles[x, y].TileObj = Instantiate(mapTileSet.GetTilePrefab(CurrentRoom.Tiles[x, y]), new Vector3(x, -0.5f, y), Quaternion.identity);
+                    CastleTile castle = (CastleTile)CurrentRoom.Tiles[x, y];
+                    castle.EmoteAnimator = CurrentRoom.Tiles[x, y].TileObj.GetComponentInChildren<Animator>();
                 }
                 else
                     CurrentRoom.Tiles[x, y].TileObj = Instantiate(mapTileSet.GetTilePrefab(CurrentRoom.Tiles[x, y]), new Vector3(x, -0.5f, y), Quaternion.identity);
