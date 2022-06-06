@@ -7573,9 +7573,9 @@ MonoBehaviour:
   descriptionText: {fileID: 622741819}
   goldRewardText: {fileID: 681362994}
   rewardItemIcons:
-  - {fileID: 39767252}
-  - {fileID: 571843562}
-  - {fileID: 1003353020}
+  - {fileID: 39767254}
+  - {fileID: 571843564}
+  - {fileID: 1003353022}
 --- !u!95 &1170440884162695724
 Animator:
   serializedVersion: 3
@@ -8243,7 +8243,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6382390317827660105, guid: b66737136234c494181477bcf499fdf6, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 3340566.8
+      value: 3505479.2
       objectReference: {fileID: 0}
     - target: {fileID: 6382390318075018790, guid: b66737136234c494181477bcf499fdf6, type: 3}
       propertyPath: m_Name

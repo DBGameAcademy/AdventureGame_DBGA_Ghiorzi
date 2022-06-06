@@ -1,8 +1,9 @@
 using UnityEngine;
+using System.Collections.Generic;
 
-public class Reward : MonoBehaviour
+[System.Serializable]
+public class Reward
 {
-    private Item[] itemRewards;
-    private int goldReward;
-    private int experienceReward;
+    public List<Item> ItemRewards = new List<Item> ();
+    public int GoldReward;
 }

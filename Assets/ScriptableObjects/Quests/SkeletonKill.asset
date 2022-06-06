@@ -16,4 +16,7 @@ MonoBehaviour:
   QuestText: Explore dungeon and defeat some skeletons
   Objectives:
   - {fileID: 11400000, guid: 68cc53023cfb5dc43a1e462b9adc21be, type: 2}
-  CompletionReward: {fileID: 0}
+  CompletionReward:
+    ItemRewards:
+    - {fileID: 11400000, guid: 404700d919875384aac0c31b96cfbc39, type: 2}
+    GoldReward: 50

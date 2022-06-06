@@ -16,6 +16,7 @@ public class KillObjective : QuestObjective
         {
             IsComplete = true;
             UIController.Instance.UpdateQuestText();
+            Debug.Log("QUEST COMPLETE " + IsComplete);
             return true;
         }
         UIController.Instance.UpdateQuestText();

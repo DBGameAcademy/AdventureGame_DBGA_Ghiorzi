@@ -14,6 +14,7 @@ public class Quest : ScriptableObject
         {
             foreach(QuestObjective objective in Objectives)
             {
+                Debug.Log("Objective iter " + objective.IsComplete + " " + objective.name);
                 if (!objective.IsComplete)
                 {
                     return false;

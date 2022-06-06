@@ -16,4 +16,8 @@ MonoBehaviour:
   QuestText: There are too many slimes in the map, clear it!
   Objectives:
   - {fileID: 11400000, guid: 88b5bd836a56a9548911de198343473f, type: 2}
-  CompletionReward: {fileID: 0}
+  CompletionReward:
+    ItemRewards:
+    - {fileID: 11400000, guid: 1ebd63b8974c0a642b3706124a586118, type: 2}
+    - {fileID: 11400000, guid: 1ebd63b8974c0a642b3706124a586118, type: 2}
+    GoldReward: 20

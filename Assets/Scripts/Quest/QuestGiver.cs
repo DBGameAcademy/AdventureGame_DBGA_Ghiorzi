@@ -18,7 +18,7 @@ public class QuestGiver : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI goldRewardText;
     [SerializeField]
-    private List<GameObject> rewardItemIcons = new List<GameObject>();
+    private List<Image> rewardItemIcons = new List<Image>();
 
     private Animator _animator;
 
@@ -28,6 +28,7 @@ public class QuestGiver : MonoBehaviour
             return;
         _animator.SetBool("IsOpen", true);
         IsOpen = true;
+        UpdateDisplay();
     }
 
     public void Close()
@@ -76,6 +77,8 @@ public class QuestGiver : MonoBehaviour
             {
                 acceptCompleteButtonText.text = "ABANDON";
             }
+
+            UpdateRewards(QuestManager.Instance.CurrentQuest.CompletionReward);
         }
         else
         {
@@ -86,6 +89,8 @@ public class QuestGiver : MonoBehaviour
             titleText.text = CurrentOffer.QuestName;
             descriptionText.text = CurrentOffer.QuestText;
             acceptCompleteButtonText.text = "ACCEPT";
+
+            UpdateRewards(CurrentOffer.CompletionReward);
         }
     }
 
@@ -108,5 +113,17 @@ public class QuestGiver : MonoBehaviour
             UIController.Instance.UpdateQuestText();
             UpdateDisplay();
         }
+    }
+
+    private void UpdateRewards(Reward reward)
+    {
+        for(int i =0;i<rewardItemIcons.Count; ++i)
+        {
+            rewardItemIcons[i].gameObject.SetActive(i < reward.ItemRewards.Count);
+            if(i<reward.ItemRewards.Count)
+                rewardItemIcons[i].sprite = reward.ItemRewards[i].Image;
+        }
+
+        goldRewardText.text = "$" + reward.GoldReward.ToString("0000");
     }
 }
