@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Quest Collection", menuName = "Create New Quest Collection")]
+[CreateAssetMenu(fileName = "New Quest Collection", menuName = "Quest/Create New Quest Collection")]
 public class QuestCollection : ScriptableObject
 {
     public List<Quest> Quests = new List<Quest>();

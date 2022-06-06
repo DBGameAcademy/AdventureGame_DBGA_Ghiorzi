@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class QuestManager : Singleton<QuestManager>
 {
-    public Quest CurrentQuest { get; private set; }
+    public Quest CurrentQuest { get;  set; }
+    public QuestCollection Quests { get => quests; }
 
     [SerializeField]
-    private QuestCollection Quests;
+    private QuestCollection quests;
 
     public bool IsComplete()
     {

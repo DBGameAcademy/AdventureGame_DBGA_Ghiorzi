@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public abstract class QuestObjective : MonoBehaviour
+public abstract class QuestObjective : ScriptableObject
 {
     public bool IsComplete { get; protected set; }
     public int ObjectiveCount { get; protected set; }

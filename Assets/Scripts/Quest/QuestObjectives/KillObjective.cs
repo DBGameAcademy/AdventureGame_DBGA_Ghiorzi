@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "New Kill Objective", menuName = "Quest/Objectives/Create Kill Objective")]
 public class KillObjective : QuestObjective
 {
-    public int TargetKillCount { get; set; }
-    public eMonsterID TargetType { get; set; }
+    public int TargetKillCount;
+    public eMonsterID TargetType;
 
     public override bool CompleteObjective()
     {

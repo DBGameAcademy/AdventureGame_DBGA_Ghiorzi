@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4fa19f2fe261c64a85ca1a486958508, type: 3}
+  m_Name: SlimeKill
+  m_EditorClassIdentifier: 
+  QuestName: KILL SLIMES
+  QuestText: There are too many slimes in the map, clear it!
+  Objectives:
+  - {fileID: 11400000, guid: 88b5bd836a56a9548911de198343473f, type: 2}
+  CompletionReward: {fileID: 0}

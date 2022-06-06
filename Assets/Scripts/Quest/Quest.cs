@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
+[CreateAssetMenu(fileName = "New Quest", menuName = "Quest/Create New Quest")]
 public class Quest : ScriptableObject
 {
     public string QuestName;
@@ -19,6 +20,14 @@ public class Quest : ScriptableObject
                 }
             }
             return true;
+        }
+    }
+
+    public void ResetQuest()
+    {
+        foreach(QuestObjective o in Objectives)
+        {
+            o.ResetObjective();
         }
     }
 }
