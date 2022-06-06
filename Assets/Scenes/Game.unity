@@ -2605,6 +2605,7 @@ MonoBehaviour:
   shopPanel: {fileID: 1086837414}
   inventory: {fileID: 145927182}
   loadingPanel: {fileID: 1632662428}
+  questGiver: {fileID: 1170440884162695723}
 --- !u!4 &700183323
 Transform:
   m_ObjectHideFlags: 0
@@ -7244,6 +7245,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1170440884162695725}
+  - component: {fileID: 1170440884162695724}
+  - component: {fileID: 1170440884162695723}
   m_Layer: 5
   m_Name: QuestPanel
   m_TagString: Untagged
@@ -7251,6 +7254,37 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1170440884162695723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1170440884162695722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5271fb4b13185cc42b2ec677249da842, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!95 &1170440884162695724
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1170440884162695722}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e6ce7ebc51ea9c441a47b7d4976b34eb, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!224 &1170440884162695725
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7260,7 +7294,7 @@ RectTransform:
   m_GameObject: {fileID: 1170440884162695722}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1170440884334036569}
   - {fileID: 444722061}
@@ -7899,7 +7933,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6382390317827660105, guid: b66737136234c494181477bcf499fdf6, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 1830512.6
+      value: 2007494.9
       objectReference: {fileID: 0}
     - target: {fileID: 6382390318075018790, guid: b66737136234c494181477bcf499fdf6, type: 3}
       propertyPath: m_Name

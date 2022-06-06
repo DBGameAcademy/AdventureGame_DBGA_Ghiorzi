@@ -23,8 +23,19 @@ public class UIController : Singleton<UIController>
     private Inventory inventory;
     [SerializeField]
     private LoadingPanel loadingPanel;
+    [SerializeField]
+    private QuestGiver questGiver;
 
     private Player _player;
+
+    public void OpenQuest()
+    {
+        questGiver.Open();
+    }
+    public void CloseQuest()
+    {
+        questGiver.Close();
+    }
 
     public void ShowLoading()
     {
