@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class Monster: Actor
 { 
+    public eMonsterID MonsterID { get; private set; }
     public TargetIndicator TargetIndicator { get; private set; }
     public Vector2Int CurrentPosition { get => _currentPosition; }
     public Vector3 AttackDirection { get; set; }
@@ -31,6 +32,7 @@ public class Monster: Actor
         maxHealth = monsterData.Health;
         _damage = monsterData.Damage;
         _dropMoney = monsterData.MoneyDrop;
+        MonsterID = monsterData.ID;
     }
 
     // Maybe will inherite from Actor - let's see when coding movements
