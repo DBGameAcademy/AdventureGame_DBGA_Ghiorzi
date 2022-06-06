@@ -48,6 +48,7 @@ public class Monster: Actor
         player.RemoveTarget(this);
         player.AddMoney(_dropMoney);
         MonsterController.Instance.RemoveMonster(this);
+        QuestManager.Instance.AddQuestKill(this);
         base.OnKill();
     }
 

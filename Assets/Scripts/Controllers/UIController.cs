@@ -25,8 +25,15 @@ public class UIController : Singleton<UIController>
     private LoadingPanel loadingPanel;
     [SerializeField]
     private QuestGiver questGiver;
+    [SerializeField]
+    private QuestTrackPanel questTrack;
 
     private Player _player;
+
+    public void UpdateQuestText()
+    {
+        questTrack.UpdateQuestText();
+    }
 
     public void OpenQuest()
     {

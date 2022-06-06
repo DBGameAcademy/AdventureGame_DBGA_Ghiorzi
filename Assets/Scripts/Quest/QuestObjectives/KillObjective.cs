@@ -15,9 +15,10 @@ public class KillObjective : QuestObjective
         if(TargetKillCount > 0 && ObjectiveCount >= TargetKillCount)
         {
             IsComplete = true;
+            UIController.Instance.UpdateQuestText();
             return true;
         }
-
+        UIController.Instance.UpdateQuestText();
         return false;
     }
 

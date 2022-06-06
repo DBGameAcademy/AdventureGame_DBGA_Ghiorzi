@@ -30,4 +30,17 @@ public class Quest : ScriptableObject
             o.ResetObjective();
         }
     }
+
+    public string GetObjectiveText()
+    {
+        string objectiveText = "";
+
+        foreach(QuestObjective objective in Objectives)
+        {
+            objectiveText += objective.GetObjectiveText();
+            objectiveText += "\n";
+        }
+
+        return objectiveText;
+    }
 }

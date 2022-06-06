@@ -98,12 +98,14 @@ public class QuestGiver : MonoBehaviour
                 // TO-DO: Reward player
             }
             QuestManager.Instance.CurrentQuest = null;
+            UIController.Instance.UpdateQuestText();
             UpdateDisplay();
         }
         else
         {
             QuestManager.Instance.CurrentQuest = CurrentOffer;
             CurrentOffer = null;
+            UIController.Instance.UpdateQuestText();
             UpdateDisplay();
         }
     }
