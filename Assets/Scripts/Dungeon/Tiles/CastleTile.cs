@@ -11,6 +11,7 @@ public class CastleTile : Tile
 
     public override void EnterTile()
     {
+        GameController.Instance.Player.StopMoving();
         emoteAnimator.ResetTrigger("CloseEmote");
         CinematicController.Instance.StartCinematic();
         UIController.Instance.OpenQuest();
