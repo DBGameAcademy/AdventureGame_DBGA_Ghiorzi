@@ -48,6 +48,18 @@ public class UIController : Singleton<UIController>
         questGiver.Close();
     }
 
+    public void OpenQuestTrack()
+    {
+        questTrack.Open();
+    }
+
+    public bool IsQuestTrackOpen() => questTrack.IsOpen;
+
+    public void CloseQuestTrack()
+    {
+        questTrack.Close();
+    }
+
     public void ShowLoading()
     {
         loadingPanel.Open();

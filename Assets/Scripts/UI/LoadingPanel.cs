@@ -11,6 +11,8 @@ public class LoadingPanel : MonoBehaviour
     {
         if (IsOpen)
             return;
+        if(UIController.Instance.IsQuestTrackOpen())
+            UIController.Instance.CloseQuestTrack();
         _animator.SetTrigger("Open");
         IsOpen = true;
     }
@@ -19,6 +21,8 @@ public class LoadingPanel : MonoBehaviour
     {
         if (!IsOpen)
             return;
+        if (!UIController.Instance.IsQuestTrackOpen())
+            UIController.Instance.OpenQuestTrack();
         _animator.SetTrigger("Close");
         IsOpen=false;
     }
