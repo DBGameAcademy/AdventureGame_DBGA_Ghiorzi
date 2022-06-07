@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class MarketTile : Tile
 {
@@ -13,7 +14,7 @@ public class MarketTile : Tile
     {
         GameController.Instance.Player.IsInBuilding = true;
         emoteAnimator.ResetTrigger("CloseEmote");
-        GameController.Instance.Player.Controls.UI.Exit.performed += context => ExitTile();
+        GameController.Instance.Player.Controls.UI.Exit.performed += ExitTile;
         // Show Market UI
         GameController.Instance.Player.StopMoving();
         CinematicController.Instance.StartCinematic();
@@ -21,7 +22,7 @@ public class MarketTile : Tile
         emoteAnimator.SetTrigger("PlayEmote");
     }
 
-    private void ExitTile()
+    private void ExitTile(InputAction.CallbackContext obj)
     {
         GameController.Instance.Player.IsInBuilding = false;
         Debug.Log("Exit Called");
@@ -29,6 +30,6 @@ public class MarketTile : Tile
         UIController.Instance.HideShop();
         emoteAnimator.SetTrigger("CloseEmote");
         GameController.Instance.Player.BeginMove(Vector2Int.down);
-        GameController.Instance.Player.Controls.UI.Exit.performed -= context => ExitTile();
+        GameController.Instance.Player.Controls.UI.Exit.performed -= ExitTile;
     }
 }

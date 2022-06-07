@@ -102,8 +102,10 @@ public class QuestGiver : MonoBehaviour
             {
                 // Reward player
                 GameController.Instance.Player.AddMoney(QuestManager.Instance.CurrentQuest.CompletionReward.GoldReward);
-                if(QuestManager.Instance.CurrentQuest.CompletionReward.ItemRewards.Count > 0)
+                if(QuestManager.Instance.CurrentQuest.CompletionReward.ItemRewards.Count > 0 
+                    && QuestManager.Instance.CurrentQuest.CompletionReward.ItemRewards.Count <= UIController.Instance.Inventory.FreeSpace)
                 {
+                   
                     foreach(Item item in QuestManager.Instance.CurrentQuest.CompletionReward.ItemRewards)
                     {
                         UIController.Instance.Inventory.AddItemToInventory(item);
