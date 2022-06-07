@@ -4,6 +4,8 @@ using UnityEngine;
 
 public abstract class GenericObjectPool<T> : MonoBehaviour where T : Component
 {
+    public T LastObject { get; private set; }
+
     [SerializeField] private T prefab;
 
     public static GenericObjectPool<T> Instance { get; private set; } // Singleton instance
@@ -21,7 +23,8 @@ public abstract class GenericObjectPool<T> : MonoBehaviour where T : Component
         {
             AddObject(1);
         }
-        return objects.Dequeue();
+        LastObject = objects.Dequeue();
+        return LastObject;
     }
 
     public void ReturnToPool(T objectToReturn)
