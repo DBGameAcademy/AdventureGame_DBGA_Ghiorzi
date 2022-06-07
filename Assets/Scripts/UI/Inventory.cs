@@ -91,6 +91,10 @@ public class Inventory : MonoBehaviour
             }
         }
 
+        UpdateDisplay();
+        CheckFreeSpace();
+        
+       /*
         AddItemToInventory(ItemController.Instance.Items.GetItemFromID("arm_01"));
         AddItemToInventory(ItemController.Instance.Items.GetItemFromID("sw_01"));
         AddItemToInventory(ItemController.Instance.Items.GetItemFromID("hpp_01"));
@@ -99,5 +103,6 @@ public class Inventory : MonoBehaviour
         AddItemToInventory(ItemController.Instance.Items.GetItemFromID("hpp_02"));
         AddItemToInventory(ItemController.Instance.Items.GetItemFromID("sw_99"));
         AddItemToInventory(ItemController.Instance.Items.GetItemFromID("arm_99"));
+        */
     }
 }

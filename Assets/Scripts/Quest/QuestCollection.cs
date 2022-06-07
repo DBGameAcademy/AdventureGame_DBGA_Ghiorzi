@@ -7,8 +7,12 @@ public class QuestCollection : ScriptableObject
 {
     public List<Quest> Quests = new List<Quest>();
 
-    public Quest GetRandomQuest()
+    private int _index = 0;
+
+    public Quest GetNextQuest()
     {
-        return Quests[Random.Range(0, Quests.Count)];
+        Quest q =  Quests[_index];
+        _index = (_index+1) % Quests.Count;
+        return q;
     }
 }

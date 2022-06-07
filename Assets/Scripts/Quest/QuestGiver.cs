@@ -57,7 +57,7 @@ public class QuestGiver : MonoBehaviour
     {
         if(CurrentOffer == null && QuestManager.Instance.CurrentQuest == null)
         {
-            CurrentOffer = QuestManager.Instance.Quests.GetRandomQuest();
+            CurrentOffer = QuestManager.Instance.Quests.GetNextQuest();
             CurrentOffer.ResetQuest();
             UpdateDisplay();
         }
