@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LoadingPanel : MonoBehaviour
 {
-    public bool IsOpen { get; private set; }
+    public bool IsOpen { get; set; }
     private Animator _animator;
 
     public void Open()
