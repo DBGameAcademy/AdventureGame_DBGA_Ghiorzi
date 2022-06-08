@@ -6,6 +6,13 @@ public class MenuManager : Singleton<MenuManager>
 {
     [SerializeField]
     private Animator loadingPanelAnimator;
+    [SerializeField]
+    private Animator menuUIAnimator;
+
+    public void HideMenu()
+    {
+        menuUIAnimator.SetTrigger("Disappear");
+    }
 
     private void Start()
     {
@@ -16,5 +23,10 @@ public class MenuManager : Singleton<MenuManager>
     {
         yield return new WaitForSeconds(delay);
         loadingPanelAnimator.SetTrigger("Close");
+    }
+
+    public void OpenLoading()
+    {
+        loadingPanelAnimator.SetTrigger("Open");
     }
 }

@@ -30,5 +30,12 @@ public class LoadingPanel : MonoBehaviour
     private void Awake()
     {
         _animator = GetComponent<Animator>();
+
+    }
+
+    private void Start()
+    {
+        IsOpen = true;
+        Close();
     }
 }
