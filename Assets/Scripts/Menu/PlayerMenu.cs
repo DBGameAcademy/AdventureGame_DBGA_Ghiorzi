@@ -85,7 +85,7 @@ public class PlayerMenu : MonoBehaviour
         {
             if (!_doOnce)
             {
-                MenuManager.Instance.OpenLoading();
+                MenuManager.Instance.LoadScene("Game");
                 _doOnce = true;
             }
         }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LoadingPanel : MonoBehaviour
 {
@@ -35,7 +36,10 @@ public class LoadingPanel : MonoBehaviour
 
     private void Start()
     {
-        IsOpen = true;
-        Close();
+        if (SceneManager.GetActiveScene().name.Equals("Game"))
+        {
+            IsOpen = true;
+            Close();
+        }
     }
 }
