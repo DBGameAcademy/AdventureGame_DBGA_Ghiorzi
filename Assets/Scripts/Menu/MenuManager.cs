@@ -9,6 +9,28 @@ public class MenuManager : Singleton<MenuManager>
     private Animator loadingPanelAnimator;
     [SerializeField]
     private Animator menuUIAnimator;
+    [SerializeField]
+    private Animator tutorialAnimator;
+
+    public void ExitApplicaiton()
+    {
+        Application.Quit();
+    }
+
+    public void ShowTutorial()
+    {
+        tutorialAnimator.SetTrigger("Appear");
+    }
+
+    public void HideTutorial()
+    {
+        tutorialAnimator.SetTrigger("Disappear");
+    }
+
+    public void ShowMenu()
+    {
+        menuUIAnimator.SetTrigger("Appear");
+    }
 
     public void HideMenu()
     {
