@@ -166,6 +166,7 @@ public class Player : Actor
         _controls.Player.Attack.performed += context => Attack();
         _controls.Player.SwitchTarget.performed += context => SwitchTarget();
         _controls.Player.Transform.performed += context => TransformToDark();
+        _controls.UI.Menu.performed += context => UIController.Instance.OpenCloseMenuPanel();
     }
 
     private void Update()

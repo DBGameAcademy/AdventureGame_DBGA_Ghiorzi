@@ -458,6 +458,15 @@ public partial class @AdventureGame : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Menu"",
+                    ""type"": ""Button"",
+                    ""id"": ""a47ffa18-1c0b-48af-87c3-8e117cc6fe67"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -911,6 +920,17 @@ public partial class @AdventureGame : IInputActionCollection2, IDisposable
                     ""action"": ""QuestTrack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fda4ac4e-12ec-4fca-b5cd-16d6263efe13"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Menu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -1001,6 +1021,7 @@ public partial class @AdventureGame : IInputActionCollection2, IDisposable
         m_UI_Exit = m_UI.FindAction("Exit", throwIfNotFound: true);
         m_UI_Inventory = m_UI.FindAction("Inventory", throwIfNotFound: true);
         m_UI_QuestTrack = m_UI.FindAction("QuestTrack", throwIfNotFound: true);
+        m_UI_Menu = m_UI.FindAction("Menu", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1146,6 +1167,7 @@ public partial class @AdventureGame : IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_Exit;
     private readonly InputAction m_UI_Inventory;
     private readonly InputAction m_UI_QuestTrack;
+    private readonly InputAction m_UI_Menu;
     public struct UIActions
     {
         private @AdventureGame m_Wrapper;
@@ -1163,6 +1185,7 @@ public partial class @AdventureGame : IInputActionCollection2, IDisposable
         public InputAction @Exit => m_Wrapper.m_UI_Exit;
         public InputAction @Inventory => m_Wrapper.m_UI_Inventory;
         public InputAction @QuestTrack => m_Wrapper.m_UI_QuestTrack;
+        public InputAction @Menu => m_Wrapper.m_UI_Menu;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1211,6 +1234,9 @@ public partial class @AdventureGame : IInputActionCollection2, IDisposable
                 @QuestTrack.started -= m_Wrapper.m_UIActionsCallbackInterface.OnQuestTrack;
                 @QuestTrack.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnQuestTrack;
                 @QuestTrack.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnQuestTrack;
+                @Menu.started -= m_Wrapper.m_UIActionsCallbackInterface.OnMenu;
+                @Menu.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnMenu;
+                @Menu.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnMenu;
             }
             m_Wrapper.m_UIActionsCallbackInterface = instance;
             if (instance != null)
@@ -1254,6 +1280,9 @@ public partial class @AdventureGame : IInputActionCollection2, IDisposable
                 @QuestTrack.started += instance.OnQuestTrack;
                 @QuestTrack.performed += instance.OnQuestTrack;
                 @QuestTrack.canceled += instance.OnQuestTrack;
+                @Menu.started += instance.OnMenu;
+                @Menu.performed += instance.OnMenu;
+                @Menu.canceled += instance.OnMenu;
             }
         }
     }
@@ -1327,5 +1356,6 @@ public partial class @AdventureGame : IInputActionCollection2, IDisposable
         void OnExit(InputAction.CallbackContext context);
         void OnInventory(InputAction.CallbackContext context);
         void OnQuestTrack(InputAction.CallbackContext context);
+        void OnMenu(InputAction.CallbackContext context);
     }
 }
