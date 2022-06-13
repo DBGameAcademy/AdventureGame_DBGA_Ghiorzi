@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4fa19f2fe261c64a85ca1a486958508, type: 3}
   m_Name: WillKillQuest
   m_EditorClassIdentifier: 
-  QuestName: Will Kill
+  QuestName: KILL WILL
   QuestText: Find and Kill Will o Wisp
   Objectives:
   - {fileID: 11400000, guid: 691bfb27f5d79a649b9c4a1b250e7b07, type: 2}
