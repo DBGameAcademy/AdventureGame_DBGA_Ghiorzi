@@ -25,3 +25,19 @@ You can play the game at this link: LINK
 All the commands are explained in the Turoial section of the Main Menu, please read it
 
 ## Gameplay example
+
+This is an example that shows you how the game looks like. Explore the vast procedural generated island and learn what each building is used for!
+
+<img src="https://github.com/xPoke-glitch/AdventureGame_DBGA_Ghiorzi/blob/main/Screenshots/world.gif" width="750">
+
+Slay every floating island's enemy
+
+<img src="https://github.com/xPoke-glitch/AdventureGame_DBGA_Ghiorzi/blob/main/Screenshots/battle.gif" width="750">
+
+Explore dungeons!
+
+<img src="https://github.com/xPoke-glitch/AdventureGame_DBGA_Ghiorzi/blob/main/Screenshots/dungeon.gif" width="750">
+
+And remember your dark power! Use it for a boost of damage!
+
+<img src="https://github.com/xPoke-glitch/AdventureGame_DBGA_Ghiorzi/blob/main/Screenshots/transform.gif" width="750">
