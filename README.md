@@ -20,7 +20,7 @@ If you want to open, edit or see the Unity project:
 
 ## How to play
 
-You can play the game at this link: [Play](https://pokedev.itch.io/)
+You can play the game at this link: https://pokedev.itch.io/hikari
 
 All the commands are explained in the Turoial section of the Main Menu, please read it
 
