@@ -12,3 +12,16 @@ Hikari, the main character, is an explorer of floating islands, go with her in a
 Explore new islands, complete quests, buy items, grow stronger and have fun! That's the game!
 
 If you found yourself in a difficult battle, use the dark power within Hikari
+
+## Requirements
+
+If you want to open, edit or see the Unity project:
+* Unity 2020.3.26f1 (or greater)
+
+## How to play
+
+You can play the game at this link: LINK
+
+All the commands are explained in the Turoial section of the Main Menu, please read it
+
+## Gampeplay example
