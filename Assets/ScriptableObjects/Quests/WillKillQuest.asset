@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4fa19f2fe261c64a85ca1a486958508, type: 3}
+  m_Name: WillKillQuest
+  m_EditorClassIdentifier: 
+  QuestName: Will Kill
+  QuestText: Find and Kill Will o Wisp
+  Objectives:
+  - {fileID: 11400000, guid: 691bfb27f5d79a649b9c4a1b250e7b07, type: 2}
+  CompletionReward:
+    ItemRewards:
+    - {fileID: 11400000, guid: 18fbe8f82b24c1e4b81c6c9299205259, type: 2}
+    GoldReward: 50
