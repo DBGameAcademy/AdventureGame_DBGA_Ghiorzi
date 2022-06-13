@@ -1,5 +1,6 @@
 using UnityEngine;
 using Cinemachine;
+using UnityEngine.SceneManagement;
 
 public class GameController : Singleton<GameController>
 {
@@ -21,6 +22,12 @@ public class GameController : Singleton<GameController>
     private void Start()
     {
         StartNewGame();
+    }
+
+    public void GameOver()
+    {
+        UIController.Instance.ShowLoading();
+        SceneManager.LoadScene("Game");
     }
 
     private void StartNewGame()

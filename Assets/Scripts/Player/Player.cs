@@ -145,6 +145,10 @@ public class Player : Actor
             }
         }
         base.Damage(damage);
+        if(CurrentHealth <= 0)
+        {
+            GameController.Instance.GameOver();
+        }
     }
 
     private void Awake()
