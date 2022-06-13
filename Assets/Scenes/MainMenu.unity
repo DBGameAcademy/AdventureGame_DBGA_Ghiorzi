@@ -953,10 +953,14 @@ MonoBehaviour:
 
     X - ATTACK
 
-    Q - SHOW/HIDE QUEST
+    SPACE - TRANSFORM
 
-    BACKSPACE
-    - EXIT FROM BUILDINGS'
+    Q - SHOW/HIDE
+    QUEST
+
+    BACKSPACE - EXIT FROM BUILDINGS
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: eb0721448a4d16346846b7e21f17755c, type: 2}
   m_sharedMaterial: {fileID: -1280439059703571570, guid: eb0721448a4d16346846b7e21f17755c, type: 2}
