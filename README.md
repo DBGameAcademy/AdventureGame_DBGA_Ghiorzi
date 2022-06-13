@@ -24,4 +24,4 @@ You can play the game at this link: LINK
 
 All the commands are explained in the Turoial section of the Main Menu, please read it
 
-## Gampeplay example
+## Gameplay example
