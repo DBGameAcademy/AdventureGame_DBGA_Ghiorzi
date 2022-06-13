@@ -41,3 +41,8 @@ Explore dungeons!
 And remember your dark power! Use it for a boost of damage!
 
 <img src="https://github.com/xPoke-glitch/AdventureGame_DBGA_Ghiorzi/blob/main/Screenshots/transform.gif" width="750">
+
+## Team
+
+**Developers**:
+* Cristian: https://github.com/xPoke-glitch / https://pokedev.itch.io/
