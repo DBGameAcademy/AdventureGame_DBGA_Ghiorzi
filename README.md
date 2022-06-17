@@ -11,7 +11,7 @@ Hikari, the main character, is an explorer of floating islands, go with her in a
 
 Explore new islands, complete quests, buy items, grow stronger and have fun! That's the game!
 
-If you found yourself in a difficult battle, use the dark power within Hikari
+If you find yourself in a difficult battle, use the dark power within Hikari
 
 ## Requirements
 
