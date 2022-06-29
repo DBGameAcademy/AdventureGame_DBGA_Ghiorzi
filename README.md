@@ -3,8 +3,6 @@
 
 **Hikari** is and adventure roguelike game made during the first part of the **DBGA**'s course.
 
-(Main character from: Thomas Lean)
-
 <img src="https://github.com/xPoke-glitch/AdventureGame_DBGA_Ghiorzi/blob/main/Screenshots/main-menu.gif" width="750">
 
 ## The game
@@ -48,3 +46,5 @@ And remember your dark power! Use it for a boost of damage!
 
 **Developers**:
 * Cristian: https://github.com/xPoke-glitch / https://pokedev.itch.io/
+* Arts: (Main character from: Thomas Lean and Slimes from: Dagon)
+
