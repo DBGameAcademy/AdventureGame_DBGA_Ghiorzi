@@ -3,6 +3,8 @@
 
 **Hikari** is and adventure roguelike game made during the first part of the **DBGA**'s course.
 
+(Main character from: Thomas Lean)
+
 <img src="https://github.com/xPoke-glitch/AdventureGame_DBGA_Ghiorzi/blob/main/Screenshots/main-menu.gif" width="750">
 
 ## The game
