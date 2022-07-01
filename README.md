@@ -26,7 +26,9 @@ All the commands are explained in the Turoial section of the Main Menu, please r
 
 ## Gameplay example
 
-This is an example that shows you how the game looks like. Explore the vast procedural generated island and learn what each building is used for!
+This is an example that shows you how the game looks like. 
+
+Explore the vast procedural generated island and learn what each building is used for!
 
 <img src="https://github.com/xPoke-glitch/AdventureGame_DBGA_Ghiorzi/blob/main/Screenshots/world.gif" width="750">
 
