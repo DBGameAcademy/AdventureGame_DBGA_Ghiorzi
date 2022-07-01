@@ -32,7 +32,7 @@ Explore the vast procedural generated island and learn what each building is use
 
 <img src="https://github.com/xPoke-glitch/AdventureGame_DBGA_Ghiorzi/blob/main/Screenshots/world.gif" width="750">
 
-Slay every floating island's enemy
+Slay every floating island enemy
 
 <img src="https://github.com/xPoke-glitch/AdventureGame_DBGA_Ghiorzi/blob/main/Screenshots/battle.gif" width="750">
 
