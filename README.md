@@ -48,5 +48,4 @@ And remember your dark power! Use it for a boost of damage!
 
 **Developers**:
 * Cristian: https://github.com/xPoke-glitch / https://pokedev.itch.io/
-* Arts: (Main character from: Thomas Lean and Slimes from: Dagon)
-
+* Arts: (Main character from: Thomas Lean - Slimes from: Dagon - Emotes: Kicked-in-Teeth)
